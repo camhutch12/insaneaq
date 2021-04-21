@@ -1,5 +1,16 @@
 import {Graphics} from '@inlet/react-pixi'
 import React from 'react'
+
+/*
+Written By:
+Daniel Gannage (6368898)
+Cameron Hutchings (6427892)
+*/
+
+/*
+This component is a pixi.js Graphics object of a yellow ellipse,
+simulating sand on the sea floor
+*/
 const Sand  = () => {
     const draw = React.useCallback(g => {
         g.clear();
@@ -13,14 +24,4 @@ const Sand  = () => {
 }
 
 export default Sand;
-
-// // create sand
-// const sand = new PIXI.Graphics();
-// // set color
-// sand.beginFill(0xffd500); // sand color
-// // draw an ellipse (x, y, width, height)
-// sand.drawEllipse(app.renderer.width/2, app.renderer.height, app.renderer.width, app.renderer.height/5);
-// sand.endFill();
-// // draw sand
-// app.stage.addChild(sand);export default Sand;
 

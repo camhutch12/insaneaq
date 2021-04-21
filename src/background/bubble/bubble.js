@@ -1,14 +1,28 @@
-import {Graphics} from '@inlet/react-pixi'
+import {Sprite} from '@inlet/react-pixi'
 import React from 'react'
-const Bubble  = () => {
-    const draw = React.useCallback(g => {
-        g.image = '../../../assets/background/bub3.svg'
-        g.x={Math.floor(Math.random() * app.renderer.width)}
-        g.y={Math.floor(Math.random() * (app.renderer.height- app.renderer.height/4))}
-      }, []);
-    return (
-        <Sprite draw={draw}/>
-    )
+
+/*
+Written By:
+Daniel Gannage (6368898)
+Cameron Hutchings (6427892)
+*/
+
+/*
+This component is a pixi.js sprite of an svg bubble from icons8
+with a random x and y coordinate
+alpha makes it transparent
+scale tranforms the size
+*/
+const Bubble  = (props) => {
+    const rand = Math.random()*2.5;
+    return <Sprite 
+    image = '../../../assets/background/bub3.svg'
+    x={Math.floor(Math.random() * window.innerWidth)}
+    y={Math.floor(Math.random() * window.innerHeight- window.innerHeight/4)}
+    scale = {[rand,rand]}
+    alpha={0.2}
+    />
+    
 }
 
-export default Sand;
+export default Bubble;
