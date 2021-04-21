@@ -26,14 +26,10 @@ sub comnponents
 const Game = props => {
 
 
-
-
     const [locationMouseClick, setlocationMouseClick] = useState({ x: null, y: null });
     const [hasClicked, setHasClicked] = useState(false);
 
     //const update = (e) => setlocationMouseClick({ x: e.clientX, y: e.clientY });
-
-
 
     const getClick = (event) => {
         locationMouseClick.y = event.clientY;
@@ -84,7 +80,8 @@ const Game = props => {
                 <Background />
                 {hasClicked ? <Crumb crumb={locationMouseClick} hasCrumb={hasClicked} />: null}
                 {positons.map((ele, index) => <GoldFish key={index} {...ele} />)}
-                <Snail x={Math.floor(Math.random() * window.innerWidth)} y={window.innerHeight / 1.3 + Math.floor(Math.random() * (window.innerHeight / 6))} />
+                <Snail x={Math.floor(Math.random() * document.documentElement.clientWidth)}
+                 y={document.documentElement.clientHeight / 1.3 + Math.floor(Math.random() * (document.documentElement.clientHeight / 6))} />
             </Stage>
 
         </React.Fragment>

@@ -14,8 +14,8 @@ scale tranforms the size
 */
 export  const GoldFish = (props) => { 
     const [pos, setPos] = useState({})
-    const [defaultPos,setDefaultPos] = useState({x:Math.floor((Math.random() * window.innerWidth)+1),
-                                        y:Math.floor((Math.random() * window.innerWidth)+1)})
+    const [defaultPos,setDefaultPos] = useState({x:Math.floor((Math.random() * document.documentElement.clientWidth)+1),
+                                        y:Math.floor((Math.random() * document.documentElement.clientHeight)+1)})
     
     // useEffect(() => {
     //     return () => {

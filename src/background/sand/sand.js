@@ -15,7 +15,7 @@ const Sand  = () => {
     const draw = React.useCallback(g => {
         g.clear();
         g.beginFill(0xffd500)
-        g.drawEllipse(window.innerWidth/2,window.innerHeight, window.innerWidth, window.innerHeight/5)
+        g.drawEllipse(document.documentElement.clientWidth/2,document.documentElement.clientHeight, document.documentElement.clientWidth, document.documentElement.clientHeight/5)
         g.endFill()
       }, []);
     return (

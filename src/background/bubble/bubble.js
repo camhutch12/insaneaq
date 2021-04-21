@@ -17,8 +17,8 @@ const Bubble  = (props) => {
     const rand = Math.random()*2.5;
     return <Sprite 
     image = '../../../assets/background/bub3.svg'
-    x={Math.floor(Math.random() * window.innerWidth)}
-    y={Math.floor(Math.random() * window.innerHeight- window.innerHeight/4)}
+    x={Math.floor(Math.random() * document.documentElement.clientWidth)}
+    y={Math.floor(Math.random() * document.documentElement.clientHeight - document.documentElement.clientHeight/4)}
     scale = {[rand,rand]}
     alpha={0.2}
     />

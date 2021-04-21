@@ -16,7 +16,7 @@ const Kelp  = (props) => {
     return <Sprite 
     image = '../../../assets/background/kelp.svg'
     x={Math.floor(Math.random() *  window.innerWidth)}
-    y={window.innerHeight/1.3 + Math.floor(Math.random() * (window.innerHeight/6))}
+    y={document.documentElement.clientHeight/1.3 + Math.floor(Math.random() * (document.documentElement.clientHeight/6))}
    
     />
     
