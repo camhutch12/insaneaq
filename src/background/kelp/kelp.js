@@ -11,14 +11,12 @@ Cameron Hutchings (6427892)
 This component is a pixi.js sprite of an svg image of a kelp plant from icons8,
 with a random x and y coordinate
 */
-const Kelp  = (props) => {
+const Kelp  = ({pos}) => {
     
     return <Sprite 
     image = '../../../assets/background/kelp.svg'
-    x={Math.floor(Math.random() *  window.innerWidth)}
-    y={document.documentElement.clientHeight/1.3 + Math.floor(Math.random() * (document.documentElement.clientHeight/6))}
-   
-    />
+    x={pos.x}
+    y={pos.y}/>
     
 }
 

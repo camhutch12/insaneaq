@@ -1,5 +1,5 @@
 import {Sprite} from '@inlet/react-pixi'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 /*
 Written By:
@@ -14,12 +14,17 @@ alpha makes it transparent
 scale tranforms the size
 */
 const Bubble  = (props) => {
+    
+    // const [x,setX] = useState(props.bubble.pos.x)
+    // const [y,setY] = useState(props.bubble.pos.y)
+    
+
     const rand = Math.random()*2.5;
     return <Sprite 
     image = '../../../assets/background/bub3.svg'
-    x={Math.floor(Math.random() * document.documentElement.clientWidth)}
-    y={Math.floor(Math.random() * document.documentElement.clientHeight - document.documentElement.clientHeight/4)}
-    scale = {[rand,rand]}
+    x={props.bubble.x}
+    y={props.bubble.y}
+    scale = {[0.5,0.5]}
     alpha={0.2}
     />
     
