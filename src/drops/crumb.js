@@ -22,7 +22,7 @@ const Crumb = (props) => {
     image = '../../assets/drops/crumb.svg'
     x={props.crumb.x-10}
     y={props.crumb.y-10}
-    scale = {[0.5,0.5]}
+    scale = {[0.1,0.1]}
     />
     }else{
         console.log("broken")

@@ -82,7 +82,6 @@ const Game = props => {
                 options={{ backgroundColor: 0x00ffff }}
             onClick={(e) => getClick(e)}>
                 <Background />
-
                 {hasClicked ? <Crumb crumb={locationMouseClick} hasCrumb={hasClicked} />: null}
                 {positons.map((ele, index) => <GoldFish key={index} {...ele} />)}
                 <Snail x={Math.floor(Math.random() * window.innerWidth)} y={window.innerHeight / 1.3 + Math.floor(Math.random() * (window.innerHeight / 6))} />
