@@ -12,7 +12,7 @@ This component is a pixi.js sprite of an svg image of a fish from icons8,
 with a passed in x and y coordinate,
 scale tranforms the size
 */
-export  const GoldFish = (props) => { 
+export  const GoldFish = ({x,y}) => { 
     const [pos, setPos] = useState({})
     const [defaultPos,setDefaultPos] = useState({x:Math.floor((Math.random() * document.documentElement.clientWidth)+1),
                                         y:Math.floor((Math.random() * document.documentElement.clientHeight)+1)})
@@ -32,8 +32,8 @@ export  const GoldFish = (props) => {
 
     return <Sprite 
     image={'assets/fish/goldfish.svg'} 
-    x={defaultPos.x} 
-    y={defaultPos.y} 
+    x={x} 
+    y={y} 
     scale={{x:0.2,y:0.2}} />
 }
 

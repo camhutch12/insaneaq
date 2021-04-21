@@ -18,9 +18,8 @@ const Snail  = ({x,y}) => {
     image = '../../../assets/background/snail.svg'
     x={x}
     y={y}
-    scale = {[0.7,0.7]}
+    scale = {[0.4,0.4]}
     />
-    
 }
 
 export default Snail;

@@ -6,6 +6,7 @@ import Crumb from '../drops/crumb'
 import Snail from '../Fish/snail/snail';
 import GoldFish from '../Fish/goldfish/goldfish';
 import styles from '../style.module.css';
+import {GoldFish as GL} from '../model/Goldfish';
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -18,7 +19,20 @@ which holds all of the games components (background, fish, food, etc),
 and mouse click coordinates are passed in from the App.js and are passed to
 sub comnponents
 */
-const Game = props => {
+
+
+
+
+
+const Game = ({background,SCREEN_SIZE}) => {
+let goldfish1;
+
+    if(!localStorage.getItem('goldfish')){
+        const goldfish1 = new GL(Math.floor((Math.random() * SCREEN_SIZE.x)),Math.floor((Math.random() * SCREEN_SIZE.y)));
+        localStorage.setItem('goldfish',JSON.stringify(goldfish1))
+    }else{
+         goldfish1 = JSON.parse(localStorage.getItem('goldfish'))
+    }
 
 
     const [locationMouseClick, setlocationMouseClick] = useState({ x: null, y: null });
@@ -124,9 +138,10 @@ const Game = props => {
                 height={document.documentElement.clientHeight}
                 options={{ backgroundColor: 0x00ffff }}
                 onClick={(e) => getClick(e)}>
-                <Background />
+            <Background background={background} />
+                
                 {hasClicked ? <Crumb crumb={locationMouseClick} hasCrumb={hasClicked} />: null}
-                {positons.map((ele, index) => <GoldFish key={index} {...ele} />)}
+                 <GoldFish  {...goldfish1} />
                 <Snail x={Math.floor(Math.random() * document.documentElement.clientWidth)}
                  y={document.documentElement.clientHeight / 1.3 + Math.floor(Math.random() * (document.documentElement.clientHeight / 6))} />
             </Stage>
