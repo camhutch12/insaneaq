@@ -40,14 +40,8 @@ function App() {
   }
   return (
     
- <Stage 
-      width={document.documentElement.clientWidth}
-      height={document.documentElement.clientHeight}
-      options={{backgroundColor: 0x00ffff}}
-      onClick={(e) => getClick(e)}>
-     
+ 
      <Game hasClicked={hasClicked} posClicked={locationMouseClick} getClick={getlocation}/>
-    </Stage>
   );
 }
 
