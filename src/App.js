@@ -2,14 +2,14 @@ import './App.css';
 import { Stage, Sprite, Graphics, useApp, Container,render } from '@inlet/react-pixi';
 import GoldFish from './Fish/goldfish/goldfish';
 import Game from './game/game';
+import UI from './UI/ui';
 import { useState } from 'react';
-
 
 function App() {
 
   const locationMouseClick = {x:0, y:0};
   let hasClicked = false;
-  // [hasClicked,setHasClicked] = useState(false);
+
   const positons = [
     
     {
@@ -25,23 +25,27 @@ function App() {
   /*
   Register the mouse click x and y coordinated with a mouse listener
   */
-  
   const getClick = (event) => {
     locationMouseClick.x = event.clientX;
     locationMouseClick.y = event.clientY;
     hasClicked = true;
-      //console.log(locationMouseClick)
-     // return locationMouseClick;
   }
 
   const getlocation = ()=>{
-    //console.log(locationMouseClick)
     return locationMouseClick
   }
+
+  const [start, setStart] = useState(false);
+  
+  const appStart = () => {
+    setStart(true)
+  }
+
   return (
     
- 
-     <Game hasClicked={hasClicked} posClicked={locationMouseClick} getClick={getlocation}/>
+    <div>
+     {start ?  <Game hasClicked={hasClicked} posClicked={locationMouseClick} getClick={getlocation}/> : <UI onClick = {appStart}/>}
+     </div>
   );
 }
 
