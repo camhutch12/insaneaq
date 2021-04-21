@@ -13,8 +13,8 @@ function App() {
     const p = []
     for(let i =0; i<10; i++){
         p.push(
-            {x:Math.floor(Math.random() * document.documentElement.clientWidth),
-                y:Math.floor(Math.random() * document.documentElement.clientHeight - document.documentElement.clientHeight/4)},
+            {x:Math.floor(Math.random() * SCREEN_SIZE.x),
+                y:Math.floor(Math.random() * SCREEN_SIZE.y - SCREEN_SIZE.y/4)},
         );
     }
     return p
@@ -26,8 +26,8 @@ const setupKelp = () => {
   const p = []
     for(let i =0; i<10; i++){
         p.push(
-            {x:Math.floor(Math.random() * document.documentElement.clientWidth),
-                y:document.documentElement.clientHeight/1.3 + Math.floor(Math.random() * (document.documentElement.clientHeight/6))},
+            {x:Math.floor(Math.random() * SCREEN_SIZE.x),
+                y:SCREEN_SIZE.y/1.3 + Math.floor(Math.random() * (SCREEN_SIZE.y/6))},
         );
     }
     return p 
@@ -38,8 +38,8 @@ const setupKelp2 = () => {
   const p = []
     for(let i =0; i<10; i++){
         p.push(
-            {x:Math.floor(Math.random() * document.documentElement.clientWidth),
-                y:document.documentElement.clientHeight/1.3 + Math.floor(Math.random() * (document.documentElement.clientHeight/6))},
+            {x:Math.floor(Math.random() * SCREEN_SIZE.x),
+                y:SCREEN_SIZE.y/1.3 + Math.floor(Math.random() * (SCREEN_SIZE.y/6))},
         );
     }
     return p 
@@ -47,9 +47,9 @@ const setupKelp2 = () => {
 
 
 const SCREEN_SIZE = {
-                     x:document.documentElement.clientWidth,
-                     y:document.documentElement.clientHeight,
-                    };
+  x:SCREEN_SIZE.x,
+  y:SCREEN_SIZE.y,
+ };
 const background = {
     bubble:setupBubbles(),
     kelp:setupKelp(),
