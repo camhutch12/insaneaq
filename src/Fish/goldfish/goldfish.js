@@ -39,17 +39,11 @@ export  const GoldFish = ({x,y,direction}) => {
             },
 
         })
-
-        
     })
-   
 
     return <Sprite 
     image={'assets/fish/fish.svg'} 
     {...motion}
-    //x={x} 
-    //y={y} 
-    //scale={{x:0.3,y:0.3}} 
     />
 }
 

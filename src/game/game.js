@@ -27,18 +27,31 @@ const Game = ({background,SCREEN_SIZE,...props}) => {
     const [locationMouseClick, setlocationMouseClick] = useState({ x: null, y: null });
     const [hasClicked, setHasClicked] = useState(false);
 
+    /*
+    Mouse listener
+    */
     const getClick = (event) => {
         locationMouseClick.y = event.clientY;
         setHasClicked(true)
         setlocationMouseClick({x:event.clientX,y:event.clientY})
        console.log(locationMouseClick)
-    
     }
+
+    /*
+    Set Direction
+    */
     props.fish[0].setDirection([1,2,3,4,5,6,7])
     console.log(props.fish[0].getDirection());
 
+    /*
+    Generated Components from redux store
+    */
     const fish = props.fish.map((ele,index) => <GoldFish key={index} {...ele}/>)
     const snail = props.snail.map((ele,index) => <Snail key={index} {...ele}/>)
+    
+    /*
+    Nav Bar Variables
+    */
     const guppyCost = 100;
     const foodQuantity = 1;
     const foodQuantCost = 100;
@@ -85,7 +98,6 @@ const Game = ({background,SCREEN_SIZE,...props}) => {
 
                     <div className={styles.navTwo}>
                         <button className={styles.buttonTwo}>
-                    
                             <label className={styles.labelTwo}>Menu</label>
                         </button> 
                         <label className={styles.labelThree}>${money}</label>
