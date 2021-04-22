@@ -73,10 +73,12 @@ class GoldFish{
 
     setHasCrumbsToChase(totalCrumbList){
             if(totalCrumbList > 0){
-                this.hasCrumbsToChase = true;
+                this.hasCrumbsToChase = true
+                return  true;
             }
             else{
                 this.hasCrumbsToChase = false;
+                return false;
             }
     }
  
