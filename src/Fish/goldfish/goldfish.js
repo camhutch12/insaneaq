@@ -1,6 +1,7 @@
 import {Sprite} from '@inlet/react-pixi'
 import React, { useEffect, useState, useReducer, useRef  } from 'react'
 import { useTick } from '@inlet/react-pixi'
+import { applyProps } from 'react-pixi-fiber'
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -13,11 +14,11 @@ with a passed in x and y coordinate,
 scale tranforms the size
 */
 
-export  const GoldFish = ({x,y}) => { 
+export  const GoldFish = ({x,y,direction}) => { 
     const [pos, setPos] = useState({})
     const [defaultPos,setDefaultPos] = useState({x:Math.floor((Math.random() * document.documentElement.clientWidth)+1),
                                         y:Math.floor((Math.random() * document.documentElement.clientHeight)+1)})
-    
+   
     // useEffect(() => {
     //     return () => {
 
@@ -37,7 +38,7 @@ export  const GoldFish = ({x,y}) => {
     useTick(delta => {
         let i = (iter.current += 0.5 * delta)
         let j = (iter.current += 0.5 * delta)
-
+        let d = direction[0] += 1;
         // update current frame
         update({
             type: 'update',
@@ -45,7 +46,9 @@ export  const GoldFish = ({x,y}) => {
             x: x + i,
             y: y + j,
             scale:{x:0.3,y:0.3},
+            d
             },
+
         })
 
         

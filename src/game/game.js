@@ -57,8 +57,8 @@ const Game = ({background,SCREEN_SIZE,...props}) => {
     //     });
     //     // console.log(locationMouseClick)
     // }, [locationMouseClick])
-
-
+    props.fish[0].setDirection([1,2,3,4,5,6,7])
+    console.log(props.fish[0].getDirection());
 
     const fish = props.fish.map((ele,index) => <GoldFish key={index} {...ele}/>)
     const snail = props.snail.map((ele,index) => <Snail key={index} {...ele}/>)
@@ -77,7 +77,7 @@ const Game = ({background,SCREEN_SIZE,...props}) => {
                     <button 
                      class={styles.button}
                      onClick={() => props.createFish(new GL(Math.floor((Math.random() * SCREEN_SIZE.x)),Math.floor((Math.random() * SCREEN_SIZE.y))))}>
-                        <img src="../assets/Fish/fish.svg" width="60"></img>
+                        <img src="../assets/fish/fish.svg" width="60"></img>
                         <label class={styles.label}>${guppyCost}</label>
                     </button> 
                 
@@ -92,7 +92,7 @@ const Game = ({background,SCREEN_SIZE,...props}) => {
                     </button> 
 
                     <button class={styles.button}>
-                        <img src="../assets/Fish/bigfish/bigfish.svg" width="60"></img>
+                        <img src="../assets/fish/bigfish/bigfish.svg" width="60"></img>
                         <label class={styles.label}>${bigFishCost}</label>
                     </button> 
                     
