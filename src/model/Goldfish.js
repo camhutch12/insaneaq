@@ -7,7 +7,9 @@ class GoldFish{
     position = []
     difference = []
     crumb= null;
-    crumbList
+    crumbList = [];
+    hasCrumbsToChase
+
 
     constructor(x,y){
         this.count++;
@@ -58,6 +60,24 @@ class GoldFish{
         }
         
         
+    }
+
+    resetDirection(){
+        this.direction[0] = Math.random() * window.innerWidth;
+        this.direction[1] = Math.random() * window.innerHeight;
+        // calculate the difference to random point (unit vector)
+        this.difference[0] = this.direction[0] - this.x;
+        this.difference[1] = this.direction[1] - this.y;
+    }
+
+
+    setHasCrumbsToChase(totalCrumbList){
+            if(totalCrumbList > 0){
+                this.hasCrumbsToChase = true;
+            }
+            else{
+                this.hasCrumbsToChase = false;
+            }
     }
  
 }

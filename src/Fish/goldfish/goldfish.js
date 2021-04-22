@@ -2,6 +2,7 @@ import {Sprite} from '@inlet/react-pixi'
 import React, { useEffect, useState, useReducer, useRef  } from 'react'
 import { useTick } from '@inlet/react-pixi'
 import { applyProps } from 'react-pixi-fiber'
+import { deleteCrumb } from '../../actions/crumbActions'
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -14,7 +15,11 @@ with a passed in x and y coordinate,
 scale tranforms the size
 */
 
-export  const GoldFish = ({goldfish,crumb}) => { 
+export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb}) => { 
+    goldfishList.forEach((element) => {
+        element.crumb = null
+        element.crumbList = []
+    })
     const [pos, setPos] = useState({})
 
     const reducer = (_, { data }) => data
@@ -25,8 +30,7 @@ export  const GoldFish = ({goldfish,crumb}) => {
 
         let i = (iter.current += 0.00001 * delta)
         
-        
-
+    
         // every 20 iterations (?) change the direction 
         if(i%20==0){
 
@@ -74,6 +78,16 @@ export  const GoldFish = ({goldfish,crumb}) => {
         if(goldfish.difference[0]>0){
             scaleX = scaleX*-1; // change direction of fish
         }
+
+        for(let j =0; j < crumb.length; j++){
+            if(Math.floor(goldfish.x)  === crumb[j].x && Math.floor(goldfish.y) == crumb[j].y || 
+            Math.ceil(goldfish.x)  === crumb[j].x && Math.ceil(goldfish.y) == crumb[j].y){
+                console.log(crumb[j])
+                deleteCrumb(crumb[j]);
+                goldfish.crumb = null;
+            }
+        }
+        
         
 
         
@@ -88,6 +102,7 @@ export  const GoldFish = ({goldfish,crumb}) => {
             }
         })
     })
+
 
     return <Sprite 
     image={'assets/fish/fish.svg'} 

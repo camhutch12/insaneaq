@@ -11,7 +11,7 @@ export const deleteCrumb = crumb =>  {
     return {
         type:'DELETE_CRUMB',
         payload: {
-            crumb
+            crumb:crumb
         }
     }   
 }
