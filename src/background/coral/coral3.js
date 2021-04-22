@@ -16,7 +16,7 @@ const Coral3  = (props) => {
     return <Sprite 
     image = '../../../assets/background/coral3.svg'
     x={window.innerWidth - window.innerWidth/1.2}
-    y={window.innerHeight/1.1}
+    y={(window.innerHeight-100)/1.1}
     />
     
 }

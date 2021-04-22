@@ -39,9 +39,10 @@ export  const GoldFish = ({goldfish}) => {
         let i = (iter.current += 0.00001 * delta)
 
         // every 20 iterations (?) change the direction 
-        if(i%20==0){
-
-
+        if(i%0.00001==0){
+            //console.log("Hi")
+            //iter.current=0;
+            //goldfish.difference[1] = goldfish.difference[1] * -1;
         }
         
         // if outside the right bounds, change direction left
@@ -63,7 +64,7 @@ export  const GoldFish = ({goldfish}) => {
         }
 
         // if outside the bottom bounds, change direction up
-        if(goldfish.y > window.innerHeight){
+        if(goldfish.y > (window.innerHeight-100)){
             goldfish.difference[1] = goldfish.difference[1] * -1;
             iter.current=0;
         }
