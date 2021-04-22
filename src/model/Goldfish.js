@@ -2,7 +2,8 @@ class GoldFish{
     
     static  count = 0;
     direction = []
-    position = []
+    x = -1;
+    y = -1;
     difference = []
 
     constructor(x,y){
