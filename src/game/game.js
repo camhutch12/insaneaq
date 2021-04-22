@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState  } from 'react'
 import { Stage, Sprite, Graphics, useApp, Container, render } from '@inlet/react-pixi';
 import Background from '../background/background'
 import Crumb from '../drops/crumb'
@@ -31,13 +31,12 @@ sub comnponents
 
 const Game = ({background,...props}) => {
 
-
-
     const [locationMouseClick, setlocationMouseClick] = useState({ x: null, y: null });
     const [hasClicked, setHasClicked] = useState(false);
 
-    //const update = (e) => setlocationMouseClick({ x: e.clientX, y: e.clientY });
-
+    /*
+    Mouse listener
+    */
     const getClick = (event) => {
         locationMouseClick.y = event.clientY;
         setHasClicked(true)
@@ -47,19 +46,6 @@ const Game = ({background,...props}) => {
     //    return locationMouseClick;
     }
 
-
-    // useEffect(() => {
-    //     document.body.addEventListener('click', (e) => {
-    //         setHasClicked(true);
-    //         console.log({x:e.clientX,y:e.clientY})
-    //         setlocationMouseClick( (e) => {
-    //        return {x:e.clientX,y:e.clientY}
-                
-    //         })
-            
-    //     });
-    //     // console.log(locationMouseClick)
-    // }, [locationMouseClick])
     props.fish[0].setDirection([1,2,3,4,5,6,7])
     console.log(props.fish[0].getDirection());
 
