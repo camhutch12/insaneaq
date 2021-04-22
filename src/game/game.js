@@ -61,16 +61,8 @@ const Game = ({background,...props}) => {
     props.fish[0].setDirection([1,2,3,4,5,6,7])
     console.log(props.fish[0].getDirection());
 
-    const fish = props.fish.map((ele,index) => <GoldFish key={index} {...ele}/>)
+    const fish = props.fish.map((ele,index) => <GoldFish key={index} goldfish={ele}/>)
     const snail = props.snail.map((ele,index) => <Snail key={index} {...ele}/>)
-    const guppyCost = 100;
-    const foodQuantity = 1;
-    const foodQuantCost = 100;
-    const foodUpgradeCost = 200;
-    const bigFishCost = 1000;
-    const gunCost = 1000;
-    const eggCost = 750;
-    const money = 0;
     
     return (
             <React.Fragment>   

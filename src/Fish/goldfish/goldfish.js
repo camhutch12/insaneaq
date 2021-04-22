@@ -14,10 +14,10 @@ with a passed in x and y coordinate,
 scale tranforms the size
 */
 
-export  const GoldFish = ({x,y,direction}) => { 
+export  const GoldFish = ({goldfish}) => { 
     const [pos, setPos] = useState({})
-    const [defaultPos,setDefaultPos] = useState({x:Math.floor((Math.random() * document.documentElement.clientWidth)+1),
-                                        y:Math.floor((Math.random() * document.documentElement.clientHeight)+1)})
+    // const [defaultPos,setDefaultPos] = useState({x:Math.floor((Math.random() * document.documentElement.clientWidth)+1),
+    //                                     y:Math.floor((Math.random() * document.documentElement.clientHeight)+1)})
    
     // useEffect(() => {
     //     return () => {
@@ -38,15 +38,17 @@ export  const GoldFish = ({x,y,direction}) => {
     useTick(delta => {
         let i = (iter.current += 0.5 * delta)
         let j = (iter.current += 0.5 * delta)
-        let d = direction[0] += 1;
+        goldfish.direction[0] = goldfish.direction[0] += 1;
+        goldfish.setPos(goldfish.x + i,j)
+
         // update current frame
         update({
             type: 'update',
             data: {
-            x: x + i,
-            y: y + j,
+            x:goldfish.x,
+            y: goldfish.y,
             scale:{x:0.3,y:0.3},
-            d
+            // d:goldfish.direction[0]
             },
 
         })
