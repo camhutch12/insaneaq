@@ -5,7 +5,7 @@ import {createStore} from 'redux'
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 import App from './App';
-import combineReducers from './reducers/fishreducer'
+import combineReducers from './reducers/globalreducers'
 ReactDOM.render(
  
   <Provider store={createStore(combineReducers)}>

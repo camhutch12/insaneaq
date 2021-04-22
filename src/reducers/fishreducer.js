@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux'
 import {GoldFish} from '../model/Goldfish'
 
-const fish_reducer = (oldFishList=[
+export const fish_reducer = (oldFishList=[
     new GoldFish(Math.floor((Math.random() * document.documentElement.clientWidth)),Math.floor((Math.random() * document.documentElement.clientHeight))),
     new GoldFish(Math.floor((Math.random() * document.documentElement.clientWidth)),Math.floor((Math.random() * document.documentElement.clientHeight))),
     new GoldFish(Math.floor((Math.random() * document.documentElement.clientWidth)),Math.floor((Math.random() * document.documentElement.clientHeight))),
@@ -13,7 +13,3 @@ const fish_reducer = (oldFishList=[
     }
     return oldFishList
 }
-
-export default combineReducers({
-    fish_reducer:fish_reducer,
-});
