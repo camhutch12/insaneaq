@@ -14,7 +14,6 @@ This component is a pixi.js sprite of an svg image of a fish from icons8,
 with a passed in x and y coordinate,
 scale tranforms the size
 */
-
 export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb, createCoin}) => { 
     goldfishList.forEach((element) => {
         element.crumb = null
@@ -37,7 +36,7 @@ export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb, createCoin})
         goldfish.setCoinDrop(goldfish.coinDropTimer +1);
 
          // Check if coin needs to drop
-        if(goldfish.coinDropTimer > 500){
+        if(goldfish.coinDropTimer > goldfish.dropRate){
             // reset timer
             goldfish.setCoinDrop(0)
             // add coin to array of coins (redux)

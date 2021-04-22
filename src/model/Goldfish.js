@@ -12,11 +12,15 @@ class GoldFish{
 
     hungerTimer = 0;
     coinDropTimer = 0;
+    dropRate = 500;
 
     constructor(x,y){
         this.count++;
         this.x = x;
         this.y = y;
+        
+        // make the drop rate unique
+        this.dropRate = 500+Math.random()*500;
         
         // generate random direction
         

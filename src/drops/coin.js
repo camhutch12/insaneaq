@@ -27,6 +27,11 @@ const Coin = ({coin}) => {
             coin.setPos(coin.x,coin.y+i);
         }
         
+        // make the coin spawn above the floorline
+        if(coin.y>window.innerHeight-160){
+            coin.setPos(coin.x,window.innerHeight-160);
+        }
+        
 
         // update current frame
         update({

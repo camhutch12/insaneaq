@@ -13,8 +13,6 @@ with a passed in x and y coordinate from the mouse listener
 */
 const Crumb = ({crumb}) => {
     const [locationMouseClick, setlocationMouseClick] = useState(crumb);
-    
-   
         
     return <Sprite 
     image = '../../assets/drops/crumb.svg'
