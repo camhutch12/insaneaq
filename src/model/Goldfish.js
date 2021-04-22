@@ -6,6 +6,8 @@ class GoldFish{
     y = -1;
     position = []
     difference = []
+    crumb= {x:-100,y:-100};
+    crumbList
 
     constructor(x,y){
         this.count++;
@@ -33,8 +35,32 @@ class GoldFish{
         this.x = x;
         this.y = y;
     }
+    setCrumbList(c){
+        this.crumbList = [...c]
+    }
 
-    
+    getClosestCrumb(){
+        let dist1  = -1
+        let dist2 = -1
+       
+        for(const c of this.crumbList){
+            if(!this.crumb.x == -100 && this.crumb.y == -100){
+                this.crumb.x = c.x
+                this.crumb.y = c.y
+            }
+            else{
+                 dist1 = Math.sqrt(Math.pow(this.crumb.x - this.x,2) +Math.pow(this.crumb.y - this.y,2))
+                 dist2 = Math.sqrt(Math.pow(c.x - this.x,2) +Math.pow(c.y - this.y,2))
+                if(dist1 > dist2){
+                    this.crumb = c
+                }
+                
+            }
+        }
+        
+        
+    }
+ 
 }
 
 export {GoldFish}

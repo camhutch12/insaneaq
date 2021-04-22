@@ -48,7 +48,7 @@ const Game = ({background,...props}) => {
 
     const fish = props.fish.map((ele,index) => <GoldFish key={index} goldfish={ele} crumb={props.crumb}/>)
     const snail = props.snail.map((ele,index) => <Snail key={index} {...ele}/>)
-    
+    const crumb = props.crumb.map((ele,index) => <Crumb key={index} crumb={ele}/>)
     return (
             <React.Fragment>   
                 <Navbar {...props} />
@@ -60,9 +60,10 @@ const Game = ({background,...props}) => {
                 onClick={(e) => getClick(e)}>
             <Background background={background} />
                 
-                {hasClicked ? <Crumb crumb={locationMouseClick} hasCrumb={hasClicked} />: null}
+                {/* {hasClicked ? <Crumb crumb={locationMouseClick} hasCrumb={hasClicked} />: null} */}
                 {fish}
                 {snail}
+                {crumb}
                  {/* <GoldFish  {...fish} /> */}
                 {/* <Snail x={Math.floor(Math.random() * document.documentElement.clientWidth)}
                  y={document.documentElement.clientHeight / 1.3 + Math.floor(Math.random() * (document.documentElement.clientHeight / 6))} /> */}
