@@ -90,7 +90,7 @@ let goldfish1;
     const gunCost = 1000;
     const eggCost = 750;
     const money = 0;
-
+    
     return (
             <React.Fragment>   
                 <div class={styles.navbar}>
