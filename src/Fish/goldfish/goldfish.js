@@ -24,7 +24,7 @@ export  const GoldFish = ({goldfish}) => {
    
     useTick(delta => {
 
-        let i = (iter.current += 0.0005 * delta)
+        let i = (iter.current += 0.000025 * delta)
         
         
 
