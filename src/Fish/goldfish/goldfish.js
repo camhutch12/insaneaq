@@ -25,7 +25,39 @@ export  const GoldFish = ({goldfish}) => {
     useTick(delta => {
 
         let i = (iter.current += 0.0005 * delta)
-       
+        
+        
+
+        // every 20 iterations (?) change the direction 
+        if(i%20==0){
+
+
+        }
+        
+        // if outside the right bounds, change direction left
+        if(goldfish.position[0] > window.innerWidth){
+            goldfish.difference[0] = goldfish.difference[0] * -1;
+            iter.current=0;
+        }
+
+        // if outside the bounds left, change direction right
+        if(goldfish.position[0] < 0){
+             goldfish.difference[0] = goldfish.difference[0] * -1;
+             iter.current=0;
+        }
+
+        // if outside the top bounds, change direction down
+        if(goldfish.position[1] < 0){
+            goldfish.difference[1] = goldfish.difference[1] * -1;
+            iter.current=0;
+        }
+
+        // if outside the bottom bounds, change direction up
+        if(goldfish.position[1] > window.innerHeight){
+            goldfish.difference[1] = goldfish.difference[1] * -1;
+            iter.current=0;
+        }
+
         goldfish.setPosition(goldfish.position[0]+(goldfish.difference[0]*i), 
         goldfish.position[1]+(goldfish.difference[1]*i))
         
@@ -33,8 +65,8 @@ export  const GoldFish = ({goldfish}) => {
         update({
             type: 'update',
             data: {
-            x: goldfish.x + goldfish.position[0],
-            y: goldfish.y + goldfish.position[1],
+            x: goldfish.position[0],
+            y: goldfish.position[1],
             scale:{x:0.3,y:0.3}
             },
 

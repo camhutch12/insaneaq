@@ -18,7 +18,7 @@ class GoldFish{
         // calculate the difference to random point (unit vector)
         this.difference[0] = this.direction[0] - x;
         this.difference[1] = this.direction[1] - y;
-
+        // initialize position
         this.position[0] = x;
         this.position[1] = y;
 
