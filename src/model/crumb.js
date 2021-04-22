@@ -1,9 +1,11 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export class Crumb{
     x;
     y;
     id;
     constructor(x,y){
-        this.id = Math.floor(Math.random() * 10000);
+        this.id = uuidv4();;
         this.x = x;
         this.y = y;
     }

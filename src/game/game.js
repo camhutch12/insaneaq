@@ -11,7 +11,7 @@ import {GoldFish as GL} from '../model/Goldfish';
 import {connect} from 'react-redux'
 import {createSnail} from '../actions/snailActions'
 import {createFish} from '../actions/fishActions'
-import {createCoin} from '../actions/coinActions'
+import {createCoin, deleteCoin} from '../actions/coinActions'
 import {createCrumb,deleteCrumb} from '../actions/crumbActions'
 
 import Navbar from '../navbar/navbar';
@@ -45,7 +45,7 @@ const Game = ({background,...props}) => {
     // get coin components/sprites to render
     var coin
     if(props.coin != undefined){
-        coin = props.coin.map((ele,index) => <Coin key={index} coin={ele}/>)
+        coin = props.coin.map((ele,index) => <Coin key={index} coin={ele} deleteCoin={props.deleteCoin}/>)
     }
 
     const fish = props.fish.map((ele,index) => {
@@ -97,5 +97,6 @@ export default connect(mapStateToProps,
                     createCrumb,
                     createCoin,
                     deleteCrumb,
+                    deleteCoin
                 })
                 (Game)

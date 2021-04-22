@@ -27,6 +27,7 @@ export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb, createCoin})
    
     useTick(delta => {
 
+        // increase the counter
         let i = (iter.current += 0.00001 * delta)
 
         // hunger timer
@@ -82,17 +83,20 @@ export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb, createCoin})
             goldfish.direction[1] =  goldfish.crumb.y; 
             goldfish.difference[0] = goldfish.direction[0] - goldfish.x
             goldfish.difference[1] = goldfish.direction[1] - goldfish.y
-            }
+        }
             
-            goldfish.setPosition(goldfish.x+(goldfish.difference[0]*i), 
-            goldfish.y+(goldfish.difference[1]*i))
+        // update position
+        goldfish.setPosition(goldfish.x+(goldfish.difference[0]*i), 
+        goldfish.y+(goldfish.difference[1]*i))
         
         let scaleX = 0.3;
         let scaleY = 0.3;
+        // check if fish is moving right
         if(goldfish.difference[0]>0){
             scaleX = scaleX*-1; // change direction of fish
         }
 
+        // delete crumb
         for(let j =0; j < crumb.length; j++){
             if(Math.floor(goldfish.x)  === crumb[j].x && Math.floor(goldfish.y) == crumb[j].y || 
             Math.ceil(goldfish.x)  === crumb[j].x && Math.ceil(goldfish.y) == crumb[j].y){
@@ -101,9 +105,8 @@ export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb, createCoin})
                 goldfish.crumb = null;
             }
         }
-        
-        
 
+        
         
         // update current frame
         update({
