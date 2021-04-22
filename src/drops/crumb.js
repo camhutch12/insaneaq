@@ -15,9 +15,7 @@ const Crumb = (props) => {
     const [locationMouseClick, setlocationMouseClick] = useState(props.crumb);
     
     if(props.hasCrumb){
-        console.log("Inside")
-        console.log(props)
-        console.log(locationMouseClick)
+        
     return <Sprite 
     image = '../../assets/drops/crumb.svg'
     x={props.crumb.x-10}

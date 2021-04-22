@@ -10,6 +10,7 @@ import {GoldFish as GL} from '../model/Goldfish';
 import {connect} from 'react-redux'
 import {createSnail} from '../actions/snailActions'
 import {createFish} from '../actions/fishActions'
+import {createCrumb} from '../actions/crumbActions'
 import Navbar from '../navbar/navbar';
 /*
 Written By:
@@ -41,7 +42,8 @@ const Game = ({background,...props}) => {
         locationMouseClick.y = event.clientY;
         setHasClicked(true)
         setlocationMouseClick({x:event.clientX,y:event.clientY})
-       console.log(locationMouseClick)
+        props.createCrumb({x:event.clientX,y:event.clientY});
+       
     //    return locationMouseClick;
     }
 
@@ -91,8 +93,15 @@ const Game = ({background,...props}) => {
 const mapStateToProps = state => {
     return {
         fish: state.fish_reducer,
-        snail: state.snail_reducer
+        snail: state.snail_reducer,
+        crumb: state.crumb_reducer,
     }
 }
 
-export default connect(mapStateToProps,{createFish,createSnail})(Game)
+export default connect(mapStateToProps,
+                {
+                    createFish,
+                    createSnail,
+                    createCrumb,
+                })
+                (Game)
