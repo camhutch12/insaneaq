@@ -10,6 +10,7 @@ import {GoldFish as GL} from '../model/Goldfish';
 import {connect} from 'react-redux'
 import {createSnail} from '../actions/snailActions'
 import {createFish} from '../actions/fishActions'
+import Navbar from '../navbar/navbar';
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -27,7 +28,7 @@ sub comnponents
 
 
 
-const Game = ({background,SCREEN_SIZE,...props}) => {
+const Game = ({background,...props}) => {
 
 
 
@@ -73,47 +74,8 @@ const Game = ({background,SCREEN_SIZE,...props}) => {
     
     return (
             <React.Fragment>   
-                <div class={styles.navbar}>
-                    <button 
-                     class={styles.button}
-                     onClick={() => props.createFish(new GL(Math.floor((Math.random() * SCREEN_SIZE.x)),Math.floor((Math.random() * SCREEN_SIZE.y))))}>
-                        <img src="../assets/fish/fish.svg" width="60"></img>
-                        <label class={styles.label}>${guppyCost}</label>
-                    </button> 
-                
-                    <button class={styles.button}>
-                        <img src="../assets/drops/crumb.svg" width="60"></img>
-                        <label class={styles.label}>${foodUpgradeCost}</label>
-                    </button> 
-
-                    <button class={styles.button}>
-                        <label class={styles.labelNumber}>{foodQuantity}</label>
-                        <label class={styles.label}>${foodQuantCost}</label>
-                    </button> 
-
-                    <button class={styles.button}>
-                        <img src="../assets/fish/bigfish/bigfish.svg" width="60"></img>
-                        <label class={styles.label}>${bigFishCost}</label>
-                    </button> 
-                    
-                    <button class={styles.button}>
-                        <img src="../assets/gun/gunorange.svg" width="60"></img>
-                        <label class={styles.label}>${gunCost}</label>
-                    </button> 
-
-                    <button class={styles.button}>
-                        <img src="../assets/upgrades/egg.svg" width="60"></img>
-                        <label class={styles.label}>${eggCost}</label>
-                    </button> 
-
-                    <div class={styles.navTwo}>
-                        <button class={styles.buttonTwo}>
-                    
-                            <label class={styles.labelTwo}>Menu</label>
-                        </button> 
-                        <label class={styles.labelThree}>${money}</label>
-                    </div>
-                </div>
+                <Navbar {...props} />
+     
             <Stage
                 width={document.documentElement.clientWidth}
                 height={document.documentElement.clientHeight}
