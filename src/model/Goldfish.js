@@ -21,38 +21,17 @@ class GoldFish{
         this.difference[0] = this.direction[0] - x;
         this.difference[1] = this.direction[1] - y;
         // initialize position
-        this.position[0] = x;
-        this.position[1] = y;
-
-    }
-
-    getDirection(){
-        return this.direction;
-    }
-
-    setDirection(direction){
-        this.direction = direction;
-    }
-
-    setPos(x,y){
         this.x = x;
         this.y = y;
     }
+   
     getPosition(){
         return this.position;
     }
 
     setPosition(x,y){
-        this.position[0] = x;
-        this.position[1] = y;
-    }
-
-    getDifference(){
-        return this.difference;
-    }
-
-    setDifference(difference){
-        this.difference = difference;
+        this.x = x;
+        this.y = y;
     }
 
     
