@@ -11,8 +11,9 @@ import {GoldFish as GL} from '../model/Goldfish';
 import {connect} from 'react-redux'
 import {createSnail} from '../actions/snailActions'
 import {createFish} from '../actions/fishActions'
-import {createCrumb} from '../actions/crumbActions'
 import {createCoin} from '../actions/coinActions'
+import {createCrumb,deleteCrumb} from '../actions/crumbActions'
+
 import Navbar from '../navbar/navbar';
 /*
 Written By:
@@ -40,9 +41,6 @@ const Game = ({background,...props}) => {
         setlocationMouseClick({x:event.clientX,y:event.clientY})
         props.createCrumb({x:event.clientX,y:event.clientY});
     }
-
-    const fish = props.fish.map((ele,index) => <GoldFish key={index} goldfish={ele} crumb={props.crumb} createCoin={props.createCoin}/>)
-    const snail = props.snail.map((ele,index) => <Snail key={index} {...ele}/>)
     
     // get coin components/sprites to render
     var coin
@@ -50,6 +48,11 @@ const Game = ({background,...props}) => {
         coin = props.coin.map((ele,index) => <Coin key={index} coin={ele}/>)
     }
 
+    const fish = props.fish.map((ele,index) => {
+    return (<GoldFish key={index} goldfish={ele} crumb={props.crumb} deleteCrumb={props.deleteCrumb} goldfishList={props.fish} createCoin={props.createCoin}/>)
+})
+    const snail = props.snail.map((ele,index) => <Snail key={index} {...ele}/>)
+    const crumb = props.crumb.map((ele,index) => <Crumb key={index} crumb={ele}/>)
     return (
             <React.Fragment>   
                 <Navbar {...props} />
@@ -61,11 +64,12 @@ const Game = ({background,...props}) => {
                 onClick={(e) => getClick(e)}>
             <Background background={background} />
                 
-                {hasClicked ? <Crumb crumb={locationMouseClick} hasCrumb={hasClicked} />: null}
+                {/* {hasClicked ? <Crumb crumb={locationMouseClick} hasCrumb={hasClicked} />: null} */}
                 {fish}
                 {snail}
                 {coin}
-        
+                {crumb}
+                
             </Stage>
 
         </React.Fragment>
@@ -92,5 +96,6 @@ export default connect(mapStateToProps,
                     createSnail,
                     createCrumb,
                     createCoin,
+                    deleteCrumb,
                 })
                 (Game)

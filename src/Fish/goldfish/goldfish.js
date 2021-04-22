@@ -2,7 +2,7 @@ import {Sprite} from '@inlet/react-pixi'
 import React, { useEffect, useState, useReducer, useRef  } from 'react'
 import { useTick } from '@inlet/react-pixi'
 import { applyProps } from 'react-pixi-fiber'
-
+import { deleteCrumb } from '../../actions/crumbActions'
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -15,7 +15,11 @@ with a passed in x and y coordinate,
 scale tranforms the size
 */
 
-export  const GoldFish = ({goldfish, crumb, createCoin}) => { 
+export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb, createCoin}) => { 
+    goldfishList.forEach((element) => {
+        element.crumb = null
+        element.crumbList = []
+    })
     const [pos, setPos] = useState({})
 
     const reducer = (_, { data }) => data
@@ -73,21 +77,35 @@ export  const GoldFish = ({goldfish, crumb, createCoin}) => {
 
         // check if crumbs exist
         if(crumb.length > 0){
-            goldfish.direction[0] =  goldfish.x - crumb[0].x
-            goldfish.direction[1] =  goldfish.y - crumb[0].y;
+            goldfish.setCrumbList(crumb)
+            goldfish.getClosestCrumb()
+            goldfish.direction[0] =  goldfish.crumb.x
+            goldfish.direction[1] =  goldfish.crumb.y; 
             goldfish.difference[0] = goldfish.direction[0] - goldfish.x
             goldfish.difference[1] = goldfish.direction[1] - goldfish.y
-    
             }
-        goldfish.setPosition(goldfish.x+(goldfish.difference[0]*i), 
-        goldfish.y+(goldfish.difference[1]*i))
-
+            
+            goldfish.setPosition(goldfish.x+(goldfish.difference[0]*i), 
+            goldfish.y+(goldfish.difference[1]*i))
+        
         let scaleX = 0.3;
         let scaleY = 0.3;
         if(goldfish.difference[0]>0){
             scaleX = scaleX*-1; // change direction of fish
         }
-    
+
+        for(let j =0; j < crumb.length; j++){
+            if(Math.floor(goldfish.x)  === crumb[j].x && Math.floor(goldfish.y) == crumb[j].y || 
+            Math.ceil(goldfish.x)  === crumb[j].x && Math.ceil(goldfish.y) == crumb[j].y){
+                console.log(crumb[j])
+                deleteCrumb(crumb[j]);
+                goldfish.crumb = null;
+            }
+        }
+        
+        
+
+        
         // update current frame
         update({
             type: 'update',
@@ -99,6 +117,7 @@ export  const GoldFish = ({goldfish, crumb, createCoin}) => {
             }
         })
     })
+
 
     return <Sprite 
     image={'assets/fish/fish.svg'} 

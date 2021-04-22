@@ -9,5 +9,10 @@ export const crumb_reducer = (oldCrumbList=[],action) => {
         console.log(oldCrumbList)
         return [...oldCrumbList,new Crumb(x,y)]
     }
+    else if(action.type ==="DELETE_CRUMB"){
+        console.log(action.payload)
+        oldCrumbList = oldCrumbList.filter((ele,index) => action.payload.crumb.id !== ele.id );
+        return oldCrumbList
+    }
     return oldCrumbList
 }
