@@ -1,11 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux'
+import {createStore} from 'redux'
+import reportWebVitals from './reportWebVitals';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
-
+import combineReducers from './reducers/fishreducer'
 ReactDOM.render(
-    <App />,
+ 
+  <Provider store={createStore(combineReducers)}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );
 

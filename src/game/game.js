@@ -7,6 +7,8 @@ import Snail from '../Fish/snail/snail';
 import GoldFish from '../Fish/goldfish/goldfish';
 import styles from '../style.module.css';
 import {GoldFish as GL} from '../model/Goldfish';
+import {connect} from 'react-redux'
+import {createFish} from '../actions/fishActions'
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -19,9 +21,14 @@ which holds all of the games components (background, fish, food, etc),
 and mouse click coordinates are passed in from the App.js and are passed to
 sub comnponents
 */
-const Game = ({background,SCREEN_SIZE}) => {
-let goldfish1;
 
+
+
+
+
+const Game = ({background,SCREEN_SIZE,...props}) => {
+let goldfish1;
+    console.log(props)
     if(!localStorage.getItem('goldfish')){
         const goldfish1 = new GL(Math.floor((Math.random() * SCREEN_SIZE.x)),Math.floor((Math.random() * SCREEN_SIZE.y)));
         localStorage.setItem('goldfish',JSON.stringify(goldfish1))
@@ -74,6 +81,7 @@ let goldfish1;
 
     ]
 
+    const fish = props.fish.map((ele,index) => <GoldFish key={index} {...ele}/>)
     const guppyCost = 100;
     const foodQuantity = 1;
     const foodQuantCost = 100;
@@ -84,10 +92,11 @@ let goldfish1;
     const money = 0;
     
     return (
-            <React.Fragment>
-            
+            <React.Fragment>   
                 <div class={styles.navbar}>
-                    <button class={styles.button}>
+                    <button 
+                     class={styles.button}
+                     onClick={() => props.createFish(new GL(Math.floor((Math.random() * SCREEN_SIZE.x)),Math.floor((Math.random() * SCREEN_SIZE.y))))}>
                         <img src="../assets/Fish/fish.svg" width="60"></img>
                         <label class={styles.label}>${guppyCost}</label>
                     </button> 
@@ -125,8 +134,6 @@ let goldfish1;
                         <label class={styles.labelThree}>${money}</label>
                     </div>
                 </div>
-           
-
             <Stage
                 width={document.documentElement.clientWidth}
                 height={document.documentElement.clientHeight}
@@ -135,7 +142,8 @@ let goldfish1;
             <Background background={background} />
                 
                 {hasClicked ? <Crumb crumb={locationMouseClick} hasCrumb={hasClicked} />: null}
-                 <GoldFish  {...goldfish1} />
+                {fish}
+                 {/* <GoldFish  {...fish} /> */}
                 <Snail x={Math.floor(Math.random() * document.documentElement.clientWidth)}
                  y={document.documentElement.clientHeight / 1.3 + Math.floor(Math.random() * (document.documentElement.clientHeight / 6))} />
             </Stage>
@@ -145,4 +153,8 @@ let goldfish1;
     )
 }
 
-export default Game
+const mapStateToProps = state => {
+    return {fish: state.fish_reducer}
+}
+
+export default connect(mapStateToProps,{createFish})(Game)

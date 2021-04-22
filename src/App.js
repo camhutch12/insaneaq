@@ -8,7 +8,10 @@ import { useState } from 'react';
 function App() {
 
 
-
+  const SCREEN_SIZE = {
+    x:document.documentElement.clientWidth,
+    y:document.documentElement.clientHeight,
+   };
   const setupBubbles = () => {
     const p = []
     for(let i =0; i<20; i++){
@@ -46,10 +49,7 @@ const setupKelp2 = () => {
 }
 
 
-const SCREEN_SIZE = {
-  x:SCREEN_SIZE.x,
-  y:SCREEN_SIZE.y,
- };
+
 const background = {
     bubble:setupBubbles(),
     kelp:setupKelp(),
