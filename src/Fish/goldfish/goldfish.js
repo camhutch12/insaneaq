@@ -14,7 +14,7 @@ with a passed in x and y coordinate,
 scale tranforms the size
 */
 
-export  const GoldFish = ({goldfish}) => { 
+export  const GoldFish = ({goldfish,crumb}) => { 
     const [pos, setPos] = useState({})
     // const [defaultPos,setDefaultPos] = useState({x:Math.floor((Math.random() * document.documentElement.clientWidth)+1),
     //                                     y:Math.floor((Math.random() * document.documentElement.clientHeight)+1)})
@@ -35,6 +35,13 @@ export  const GoldFish = ({goldfish}) => {
     const iter = useRef(0)
    
     useTick(delta => {
+
+
+
+        if(crumb.length > 0){
+            
+        }
+
 
         let i = (iter.current += 0.000025 * delta)
         
