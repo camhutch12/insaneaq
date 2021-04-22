@@ -28,12 +28,14 @@ export  const GoldFish = ({goldfish,crumb}) => {
         if(crumb.length > 0){
             goldfish.setCrumbList(crumb)
             goldfish.getClosestCrumb()
-            goldfish.direction[0] =  goldfish.x - goldfish.crumb.x
-            goldfish.direction[1] =  goldfish.y - goldfish.crumb.y;
+            goldfish.direction[0] =  goldfish.crumb.x
+            goldfish.direction[1] =  goldfish.crumb.y; 
             goldfish.difference[0] = goldfish.direction[0] - goldfish.x
             goldfish.difference[1] = goldfish.direction[1] - goldfish.y
-    
             }
+            
+            goldfish.setPosition(goldfish.x+(goldfish.difference[0]*i), 
+            goldfish.y+(goldfish.difference[1]*i))
 
         // every 20 iterations (?) change the direction 
         if(i%20==0){
@@ -71,10 +73,7 @@ export  const GoldFish = ({goldfish,crumb}) => {
         if(goldfish.difference[0]>0){
             scaleX = scaleX*-1; // change direction of fish
         }
-    
         
-        goldfish.setPosition(goldfish.x+(goldfish.difference[0]*i), 
-        goldfish.y+(goldfish.difference[1]*i))
 
         
         // update current frame

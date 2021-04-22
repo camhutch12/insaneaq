@@ -6,7 +6,7 @@ class GoldFish{
     y = -1;
     position = []
     difference = []
-    crumb= {x:-100,y:-100};
+    crumb= null;
     crumbList
 
     constructor(x,y){
@@ -43,10 +43,9 @@ class GoldFish{
         let dist1  = -1
         let dist2 = -1
        
-        for(const c of this.crumbList){
-            if(!this.crumb.x == -100 && this.crumb.y == -100){
-                this.crumb.x = c.x
-                this.crumb.y = c.y
+        for(let c of this.crumbList){
+            if(this.crumb == null){
+                this.crumb = c
             }
             else{
                  dist1 = Math.sqrt(Math.pow(this.crumb.x - this.x,2) +Math.pow(this.crumb.y - this.y,2))
