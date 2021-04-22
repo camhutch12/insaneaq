@@ -21,8 +21,8 @@ const Crumb = (props) => {
     return <Sprite 
     image = '../../assets/drops/crumb.svg'
     x={props.crumb.x-10}
-    y={props.crumb.y-10}
-    scale = {[0.1,0.1]}
+    y={props.crumb.y-110}
+    scale = {[0.25,0.25]}
     />
     }else{
         console.log("broken")

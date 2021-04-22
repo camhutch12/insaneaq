@@ -11,7 +11,7 @@ function App() {
 
   const setupBubbles = () => {
     const p = []
-    for(let i =0; i<10; i++){
+    for(let i =0; i<20; i++){
         p.push(
             {x:Math.floor(Math.random() * document.documentElement.clientWidth),
                 y:Math.floor(Math.random() * document.documentElement.clientHeight - document.documentElement.clientHeight/4)},

@@ -19,11 +19,6 @@ which holds all of the games components (background, fish, food, etc),
 and mouse click coordinates are passed in from the App.js and are passed to
 sub comnponents
 */
-
-
-
-
-
 const Game = ({background,SCREEN_SIZE}) => {
 let goldfish1;
 
@@ -79,7 +74,6 @@ let goldfish1;
 
     ]
 
-
     const guppyCost = 100;
     const foodQuantity = 1;
     const foodQuantCost = 100;
@@ -88,7 +82,7 @@ let goldfish1;
     const gunCost = 1000;
     const eggCost = 750;
     const money = 0;
-
+    
     return (
             <React.Fragment>
             
