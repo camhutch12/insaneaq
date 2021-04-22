@@ -35,31 +35,31 @@ export  const GoldFish = ({goldfish}) => {
         }
         
         // if outside the right bounds, change direction left
-        if(goldfish.position[0] > window.innerWidth){
+        if(goldfish.x > window.innerWidth){
             goldfish.difference[0] = goldfish.difference[0] * -1;
             iter.current=0;
         }
 
         // if outside the bounds left, change direction right
-        if(goldfish.position[0] < 0){
+        if(goldfish.x < 0){
              goldfish.difference[0] = goldfish.difference[0] * -1;
              iter.current=0;
         }
 
         // if outside the top bounds, change direction down
-        if(goldfish.position[1] < 0){
+        if(goldfish.y < 0){
             goldfish.difference[1] = goldfish.difference[1] * -1;
             iter.current=0;
         }
 
         // if outside the bottom bounds, change direction up
-        if(goldfish.position[1] > window.innerHeight){
+        if(goldfish.y > window.innerHeight){
             goldfish.difference[1] = goldfish.difference[1] * -1;
             iter.current=0;
         }
 
-        goldfish.setPosition(goldfish.position[0]+(goldfish.difference[0]*i), 
-        goldfish.position[1]+(goldfish.difference[1]*i))
+        goldfish.setPosition(goldfish.x+(goldfish.difference[0]*i), 
+        goldfish.y+(goldfish.difference[1]*i))
 
         let scaleX = 0.3;
         let scaleY = 0.3;
@@ -72,8 +72,8 @@ export  const GoldFish = ({goldfish}) => {
         update({
             type: 'update',
             data: {
-            x: goldfish.position[0],
-            y: goldfish.position[1],
+            x: goldfish.x,
+            y: goldfish.y,
             scale:{x:scaleX,y:scaleY},
             anchor:0.5,
             }
