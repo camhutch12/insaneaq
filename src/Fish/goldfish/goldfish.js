@@ -16,20 +16,7 @@ scale tranforms the size
 
 export  const GoldFish = ({goldfish,crumb}) => { 
     const [pos, setPos] = useState({})
-    // const [defaultPos,setDefaultPos] = useState({x:Math.floor((Math.random() * document.documentElement.clientWidth)+1),
-    //                                     y:Math.floor((Math.random() * document.documentElement.clientHeight)+1)})
-   
-    // useEffect(() => {
-    //     return () => {
 
-    //     }
-    // },[]);
-    //     if (props.pos.x === undefined || props.pos.y===undefined){
-    //         setPos({x:0,y:0});
-    //     }
-    //     else{
-    //         return setPos(props.pos)
-    //     }
     const reducer = (_, { data }) => data
     const [motion, update] = useReducer(reducer)
     const iter = useRef(0)
@@ -69,7 +56,13 @@ export  const GoldFish = ({goldfish,crumb}) => {
             goldfish.difference[1] = goldfish.difference[1] * -1;
             iter.current=0;
         }
-
+        if(crumb.length > 0){
+            goldfish.direction[0] =  goldfish.x - crumb[0].x
+            goldfish.direction[1] =  goldfish.y - crumb[0].y;
+            goldfish.difference[0] = goldfish.direction[0] - goldfish.x
+            goldfish.difference[1] = goldfish.direction[1] - goldfish.y
+    
+            }
         goldfish.setPosition(goldfish.x+(goldfish.difference[0]*i), 
         goldfish.y+(goldfish.difference[1]*i))
 
@@ -79,6 +72,8 @@ export  const GoldFish = ({goldfish,crumb}) => {
             scaleX = scaleX*-1; // change direction of fish
         }
     
+        
+
         
         // update current frame
         update({
