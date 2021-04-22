@@ -39,13 +39,13 @@ const Game = ({background,...props}) => {
         props.createCrumb({x:event.clientX,y:event.clientY});
     }
 
-    const fish = props.fish.map((ele,index) => <GoldFish key={index} goldfish={ele}/>)
+    const fish = props.fish.map((ele,index) => <GoldFish key={index} goldfish={ele} crumb={props.crumb}/>)
     const snail = props.snail.map((ele,index) => <Snail key={index} {...ele}/>)
     
     return (
             <React.Fragment>   
                 <Navbar {...props} />
-     
+
             <Stage
                 width={document.documentElement.clientWidth}
                 height={document.documentElement.clientHeight}

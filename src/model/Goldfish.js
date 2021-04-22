@@ -22,7 +22,6 @@ class GoldFish{
         // initialize position
         this.x = x;
         this.y = y;
-
     }
 
     setPosition(x,y){
