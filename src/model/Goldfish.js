@@ -6,6 +6,9 @@ class GoldFish{
     y = -1;
     difference = []
 
+    hungerTimer = 0;
+    coinDropTimer = 0;
+
     constructor(x,y){
         this.count++;
         this.x = x;
@@ -27,6 +30,14 @@ class GoldFish{
     setPosition(x,y){
         this.x = x;
         this.y = y;
+    }
+
+    setHunger(value){
+        this.hungerTimer = value;
+    }
+
+    setCoinDrop(value){
+        this.coinDropTimer = value;
     }
 
     

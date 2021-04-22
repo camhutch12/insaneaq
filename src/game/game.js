@@ -5,12 +5,14 @@ import Background from '../background/background'
 import Crumb from '../drops/crumb'
 import Snail from '../Fish/snail/snail';
 import GoldFish from '../Fish/goldfish/goldfish';
+import Coin from '../drops/coin';
 import styles from '../style.module.css';
 import {GoldFish as GL} from '../model/Goldfish';
 import {connect} from 'react-redux'
 import {createSnail} from '../actions/snailActions'
 import {createFish} from '../actions/fishActions'
 import {createCrumb} from '../actions/crumbActions'
+import {createCoin} from '../actions/coinActions'
 import Navbar from '../navbar/navbar';
 /*
 Written By:
@@ -41,7 +43,22 @@ const Game = ({background,...props}) => {
 
     const fish = props.fish.map((ele,index) => <GoldFish key={index} goldfish={ele} crumb={props.crumb}/>)
     const snail = props.snail.map((ele,index) => <Snail key={index} {...ele}/>)
-    
+    console.log(props.fish[0])
+    // Check if coin needs to drop
+    if(props.fish[0].coinDropTimer > 500){
+        console.log("HELLOOO: ("+props.fish[0].x+","+props.fish[0].y+")")
+        // reset timer
+        props.fish[0].setCoinDrop(0)
+        // add coin to array of coins (redux)
+        createCoin(props.fish[0].x,props.fish[0].y)
+        
+    }
+    // get coin components/sprites to render
+    var coin
+    if(props.coin != undefined){
+        coin = props.coin.map((ele,index) => <Coin key={index} coin={ele}/>)
+    }
+
     return (
             <React.Fragment>   
                 <Navbar {...props} />
@@ -56,6 +73,7 @@ const Game = ({background,...props}) => {
                 {hasClicked ? <Crumb crumb={locationMouseClick} hasCrumb={hasClicked} />: null}
                 {fish}
                 {snail}
+                {coin}
         
             </Stage>
 
@@ -64,18 +82,24 @@ const Game = ({background,...props}) => {
     )
 }
 
+
 const mapStateToProps = state => {
     return {
         fish: state.fish_reducer,
         snail: state.snail_reducer,
         crumb: state.crumb_reducer,
+        coin: state.coin_reducer,
     }
 }
 
+/*
+Connect gathers the data from our redux store
+*/
 export default connect(mapStateToProps,
                 {
                     createFish,
                     createSnail,
                     createCrumb,
+                    createCoin,
                 })
                 (Game)

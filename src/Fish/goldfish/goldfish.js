@@ -25,6 +25,14 @@ export  const GoldFish = ({goldfish,crumb}) => {
 
         let i = (iter.current += 0.00001 * delta)
 
+
+        // hunger timer
+        goldfish.setHunger(goldfish.hungerTimer +1);
+
+        // coin drop timer
+        goldfish.setCoinDrop(goldfish.coinDropTimer +1);
+
+
         // every 20 iterations (?) change the direction 
         if(i%0.00001==0){
             //console.log("Hi")
