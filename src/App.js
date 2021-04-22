@@ -10,7 +10,7 @@ function App() {
 
   const SCREEN_SIZE = {
     x:document.documentElement.clientWidth,
-    y:document.documentElement.clientHeight,
+    y:(window.innerHeight-100),
    };
   const setupBubbles = () => {
     const p = []

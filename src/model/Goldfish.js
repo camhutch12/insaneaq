@@ -4,12 +4,14 @@ class GoldFish{
     direction = []
     x = -1;
     y = -1;
-    position = []
     difference = []
     crumb= null;
     crumbList = [];
     hasCrumbsToChase
 
+
+    hungerTimer = 0;
+    coinDropTimer = 0;
 
     constructor(x,y){
         this.count++;
@@ -27,10 +29,6 @@ class GoldFish{
         // initialize position
         this.x = x;
         this.y = y;
-    }
-   
-    getPosition(){
-        return this.position;
     }
 
     setPosition(x,y){
@@ -82,6 +80,15 @@ class GoldFish{
             }
     }
  
+    setHunger(value){
+        this.hungerTimer = value;
+    }
+
+    setCoinDrop(value){
+        this.coinDropTimer = value;
+    }
+
+    
 }
 
 export {GoldFish}

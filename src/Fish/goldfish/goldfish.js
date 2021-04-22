@@ -15,7 +15,7 @@ with a passed in x and y coordinate,
 scale tranforms the size
 */
 
-export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb}) => { 
+export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb,createCoin}) => { 
     goldfishList.forEach((element) => {
         element.crumb = null
         element.crumbList = []
@@ -29,12 +29,26 @@ export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb}) => {
     useTick(delta => {
 
         let i = (iter.current += 0.00001 * delta)
-        
-    
+
+        // hunger timer
+        goldfish.setHunger(goldfish.hungerTimer +1);
+
+        // coin drop timer
+        goldfish.setCoinDrop(goldfish.coinDropTimer +1);
+
+         // Check if coin needs to drop
+        if(goldfish.coinDropTimer > 500){
+            // reset timer
+            goldfish.setCoinDrop(0)
+            // add coin to array of coins (redux)
+            createCoin({x:goldfish.x ,y:goldfish.y})
+        }
+
         // every 20 iterations (?) change the direction 
-        if(i%20==0){
-
-
+        if(i%0.00001==0){
+            //console.log("Hi")
+            //iter.current=0;
+            //goldfish.difference[1] = goldfish.difference[1] * -1;
         }
         
         // if outside the right bounds, change direction left
@@ -56,11 +70,12 @@ export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb}) => {
         }
 
         // if outside the bottom bounds, change direction up
-        if(goldfish.y > window.innerHeight){
+        if(goldfish.y > (window.innerHeight-100)){
             goldfish.difference[1] = goldfish.difference[1] * -1;
             iter.current=0;
         }
-        
+
+        // check if crumbs exist
         if(crumb.length > 0){
             goldfish.setCrumbList(crumb)
             goldfish.getClosestCrumb()
@@ -111,36 +126,3 @@ export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb}) => {
 }
 
 export default GoldFish
-
-
-/*
-// every 20 iterations (?) change the direction 
-        if(i%20==0){
-
-
-        }
-        
-        // if outside the right bounds, change direction left
-        if(i>window.innerWidth){
-            i=-window.innerWidth;
-
-        }
-
-        // if outside the bounds left, change direction right
-        if(i<window.innerWidth){
-             i=i+x;
-
-        }
-
-        // if outside the top bounds, change direction down
-        if(j<window.innerHeight){
-             j=j+y;
-
-        }
-
-        // if outside the bottom bounds, change direction up
-        if( j>window.innerHeight){
-            j=-window.innerHeight;
-
-        }
-*/

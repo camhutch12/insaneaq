@@ -32,8 +32,8 @@ const Navbar = (props) => {
 
     {
         img: '../assets/fish/bigfish/bigfish.svg',
-        value:1,
-        labelVal:100,
+        value:100,
+        labelVal:1,
     
 
     },
