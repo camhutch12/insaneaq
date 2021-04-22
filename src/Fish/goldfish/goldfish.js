@@ -13,8 +13,7 @@ This component is a pixi.js sprite of an svg image of a fish from icons8,
 with a passed in x and y coordinate,
 scale tranforms the size
 */
-
-export  const GoldFish = ({x,y,direction}) => { 
+export  const GoldFish = ({goldfish}) => { 
     const [pos, setPos] = useState({})
     const [defaultPos,setDefaultPos] = useState({x:Math.floor((Math.random() * document.documentElement.clientWidth)+1),
                                         y:Math.floor((Math.random() * document.documentElement.clientHeight)+1)})
@@ -25,17 +24,18 @@ export  const GoldFish = ({x,y,direction}) => {
    
     useTick(delta => {
 
-        let i = (iter.current += 0.5 * delta)
-        let j = (iter.current += 0.5 * delta)
-        let d = direction[0] += 1;
+        let i = (iter.current += 0.0005 * delta)
+       
+        goldfish.setPosition(goldfish.position[0]+(goldfish.difference[0]*i), 
+        goldfish.position[1]+(goldfish.difference[1]*i))
+        
         // update current frame
         update({
             type: 'update',
             data: {
-            x: x + i,
-            y: y + j,
-            scale:{x:0.3,y:0.3},
-            d
+            x: goldfish.x + goldfish.position[0],
+            y: goldfish.y + goldfish.position[1],
+            scale:{x:0.3,y:0.3}
             },
 
         })
