@@ -1,6 +1,7 @@
 import {Sprite} from '@inlet/react-pixi'
 import React, { useEffect, useState, useReducer, useRef  } from 'react'
 import { useTick } from '@inlet/react-pixi'
+import { propTypes } from 'react-bootstrap/esm/Image'
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -18,25 +19,15 @@ export  const GoldFish = ({x,y}) => {
     const [defaultPos,setDefaultPos] = useState({x:Math.floor((Math.random() * document.documentElement.clientWidth)+1),
                                         y:Math.floor((Math.random() * document.documentElement.clientHeight)+1)})
     
-    // useEffect(() => {
-    //     return () => {
-
-    //     }
-    // },[]);
-    //     if (props.pos.x === undefined || props.pos.y===undefined){
-    //         setPos({x:0,y:0});
-    //     }
-    //     else{
-    //         return setPos(props.pos)
-    //     }
     const reducer = (_, { data }) => data
     const [motion, update] = useReducer(reducer)
     const iter = useRef(0)
    
-
     useTick(delta => {
+
         let i = (iter.current += 0.5 * delta)
         let j = (iter.current += 0.5 * delta)
+
 
         // update current frame
         update({
@@ -49,7 +40,7 @@ export  const GoldFish = ({x,y}) => {
         })
 
         
-        })
+    })
    
 
     return <Sprite 
