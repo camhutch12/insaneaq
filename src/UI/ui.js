@@ -20,7 +20,7 @@ const UI = ({onClick}) => {
             
             <div class={styles.instruct}>
                 <div class={styles.instructions}>
-                    <img src="../../assets/Fish/fish.svg" width="100px"></img>
+                    <img src="../../assets/fish/fish.svg" width="100px"></img>
                     <div class={styles.lab}>
                         <label class={styles.lab}>Feed Me</label>
                     </div>
