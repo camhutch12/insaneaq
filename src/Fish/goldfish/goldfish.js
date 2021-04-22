@@ -24,7 +24,7 @@ export  const GoldFish = ({goldfish}) => {
    
     useTick(delta => {
 
-        let i = (iter.current += 0.000025 * delta)
+        let i = (iter.current += 0.00001 * delta)
         
         
 
@@ -60,6 +60,13 @@ export  const GoldFish = ({goldfish}) => {
 
         goldfish.setPosition(goldfish.position[0]+(goldfish.difference[0]*i), 
         goldfish.position[1]+(goldfish.difference[1]*i))
+
+        let scaleX = 0.3;
+        let scaleY = 0.3;
+        if(goldfish.difference[0]>0){
+            scaleX = scaleX*-1; // change direction of fish
+        }
+    
         
         // update current frame
         update({
@@ -67,9 +74,9 @@ export  const GoldFish = ({goldfish}) => {
             data: {
             x: goldfish.position[0],
             y: goldfish.position[1],
-            scale:{x:0.3,y:0.3}
-            },
-
+            scale:{x:scaleX,y:scaleY},
+            anchor:0.5,
+            }
         })
     })
 
