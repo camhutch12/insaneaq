@@ -10,7 +10,6 @@ import Kelp2 from './kelp/kelp2';
 
 
 const Background = ({background}) => {
-console.log('i am a child')
   const createBubbles = () => {
     let bubbles = []
     const b = background.bubble.map((ele,index) => <Bubble bubble={ele}/>)

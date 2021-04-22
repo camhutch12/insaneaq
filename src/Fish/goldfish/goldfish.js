@@ -2,6 +2,7 @@ import {Sprite} from '@inlet/react-pixi'
 import React, { useEffect, useState, useReducer, useRef  } from 'react'
 import { useTick } from '@inlet/react-pixi'
 import { applyProps } from 'react-pixi-fiber'
+
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -14,7 +15,7 @@ with a passed in x and y coordinate,
 scale tranforms the size
 */
 
-export  const GoldFish = ({goldfish,crumb}) => { 
+export  const GoldFish = ({goldfish, crumb, createCoin}) => { 
     const [pos, setPos] = useState({})
 
     const reducer = (_, { data }) => data
@@ -25,13 +26,19 @@ export  const GoldFish = ({goldfish,crumb}) => {
 
         let i = (iter.current += 0.00001 * delta)
 
-
         // hunger timer
         goldfish.setHunger(goldfish.hungerTimer +1);
 
         // coin drop timer
         goldfish.setCoinDrop(goldfish.coinDropTimer +1);
 
+         // Check if coin needs to drop
+        if(goldfish.coinDropTimer > 500){
+            // reset timer
+            goldfish.setCoinDrop(0)
+            // add coin to array of coins (redux)
+            createCoin({x:goldfish.x ,y:goldfish.y})
+        }
 
         // every 20 iterations (?) change the direction 
         if(i%0.00001==0){

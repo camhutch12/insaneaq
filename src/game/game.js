@@ -41,18 +41,9 @@ const Game = ({background,...props}) => {
         props.createCrumb({x:event.clientX,y:event.clientY});
     }
 
-    const fish = props.fish.map((ele,index) => <GoldFish key={index} goldfish={ele} crumb={props.crumb}/>)
+    const fish = props.fish.map((ele,index) => <GoldFish key={index} goldfish={ele} crumb={props.crumb} createCoin={props.createCoin}/>)
     const snail = props.snail.map((ele,index) => <Snail key={index} {...ele}/>)
-    console.log(props.fish[0])
-    // Check if coin needs to drop
-    if(props.fish[0].coinDropTimer > 500){
-        console.log("HELLOOO: ("+props.fish[0].x+","+props.fish[0].y+")")
-        // reset timer
-        props.fish[0].setCoinDrop(0)
-        // add coin to array of coins (redux)
-        createCoin(props.fish[0].x,props.fish[0].y)
-        
-    }
+    
     // get coin components/sprites to render
     var coin
     if(props.coin != undefined){
