@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState  } from 'react'
 import { Stage, Sprite, Graphics, useApp, Container, render } from '@inlet/react-pixi';
 import Background from '../background/background'
 import Crumb from '../drops/crumb'
@@ -21,11 +21,6 @@ which holds all of the games components (background, fish, food, etc),
 and mouse click coordinates are passed in from the App.js and are passed to
 sub comnponents
 */
-
-
-
-
-
 const Game = ({background,SCREEN_SIZE,...props}) => {
 let goldfish1;
     console.log(props)
@@ -93,45 +88,45 @@ let goldfish1;
     
     return (
             <React.Fragment>   
-                <div class={styles.navbar}>
+                <div className={styles.navbar}>
                     <button 
-                     class={styles.button}
+                     className={styles.button}
                      onClick={() => props.createFish(new GL(Math.floor((Math.random() * SCREEN_SIZE.x)),Math.floor((Math.random() * SCREEN_SIZE.y))))}>
                         <img src="../assets/Fish/fish.svg" width="60"></img>
-                        <label class={styles.label}>${guppyCost}</label>
+                        <label className={styles.label}>${guppyCost}</label>
                     </button> 
                 
-                    <button class={styles.button}>
+                    <button className={styles.button}>
                         <img src="../assets/drops/crumb.svg" width="60"></img>
-                        <label class={styles.label}>${foodUpgradeCost}</label>
+                        <label className={styles.label}>${foodUpgradeCost}</label>
                     </button> 
 
-                    <button class={styles.button}>
-                        <label class={styles.labelNumber}>{foodQuantity}</label>
-                        <label class={styles.label}>${foodQuantCost}</label>
+                    <button className={styles.button}>
+                        <label className={styles.labelNumber}>{foodQuantity}</label>
+                        <label className={styles.label}>${foodQuantCost}</label>
                     </button> 
 
-                    <button class={styles.button}>
+                    <button className={styles.button}>
                         <img src="../assets/Fish/bigfish/bigfish.svg" width="60"></img>
-                        <label class={styles.label}>${bigFishCost}</label>
+                        <label className={styles.label}>${bigFishCost}</label>
                     </button> 
                     
-                    <button class={styles.button}>
+                    <button className={styles.button}>
                         <img src="../assets/gun/gunorange.svg" width="60"></img>
-                        <label class={styles.label}>${gunCost}</label>
+                        <label className={styles.label}>${gunCost}</label>
                     </button> 
 
-                    <button class={styles.button}>
+                    <button className={styles.button}>
                         <img src="../assets/upgrades/egg.svg" width="60"></img>
-                        <label class={styles.label}>${eggCost}</label>
+                        <label className={styles.label}>${eggCost}</label>
                     </button> 
 
-                    <div class={styles.navTwo}>
-                        <button class={styles.buttonTwo}>
+                    <div className={styles.navTwo}>
+                        <button className={styles.buttonTwo}>
                     
-                            <label class={styles.labelTwo}>Menu</label>
+                            <label className={styles.labelTwo}>Menu</label>
                         </button> 
-                        <label class={styles.labelThree}>${money}</label>
+                        <label className={styles.labelThree}>${money}</label>
                     </div>
                 </div>
             <Stage
