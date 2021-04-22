@@ -8,6 +8,7 @@ import GoldFish from '../Fish/goldfish/goldfish';
 import styles from '../style.module.css';
 import {GoldFish as GL} from '../model/Goldfish';
 import {connect} from 'react-redux'
+import {createSnail} from '../actions/snailActions'
 import {createFish} from '../actions/fishActions'
 /*
 Written By:
@@ -27,14 +28,7 @@ sub comnponents
 
 
 const Game = ({background,SCREEN_SIZE,...props}) => {
-let goldfish1;
-    console.log(props)
-    if(!localStorage.getItem('goldfish')){
-        const goldfish1 = new GL(Math.floor((Math.random() * SCREEN_SIZE.x)),Math.floor((Math.random() * SCREEN_SIZE.y)));
-        localStorage.setItem('goldfish',JSON.stringify(goldfish1))
-    }else{
-         goldfish1 = JSON.parse(localStorage.getItem('goldfish'))
-    }
+
 
 
     const [locationMouseClick, setlocationMouseClick] = useState({ x: null, y: null });
@@ -65,23 +59,9 @@ let goldfish1;
     // }, [locationMouseClick])
 
 
-    const positons = [
-
-        {
-            pos:
-            {
-                x: Math.floor((Math.random() * window.innerWidth) + 1)
-                , y: Math.floor((Math.random() * window.innerWidth) + 1)
-            },
-            food: {
-                x: locationMouseClick === undefined ? 0 : locationMouseClick.x,
-                y: locationMouseClick === undefined ? 0 : locationMouseClick.y
-            }
-        },
-
-    ]
 
     const fish = props.fish.map((ele,index) => <GoldFish key={index} {...ele}/>)
+    const snail = props.snail.map((ele,index) => <Snail key={index} {...ele}/>)
     const guppyCost = 100;
     const foodQuantity = 1;
     const foodQuantCost = 100;
@@ -143,9 +123,10 @@ let goldfish1;
                 
                 {hasClicked ? <Crumb crumb={locationMouseClick} hasCrumb={hasClicked} />: null}
                 {fish}
+                {snail}
                  {/* <GoldFish  {...fish} /> */}
-                <Snail x={Math.floor(Math.random() * document.documentElement.clientWidth)}
-                 y={document.documentElement.clientHeight / 1.3 + Math.floor(Math.random() * (document.documentElement.clientHeight / 6))} />
+                {/* <Snail x={Math.floor(Math.random() * document.documentElement.clientWidth)}
+                 y={document.documentElement.clientHeight / 1.3 + Math.floor(Math.random() * (document.documentElement.clientHeight / 6))} /> */}
             </Stage>
 
         </React.Fragment>
@@ -154,7 +135,10 @@ let goldfish1;
 }
 
 const mapStateToProps = state => {
-    return {fish: state.fish_reducer}
+    return {
+        fish: state.fish_reducer,
+        snail: state.snail_reducer
+    }
 }
 
-export default connect(mapStateToProps,{createFish})(Game)
+export default connect(mapStateToProps,{createFish,createSnail})(Game)
