@@ -34,8 +34,7 @@ const Snail  = ({snail,coin}) => {
             snail.difference[0] = snail.direction[0] - snail.x
             let distance = Math.sqrt(Math.pow(snail.difference[0],2) + Math.pow(snail.difference[1],2))
             let unit = [(snail.difference[0]/distance), (snail.difference[1]/distance )] 
-            snail.setPosition(snail.x+(unit[0]*1.1), 
-            snail.y+(unit[1]*1.1))
+            snail.setPosition(snail.x+(unit[0]*1.1))
             }
             else{
                 snail.resetDirection()

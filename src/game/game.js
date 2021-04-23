@@ -38,6 +38,13 @@ const Game = ({background,...props}) => {
     const getClick = (event) => {
         locationMouseClick.y = event.clientY;
         setHasClicked(true)
+
+        // This function is going to carry all of the logic for different click events
+
+
+
+
+
         setlocationMouseClick({x:event.clientX,y:event.clientY})
         props.createCrumb({x:event.clientX,y:event.clientY});
     }
