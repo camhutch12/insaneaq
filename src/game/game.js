@@ -28,7 +28,7 @@ and mouse click coordinates are passed in from the App.js and are passed to
 sub comnponents
 */
 const Game = ({background,...props}) => {
-
+    
     const [locationMouseClick, setlocationMouseClick] = useState({ x: null, y: null });
     const [hasClicked, setHasClicked] = useState(false);
 
@@ -41,18 +41,28 @@ const Game = ({background,...props}) => {
         setlocationMouseClick({x:event.clientX,y:event.clientY})
         props.createCrumb({x:event.clientX,y:event.clientY});
     }
+
+    const fish = props.fish.map((ele,index) => {
+    return (<GoldFish 
+        key={index}
+         goldfish={ele}
+          crumb={props.crumb}
+           deleteCrumb={props.deleteCrumb}
+            goldfishList={props.fish}
+            createCoin={props.createCoin}
+            />
+            
+            )
+})
+    const crumb = props.crumb.map((ele,index) => <Crumb key={index} crumb={ele}/>)
+    const snail = props.snail.map((ele,index) => <Snail key={index} {...ele}/>)
     
     // get coin components/sprites to render
     var coin
     if(props.coin != undefined){
         coin = props.coin.map((ele,index) => <Coin key={index} coin={ele} deleteCoin={props.deleteCoin}/>)
     }
-
-    const fish = props.fish.map((ele,index) => {
-    return (<GoldFish key={index} goldfish={ele} crumb={props.crumb} deleteCrumb={props.deleteCrumb} goldfishList={props.fish} createCoin={props.createCoin}/>)
-})
-    const snail = props.snail.map((ele,index) => <Snail key={index} {...ele}/>)
-    const crumb = props.crumb.map((ele,index) => <Crumb key={index} crumb={ele}/>)
+    
     return (
             <React.Fragment>   
                 <Navbar {...props} />
