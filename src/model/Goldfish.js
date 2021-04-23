@@ -52,9 +52,17 @@ class GoldFish {
         this.crumbList = [...c]
     }
 
-    getClosestCrumb() {
-        
-        let dist1 = -1
+    setHunger(value){
+        this.hungerTimer = value;
+    }
+
+    setCoinDrop(value){
+        this.coinDropTimer = value;
+    }
+
+    
+    getClosestCrumb(){
+        let dist1  = -1
         let dist2 = -1
 
         // go through all the crumbs

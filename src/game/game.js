@@ -28,7 +28,7 @@ and mouse click coordinates are passed in from the App.js and are passed to
 sub comnponents
 */
 const Game = ({background,...props}) => {
-    
+
     const [locationMouseClick, setlocationMouseClick] = useState({ x: null, y: null });
     const [hasClicked, setHasClicked] = useState(false);
 
@@ -55,14 +55,13 @@ const Game = ({background,...props}) => {
             )
 })
     const crumb = props.crumb.map((ele,index) => <Crumb key={index} crumb={ele}/>)
-    const snail = props.snail.map((ele,index) => <Snail key={index} {...ele}/>)
+    const snail = props.snail.map((ele,index) => <Snail key={index} snail={ele} coin={props.coin}/>)
     
     // get coin components/sprites to render
     var coin
     if(props.coin != undefined){
         coin = props.coin.map((ele,index) => <Coin key={index} coin={ele} deleteCoin={props.deleteCoin}/>)
     }
-    
     return (
             <React.Fragment>   
                 <Navbar {...props} />
@@ -105,8 +104,8 @@ export default connect(mapStateToProps,
                     createFish,
                     createSnail,
                     createCrumb,
-                    createCoin,
                     deleteCrumb,
+                    createCoin , 
                     deleteCoin
                 })
                 (Game)
