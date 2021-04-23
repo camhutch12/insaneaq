@@ -4,9 +4,9 @@
     x = -1;
     y = -1;
     difference = []
-    crumb = null;
-    crumbList = [];
-    hasCrumbsToChase
+    coin = null;
+    coinList = [];
+    hascoinsToChase
     isRandom = true;
     isJustCreated = true;
     isRandomCurrently = false;
@@ -43,12 +43,12 @@
     }
 
 
-    setPosition(x, y) {
+    setPosition(x) {
         this.x = x;
-        this.y = y;
+      
     }
     setcoinList(c) {
-        this.crumbList = [...c]
+        this.coinList = [...c]
     }
 
     setHunger(value){
@@ -64,15 +64,15 @@
         let dist1  = -1
         let dist2 = -1
 
-        for (let c of this.crumbList) {
-            if (this.crumb == null) {
-                this.crumb = c
+        for (let c of this.coinList) {
+            if (this.coin == null) {
+                this.coin = c
             }
             else {
-                dist1 = Math.sqrt(Math.pow(this.crumb.x - this.x, 2) + Math.pow(this.crumb.y - this.y, 2))
+                dist1 = Math.sqrt(Math.pow(this.coin.x - this.x, 2) + Math.pow(this.coin.y - this.y, 2))
                 dist2 = Math.sqrt(Math.pow(c.x - this.x, 2) + Math.pow(c.y - this.y, 2))
                 if (dist1 > dist2) {
-                    this.crumb = c
+                    this.coin = c
                 }
 
             }
@@ -93,17 +93,17 @@
     }
 
 
-    setHascoinsToChase(totalCrumbList) {
-        if (totalCrumbList.length > 0) {
+    setHascoinsToChase(totalcoinList) {
+        if (totalcoinList.length > 0) {
             this.isRandom = false;
-            this.hasCrumbsToChase = true
+            this.hascoinsToChase = true
             this.isJustCreated = false;
             this.isRandomCurrently = false;
             return true;
         }
         else {
             this.isRandom = true;
-            this.hasCrumbsToChase = false;
+            this.hascoinsToChase = false;
             return false;
         }
     }
