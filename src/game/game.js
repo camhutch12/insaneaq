@@ -11,8 +11,9 @@ import {GoldFish as GL} from '../model/Goldfish';
 import {connect} from 'react-redux'
 import {createSnail} from '../actions/snailActions'
 import {createFish} from '../actions/fishActions'
+import {createCoin, deleteCoin} from '../actions/coinActions'
 import {createCrumb,deleteCrumb} from '../actions/crumbActions'
-import {createCoin} from '../actions/coinActions'
+
 import Navbar from '../navbar/navbar';
 /*
 Written By:
@@ -27,7 +28,6 @@ and mouse click coordinates are passed in from the App.js and are passed to
 sub comnponents
 */
 const Game = ({background,...props}) => {
-    console.log(useApp())
     const [locationMouseClick, setlocationMouseClick] = useState({ x: null, y: null });
     const [hasClicked, setHasClicked] = useState(false);
 
@@ -59,7 +59,7 @@ const Game = ({background,...props}) => {
     // get coin components/sprites to render
     var coin
     if(props.coin != undefined){
-        coin = props.coin.map((ele,index) => <Coin key={index} coin={ele}/>)
+        coin = props.coin.map((ele,index) => <Coin key={index} coin={ele} deleteCoin={props.deleteCoin}/>)
     }
 
     return (
@@ -76,11 +76,9 @@ const Game = ({background,...props}) => {
                 {/* {hasClicked ? <Crumb crumb={locationMouseClick} hasCrumb={hasClicked} />: null} */}
                 {fish}
                 {snail}
-                {crumb}
                 {coin}
-                 {/* <GoldFish  {...fish} /> */}
-                {/* <Snail x={Math.floor(Math.random() * document.documentElement.clientWidth)}
-                 y={document.documentElement.clientHeight / 1.3 + Math.floor(Math.random() * (document.documentElement.clientHeight / 6))} /> */}
+                {crumb}
+                
             </Stage>
 
         </React.Fragment>
@@ -107,6 +105,7 @@ export default connect(mapStateToProps,
                     createSnail,
                     createCrumb,
                     deleteCrumb,
-                    createCoin,
+                    createCoin , 
+                    deleteCoin
                 })
                 (Game)

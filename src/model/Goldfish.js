@@ -16,6 +16,7 @@ class GoldFish {
 
     hungerTimer = 0;
     coinDropTimer = 0;
+    dropRate = 500;
 
     constructor(x, y) {
         this.sprite = PIXI.Sprite.from('.../assets/fish/fish.svg')
@@ -24,6 +25,10 @@ class GoldFish {
         this.y = y;
         this.sprite.position.x = this.x;
         this.sprite.position.y = this.y;
+        
+        // make the drop rate unique
+        this.dropRate = 500+Math.random()*500;
+        
         // generate random direction
 
         // generate random point
@@ -47,8 +52,17 @@ class GoldFish {
         this.crumbList = [...c]
     }
 
-    getClosestCrumb() {
-        let dist1 = -1
+    setHunger(value){
+        this.hungerTimer = value;
+    }
+
+    setCoinDrop(value){
+        this.coinDropTimer = value;
+    }
+
+    
+    getClosestCrumb(){
+        let dist1  = -1
         let dist2 = -1
 
         for (let c of this.crumbList) {

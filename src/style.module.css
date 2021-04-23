@@ -16,6 +16,12 @@
     
    }
 
+   button:focus {
+    
+    outline:0;
+
+    }
+
    .buttonTwo{
 
     background-color: #c0c400;

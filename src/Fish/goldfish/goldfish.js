@@ -33,6 +33,7 @@ export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb,createCoin},p
    
     useTick(delta => {
 
+        // increase the counter
         let i = (iter.current += 0.00001 * delta)
         
         if(goldfish.setHasCrumbsToChase(crumb)){
@@ -55,7 +56,7 @@ export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb,createCoin},p
         goldfish.setCoinDrop(goldfish.coinDropTimer +1);
 
          // Check if coin needs to drop
-        if(goldfish.coinDropTimer > 500){
+        if(goldfish.coinDropTimer > goldfish.dropRate){
             // reset timer
             goldfish.setCoinDrop(0)
             // add coin to array of coins (redux)
@@ -96,15 +97,18 @@ export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb,createCoin},p
         // check if crumbs exist
         
             
-            goldfish.setPosition(goldfish.x+(goldfish.difference[0]*i), 
-            goldfish.y+(goldfish.difference[1]*i))
+        // update position
+        goldfish.setPosition(goldfish.x+(goldfish.difference[0]*i), 
+        goldfish.y+(goldfish.difference[1]*i))
         
         let scaleX = 0.3;
         let scaleY = 0.3;
+        // check if fish is moving right
         if(goldfish.difference[0]>0){
             scaleX = scaleX*-1; // change direction of fish
         }
 
+        // delete crumb
         for(let j =0; j < crumb.length; j++){
             if(Math.floor(goldfish.x)  === crumb[j].x && Math.floor(goldfish.y) == crumb[j].y || 
             Math.ceil(goldfish.x)  === crumb[j].x && Math.ceil(goldfish.y) == crumb[j].y){
@@ -113,9 +117,8 @@ export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb,createCoin},p
                 goldfish.crumb = null;
             }
         }
-        
-        
 
+        
         
         // update current frame
         update({

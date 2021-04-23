@@ -10,9 +10,9 @@ Cameron Hutchings (6427892)
 
 /*
 This component is a pixi.js sprite of an svg image of a coin from icons8,
-with a passed in x and y coordinate from the mouse listener
+with a passed in x and y coordinate from the fish
 */
-const Coin = ({coin}) => {
+const Coin = ({coin, deleteCoin}) => {
     
     const reducer = (_, { data }) => data
     const [motion, update] = useReducer(reducer)
@@ -20,13 +20,29 @@ const Coin = ({coin}) => {
    
     useTick(delta => {
 
+        // increase the counter
         let i = (iter.current += 0.005 * delta)
 
+        // give the coin a lifespan once it hits the bottom
+        if(coin.y>window.innerHeight-170){
+            coin.setThreshold(coin.threshold+1)
+        }
+        
         // make the coin fall
         if(coin.y<window.innerHeight-160){
             coin.setPos(coin.x,coin.y+i);
         }
         
+        // make the coin spawn above the floorline
+        if(coin.y>window.innerHeight-160){
+            coin.setPos(coin.x,window.innerHeight-160);
+        }
+        
+        // delete coin
+        if(coin.threshold>150){
+            iter.current=0;
+            deleteCoin(coin);
+        }
 
         // update current frame
         update({
@@ -43,6 +59,7 @@ const Coin = ({coin}) => {
     return <Sprite 
     image = '../../assets/drops/silver.svg'
     {...motion}
+    
     />
     
 }

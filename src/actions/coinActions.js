@@ -6,3 +6,12 @@ export const createCoin = coin => {
         }
     }
 }
+
+export const deleteCoin = coin =>  {
+    return {
+        type:'DELETE_COIN',
+        payload: {
+            coin:coin
+        }
+    }   
+}
