@@ -3,37 +3,57 @@ import styles from '../style.module.css';
 import {GoldFish} from '../model/Goldfish';
 const Navbar = (props) => {
 
-    const guppyCost = 100;
-    const foodUpgradeCost = 200;
-    const foodQuantity = 1;
-    const foodQuantCost = 100;
-    const bigFishCost = 1000;
-    const gunCost = 1000;
-    const eggCost = 750;
+  
     const money = 0;
+    const increaseFoodLimit = () => {
+        if(props.player[0].coins >= 200){
+            props.player[0].food += 1;
+            props.player[0].coins -= 200;
+        }
+    }
 
+    const createFish=() =>{
+        if(props.player[0].coins >= 100){
+        props.createFish(new GoldFish(Math.floor((Math.random() * props.SCREEN_SIZE.x)),Math.floor((Math.random() * props.SCREEN_SIZE.y))))
+        props.player[0].coins -= 100;
+        }
+    }
+
+    const upgradeFood = () =>{
+        console.log('upgrade food')
+    }
 
    const navList = [{
         img:'../assets/fish/fish.svg',
         value:100,
         hasImgTag: true,
-        createFish(){
-            props.createFish(new GoldFish(Math.floor((Math.random() * props.SCREEN_SIZE.x)),Math.floor((Math.random() * props.SCREEN_SIZE.y))))
+        onClick(){
+            createFish()
         }
+            
 
     },
 
     {
         img:'../assets/drops/crumb.svg',
         value:200,
-        hasImgTag: true
+        hasImgTag: true,
+        onClick(){
+            upgradeFood()
+        }
+        
+        
+        
 
     },
 
     {
         img: '../assets/fish/bigfish/bigfish.svg',
         value:100,
-        labelVal:1,
+        labelVal:`${props.player[0].food + 1}`,
+        onClick(){
+            increaseFoodLimit()
+        },
     
 
     },
@@ -62,6 +82,9 @@ const Navbar = (props) => {
 
     ]
 
+
+    
+
     const navigation = navList.map((ele,index) => <NavItem key={index} {...ele}/>)
     return (
         <div class={styles.navbar}>
@@ -71,7 +94,7 @@ const Navbar = (props) => {
 
                     <label class={styles.labelTwo}>Menu</label>
                 </button>
-                <label class={styles.labelThree}>${money}</label>
+                <label class={styles.labelThree}>$ {`${props.player[0].coins}`}</label>
             </div>
         </div>
     )

@@ -1,27 +1,29 @@
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 /*
 This class acts as a model for the coin data
 */
-export class Coin{
-    
-    id;
-    x;
-    y;
-    threshold;
-    
-    constructor(x,y){
-        this.id = uuidv4();;
-        this.x = x;
-        this.y = y;
-        this.threshold=0;
-    }
+export class Coin {
+  id;
+  x;
+  y;
+  threshold;
+  type = 0;
 
-    setPos(x,y){
-        this.x = x;
-        this.y = y;
-    }
+  constructor(x, y, type) {
+    this.id = uuidv4();
+    this.x = x;
+    this.y = y;
+    this.threshold = 0;
+    this.type = type;
+  }
 
-    setThreshold(value){
-        this.threshold=value;
-    }
+  setPos(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  setThreshold(value) {
+    this.threshold = value;
+  }
+
 }
