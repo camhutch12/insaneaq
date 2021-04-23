@@ -1,8 +1,8 @@
-import * as PIXI from 'pixi.js'
+
 
 class GoldFish {
     static count = 0;
-    sprite;
+
     direction = []
     x = -1;
     y = -1;
@@ -13,22 +13,23 @@ class GoldFish {
     isRandom = true;
     isJustCreated = true;
     isRandomCurrently = false;
+    totalEatenFood = 0;
+    size = 0.2;
 
     hungerTimer = 0;
     coinDropTimer = 0;
     dropRate = 500;
 
     constructor(x, y) {
-        this.sprite = PIXI.Sprite.from('.../assets/fish/fish.svg')
+
         this.count++;
         this.x = x;
         this.y = y;
-        
+        this.totalEatenFood =0;
         // make the drop rate unique
         this.dropRate = 500+Math.random()*500;
-        
-        this.sprite.position.x = this.x;
-        this.sprite.position.y = this.y;
+        this.size = 0.2;
+
 
         // generate random direction
         // generate random point
@@ -60,6 +61,17 @@ class GoldFish {
         this.coinDropTimer = value;
     }
 
+    increaseSize(){
+        if(this.totalEatenFood >=6 ){
+            this.size = 0.6
+        }
+        else if(this.totalEatenFood >= 3){
+            this.size = 0.4
+        }
+        else{
+            this.size = 0.2
+        }
+    }
     
     getClosestCrumb(){
         let dist1  = -1

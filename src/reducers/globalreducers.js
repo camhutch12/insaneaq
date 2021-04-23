@@ -4,6 +4,7 @@ import {util_reducer} from './utilityreducer'
 import {crumb_reducer} from './crumbreducer'
 import {coin_reducer} from './coinreducer'
 import { combineReducers } from 'redux'
+import {player_reducer} from './playerreducer'
 
 export default combineReducers({
     snail_reducer,
@@ -11,4 +12,5 @@ export default combineReducers({
     util_reducer,
     crumb_reducer,
     coin_reducer,
+    player_reducer,
 })

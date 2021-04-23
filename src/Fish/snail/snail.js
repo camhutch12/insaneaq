@@ -12,7 +12,7 @@ This component is a pixi.js sprite of an svg image of a snail from icons8,
 with a passed in x and y coordinate,
 scale tranforms the size
 */
-const Snail  = ({snail,coin}) => {
+const Snail  = ({snail,coin,...props}) => {
     
 
     const [pos, setPos] = useState({})
@@ -88,15 +88,15 @@ const Snail  = ({snail,coin}) => {
         let scaleY = 0.3;
         // check if fish is moving right
         if(snail.difference[0]<0){
-            scaleX = scaleX*-1; // change direction of fish
+            scaleX = scaleX*-1; // change direction of snail
         }
 
         // delete coin
         for(let j =0; j < coin.length; j++){
-            if(Math.floor(snail.x)  === coin[j].x || 
-            Math.ceil(snail.x)  === coin[j].x){
+            if(snail.x  <= coin[j].x+30 && snail.x  >= coin[j].x-30 ){
                 console.log(coin[j])
-                // deletecoin(coin[j]);
+                props.player[0].coins += 50
+                props.deleteCoin(coin[j]);
                 snail.coin = null;
             }
         }
@@ -111,7 +111,7 @@ const Snail  = ({snail,coin}) => {
             y: snail.y,
             scale:{x:scaleX,y:scaleY},
             anchor:0.5,
-            sp:this,
+    
             
             }
         })

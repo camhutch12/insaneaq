@@ -44,6 +44,15 @@ const Coin = ({coin, deleteCoin}) => {
             deleteCoin(coin);
         }
 
+        let image
+        if(coin.type == 0){
+            // make silver
+            image = '../../assets/drops/silver.svg'
+        }else{
+            // make gold
+            image = '../../assets/drops/gold.svg'
+        }
+
         // update current frame
         update({
             type: 'update',
@@ -51,16 +60,14 @@ const Coin = ({coin, deleteCoin}) => {
             x: coin.x,
             y: coin.y,
             scale:{x:0.25,y:0.25},
+            anchor:0.5,
+            image: image,
             }
         })
     })
 
 
-    return <Sprite 
-    image = '../../assets/drops/silver.svg'
-    {...motion}
-    
-    />
+    return <Sprite image = '../../assets/drops/silver.svg' {...motion}/>
     
 }
 

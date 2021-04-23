@@ -67,15 +67,34 @@ export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb,createCoin},p
         // hunger timer
         goldfish.setHunger(goldfish.hungerTimer +1);
 
-        // coin drop timer
+        // coin drop timer increases
         goldfish.setCoinDrop(goldfish.coinDropTimer +1);
 
          // Check if coin needs to drop
         if(goldfish.coinDropTimer > goldfish.dropRate){
             // reset timer
             goldfish.setCoinDrop(0)
+            
+            // make coin either silver or gold based on fish size
+            let type = 0;
+            // small
+            if(goldfish.size == 0.2){
+                type = 0; // silver
+            // medium
+            }else if (goldfish.size == 0.4){
+                const rand = Math.random()*100;
+                if(rand>50){
+                    type=1; // gold
+                }else{
+                    type=0; // silver
+                }
+            // large
+            }else if(goldfish.size == 0.6){
+                type = 1; // gold
+            }
+
             // add coin to array of coins (redux)
-            createCoin({x:goldfish.x ,y:goldfish.y})
+            createCoin({x:goldfish.x,y:goldfish.y,type:type})
         }
 
         // every 20 iterations (?) change the direction 
@@ -117,23 +136,26 @@ export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb,createCoin},p
         } 
        
 
-        
-        let scaleX = 0.3;
-        let scaleY = 0.3;
+ // delete crumb
+ for(let j =0; j < crumb.length; j++){
+    if(goldfish.x  <= crumb[j].x+30 && goldfish.x  >= crumb[j].x-30 
+        && goldfish.y <= (crumb[j].y-100)+30 && goldfish.y >= (crumb[j].y-100)-30){
+        deleteCrumb(crumb[j]);
+        goldfish.totalEatenFood++;
+        goldfish.crumb = null;
+    }
+}
+
+
+        goldfish.increaseSize();
+        let scaleX = goldfish.size;
+        let scaleY = goldfish.size;
         // check if fish is moving right
         if(goldfish.difference[0]>0){
             scaleX = scaleX*-1; // change direction of fish
         }
 
-        // delete crumb
-        for(let j =0; j < crumb.length; j++){
-            if(goldfish.x  <= crumb[j].x+30 && goldfish.x  >= crumb[j].x-30 
-                && goldfish.y <= (crumb[j].y-100)+30 && goldfish.y >= (crumb[j].y-100)-30){
-                console.log(crumb[j])
-                deleteCrumb(crumb[j]);
-                goldfish.crumb = null;
-            }
-        }
+       
         
         // update current frame
         update({
@@ -143,7 +165,6 @@ export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb,createCoin},p
             y: goldfish.y,
             scale:{x:scaleX,y:scaleY},
             anchor:0.5,
-            sp:this,
             
             }
         })
