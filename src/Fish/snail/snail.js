@@ -88,7 +88,7 @@ const Snail  = ({snail,coin}) => {
         let scaleX = 0.3;
         let scaleY = 0.3;
         // check if fish is moving right
-        if(snail.difference[0]>0){
+        if(snail.difference[0]<0){
             scaleX = scaleX*-1; // change direction of fish
         }
 
