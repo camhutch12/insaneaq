@@ -15,11 +15,11 @@ class GoldFish {
   isRandomCurrently = false;
   totalEatenFood = 0;
   size = 0.2;
-
+  unitV = [];
   hungerTimer = 0;
   coinDropTimer = 0;
   dropRate = 500;
-
+  speed
   hunger = 1;
 
   constructor(x, y) {
@@ -31,19 +31,26 @@ class GoldFish {
     // make the drop rate unique
     this.dropRate = 500 + Math.random() * 500;
     this.size = 0.2;
-
+    this.speed = 2
     // generate random direction
     // generate random point
     this.isJustCreated = true;
     this.isRandom = true;
-    this.direction[0] = Math.random() * window.innerWidth;
-    this.direction[1] = Math.random() * window.innerHeight;
+    this.direction[0] = Math.random() * window.innerWidth-30;
+    this.direction[1] = Math.random() * window.innerHeight-150;
     // calculate the difference to random point (unit vector)
     this.difference[0] = this.direction[0] - x;
     this.difference[1] = this.direction[1] - y;
+    let distance = Math.sqrt(
+        Math.pow(this.difference[0], 2) +
+          Math.pow(this.difference[1], 2)
+      );
+       this.unitV = [
+        this.difference[0] / distance,
+        this.difference[1] / distance,
+      ];
+    
     // initialize position
-    this.x = x;
-    this.y = y;
   }
 
   setPosition(x, y) {
@@ -113,6 +120,14 @@ class GoldFish {
       // calculate the difference to random point (unit vector)
       this.difference[0] = this.direction[0] - this.x;
       this.difference[1] = this.direction[1] - this.y;
+      let distance = Math.sqrt(
+        Math.pow(this.difference[0], 2) +
+          Math.pow(this.difference[1], 2)
+      );
+       this.unitV = [
+        this.difference[0] / distance,
+        this.difference[1] / distance,
+      ];
     }
   }
 

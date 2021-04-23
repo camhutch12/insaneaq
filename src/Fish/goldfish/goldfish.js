@@ -28,13 +28,13 @@ export const GoldFish = (
   const reducer = (_, { data }) => data;
   const [motion, update] = useReducer(reducer);
   const iter = useRef(0);
-
+ 
   useTick((delta) => {
     // increase the counter
     let i = (iter.current += 0.00001 * delta);
-
+    let scaleX = goldfish.size;
+    let scaleY = goldfish.size;
     // check if crumbs exist
-    let unit;
     if (goldfish.setHasCrumbsToChase(crumb)) {
       goldfish.setCrumbList(crumb);
       goldfish.getClosestCrumb();
@@ -47,22 +47,18 @@ export const GoldFish = (
         Math.pow(goldfish.difference[0], 2) +
           Math.pow(goldfish.difference[1], 2)
       );
-      let unit = [
+       goldfish.unitV = [
         goldfish.difference[0] / distance,
         goldfish.difference[1] / distance,
       ];
       goldfish.setPosition(
-        goldfish.x + unit[0] * 1.1,
-        goldfish.y + unit[1] * 1.1
+        goldfish.x + goldfish.unitV[0] * goldfish.speed,
+        goldfish.y + goldfish.unitV[1] * goldfish.speed
       );
-    } else {
-      goldfish.resetDirection();
-    }
 
-    /* ternary for unit vector, simulates giggles
-        goldfish.difference[0] = (goldfish.direction[0] - goldfish.x) > 0 ? (goldfish.direction[0] - goldfish.x)+500 : (goldfish.direction[0] - goldfish.x)-500
-        goldfish.difference[1] = (goldfish.direction[1] - goldfish.y) > 0 ? (goldfish.direction[1] - goldfish.y)+500 : (goldfish.direction[1] - goldfish.y)-500
-     */
+      
+    } 
+   
 
     // coin drop timer increases
     goldfish.setCoinDrop(goldfish.coinDropTimer + 1);
@@ -92,42 +88,39 @@ export const GoldFish = (
       createCoin({ x: goldfish.x, y: goldfish.y, type: type });
     }
 
-    // every 20 iterations (?) change the direction
-    if (i % 0.00001 == 0) {
-      //console.log("Hi")
-      //iter.current=0;
-      //goldfish.difference[1] = goldfish.difference[1] * -1;
-    }
+    
 
     // if outside the right bounds, change direction left
-    if (goldfish.x > window.innerWidth-30) {
-      goldfish.difference[0] = goldfish.difference[0] * -1;
+    if (goldfish.x > window.innerWidth-50) {
+      goldfish.unitV[0] = goldfish.unitV[0] * -1;
+      
       iter.current = 0;
     }
 
     // if outside the bounds left, change direction right
-    if (goldfish.x < 0+30) {
-      goldfish.difference[0] = goldfish.difference[0] * -1;
+    if (goldfish.x < 30) {
+        goldfish.unitV[0] = goldfish.unitV[0] * -1;
+     
       iter.current = 0;
     }
 
     // if outside the top bounds, change direction down
-    if (goldfish.y < 0) {
-      goldfish.difference[1] = goldfish.difference[1] * -1;
+    if (goldfish.y < 30) {  
+      goldfish.unitV[1] = goldfish.unitV[1] * -1;
       iter.current = 0;
     }
 
     // if outside the bottom bounds, change direction up
-    if (goldfish.y > window.innerHeight - 100) {
-      goldfish.difference[1] = goldfish.difference[1] * -1;
+    if (goldfish.y > window.innerHeight - 130) {
+      goldfish.unitV[1] = goldfish.unitV[1] * -1;
       iter.current = 0;
     }
 
     // update position
     if (!goldfish.setHasCrumbsToChase(crumb)) {
       goldfish.setPosition(
-        goldfish.x + goldfish.difference[0] * i,
-        goldfish.y + goldfish.difference[1] * i
+        goldfish.x + goldfish.unitV[0] * goldfish.speed,
+        goldfish.y + goldfish.unitV[1] * goldfish.speed
       );
     }
 
@@ -171,14 +164,15 @@ export const GoldFish = (
     if (goldfish.hunger == 1 || goldfish.hunger == 0) {
       image = "assets/fish/fish.svg";
     }
+   
 
     goldfish.increaseSize();
-    let scaleX = goldfish.size;
-    let scaleY = goldfish.size;
+    
 
     // if fish is dead, flip it
     if (goldfish.hunger == 3) {
       scaleY = scaleY * -1; // flip fish is Y axis
+      image='assets/fish/fishsick.svg'
     }
 
     // if fish has been dead, delete it
@@ -187,7 +181,7 @@ export const GoldFish = (
     }
 
     // check if fish is moving right, change direction of fish
-    if (goldfish.difference[0] > 0) {
+    if (goldfish.unitV[0] > 0) {
       scaleX = scaleX * -1; // flip fish in x axis
     }
 

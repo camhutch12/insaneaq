@@ -1,5 +1,6 @@
+import { snail_reducer } from "../reducers/snailreducer";
+
  class Snail{
-    static count = 0;
     direction = []
     x = -1;
     y = -1;
@@ -10,36 +11,33 @@
     isRandom = true;
     isJustCreated = true;
     isRandomCurrently = false;
-
     hungerTimer = 0;
     coinDropTimer = 0;
     dropRate = 500;
     unitVector;
+    goLeft;
+    goRight;
+    speed
     constructor(x,y){
  
-        this.count++;
+        // initialize position
         this.x = x;
-        this.y = y;
-
-        
+        this.y = window.innerHeight-150;
+        this.speed = 0.5;
         // make the drop rate unique
-        this.dropRate = 500+Math.random()*500;
-        
+        // this.dropRate = 500+Math.random()*500;
         // generate random direction
-
+        this.goLeft = true;
+        this.goRight = false;
         // generate random point
         this.isJustCreated = true;
         this.isRandom = true;
-        this.direction[0] = Math.random() * window.innerWidth;
-        this.direction[1] = Math.random() * window.innerHeight;
+        this.direction[0] = Math.random() * window.innerWidth-30;
         // calculate the difference to random point (unit vector)
         this.difference[0] = this.direction[0] - x;
-        this.difference[1] = this.direction[1] - y;
-        let unitV = Math.sqrt(Math.pow(this.difference[0],2) + Math.pow(this.difference[1]))
-        this.unitVector = [this.difference[0]/unitV, this.difference[1]/unitV]
-        // initialize position
-        this.x = x;
-        this.y = y;
+        let dist = Math.sqrt(Math.pow(this.difference[0],2))
+        this.unitVector = [this.difference[0]/dist]
+        
     }
 
 
@@ -66,12 +64,18 @@
 
         for (let c of this.coinList) {
             if (this.coin == null) {
+                if(c.y > this.y-20){
                 this.coin = c
+                }
+                else{
+                    continue
+                }
+                
             }
             else {
-                dist1 = Math.sqrt(Math.pow(this.coin.x - this.x, 2) + Math.pow(this.coin.y - this.y, 2))
-                dist2 = Math.sqrt(Math.pow(c.x - this.x, 2) + Math.pow(c.y - this.y, 2))
-                if (dist1 > dist2) {
+                dist1 = Math.sqrt(Math.pow(this.coin.x - this.x, 2))
+                dist2 = Math.sqrt(Math.pow(c.x - this.x, 2))
+                if (dist1 > dist2 && (c.y > this.y-50)) {
                     this.coin = c
                 }
 
@@ -84,11 +88,6 @@
     resetDirection() {
         if (this.isRandom && !this.isJustCreated && !this.isRandomCurrently) {
             this.isRandomCurrently = true
-            this.direction[0] = Math.random() * window.innerWidth;
-            this.direction[1] = Math.random() * window.innerHeight;
-            // calculate the difference to random point (unit vector)
-            this.difference[0] = this.direction[0] - this.x;
-            this.difference[1] = this.direction[1] - this.y;
         }
     }
 

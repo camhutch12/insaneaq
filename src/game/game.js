@@ -120,7 +120,9 @@ Map all the fish component sprites from our redux store to a variable to render
   });
 
   const crumb = props.crumb.map((ele, index) => (
-    <Crumb key={index} crumb={ele} />
+    <Crumb key={index}
+     crumb={ele}
+     deleteCrumb={props.deleteCrumb} />
   ));
   const snail = props.snail.map((ele, index) => (
     <Snail
@@ -136,7 +138,9 @@ Map all the fish component sprites from our redux store to a variable to render
   var coin;
   if (props.coin != undefined) {
     coin = props.coin.map((ele, index) => (
-      <Coin key={index} coin={ele} deleteCoin={props.deleteCoin} />
+      <Coin key={index}
+       coin={ele}
+        deleteCoin={props.deleteCoin} />
     ));
   }
   return (

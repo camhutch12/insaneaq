@@ -11,18 +11,11 @@ import Kelp2 from './kelp/kelp2';
 
 const Background = ({background}) => {
   const createBubbles = () => {
-    let bubbles = []
+ 
     const b = background.bubble.map((ele,index) => <Bubble bubble={ele}/>)
     const c = background.kelp.map((ele,index) => <Kelp pos={ele}/>)
     const d = background.kelp2.map((ele,index) => <Kelp2 pos={ele}/>)
-    return [b,c,d]
-    console.log(b)
-    for (let i = 0; i < 10; i++) {
-      bubbles.push(<Bubble key={`bubble ${i}`} bubble={background.bubble[i]} />);
-      bubbles.push(<Kelp key={`kelp ${i}`} />);
-      bubbles.push(<Kelp2 key={`kelp2 ${i}`}/>);
-    }
-    return bubbles;
+    return [b,c,d]  
   }
 
   const bub = createBubbles();

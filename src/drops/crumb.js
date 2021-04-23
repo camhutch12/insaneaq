@@ -2,6 +2,7 @@
 import {Sprite} from '@inlet/react-pixi'
 import React, { useEffect, useState, useReducer, useRef  } from 'react'
 import { useTick } from '@inlet/react-pixi'
+import {deleteCrumb} from '../actions/crumbActions'
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -12,7 +13,7 @@ Cameron Hutchings (6427892)
 This component is a pixi.js sprite of an svg image of a crumb from icons8,
 with a passed in x and y coordinate from the mouse listener
 */
-const Crumb = ({crumb}) => {
+const Crumb = ({crumb,deleteCrumb}) => {
     const [locationMouseClick, setlocationMouseClick] = useState(crumb);
     const reducer = (_, { data }) => data
     const [motion, update] = useReducer(reducer)
@@ -24,24 +25,24 @@ const Crumb = ({crumb}) => {
         let i = (iter.current += 0.005 * delta)
 
         // give the crumb a lifespan once it hits the bottom
-        if(crumb.y>window.innerHeight-170){
+        if(crumb.y>window.innerHeight-100){
             crumb.setThreshold(crumb.threshold+1)
         }
         
         // make the crumb fall
-        if(crumb.y<window.innerHeight-160){
-            crumb.setPos(crumb.x,crumb.y+i);
+        if(crumb.y<window.innerHeight-30){
+            crumb.setPos(crumb.x,crumb.y+0.5);
         }
         
         // make the crumb spawn above the floorline
-        if(crumb.y>window.innerHeight-160){
-            crumb.setPos(crumb.x,window.innerHeight-160);
+        if(crumb.y>window.innerHeight-80){
+            crumb.setPos(crumb.x,window.innerHeight-80);
         }
         
         // delete crumb
         if(crumb.threshold>150){
             iter.current=0;
-            // deletecrumb(crumb);
+            deleteCrumb(crumb);
         }
 
         if(crumb.type == 0){
