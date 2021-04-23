@@ -29,8 +29,8 @@ class GoldFish {
         
         this.sprite.position.x = this.x;
         this.sprite.position.y = this.y;
-        // generate random direction
 
+        // generate random direction
         // generate random point
         this.isJustCreated = true;
         this.isRandom = true;
@@ -53,9 +53,11 @@ class GoldFish {
     }
 
     getClosestCrumb() {
+        
         let dist1 = -1
         let dist2 = -1
 
+        // go through all the crumbs
         for (let c of this.crumbList) {
             if (this.crumb == null) {
                 this.crumb = c
@@ -63,13 +65,13 @@ class GoldFish {
             else {
                 dist1 = Math.sqrt(Math.pow(this.crumb.x - this.x, 2) + Math.pow(this.crumb.y - this.y, 2))
                 dist2 = Math.sqrt(Math.pow(c.x - this.x, 2) + Math.pow(c.y - this.y, 2))
+                // check if this crumb is closer
                 if (dist1 > dist2) {
                     this.crumb = c
                 }
-
             }
         }
-
+        
 
     }
 
