@@ -100,13 +100,13 @@ export const GoldFish = (
     }
 
     // if outside the right bounds, change direction left
-    if (goldfish.x > window.innerWidth) {
+    if (goldfish.x > window.innerWidth-30) {
       goldfish.difference[0] = goldfish.difference[0] * -1;
       iter.current = 0;
     }
 
     // if outside the bounds left, change direction right
-    if (goldfish.x < 0) {
+    if (goldfish.x < 0+30) {
       goldfish.difference[0] = goldfish.difference[0] * -1;
       iter.current = 0;
     }
