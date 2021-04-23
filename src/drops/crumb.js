@@ -19,6 +19,7 @@ const Crumb = ({crumb}) => {
     x={crumb.x-10}
     y={crumb.y-110}
     scale = {[0.25,0.25]}
+    anchor = {0.5}
     />
     
 }

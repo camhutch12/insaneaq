@@ -4,9 +4,6 @@ import { useTick } from '@inlet/react-pixi'
 import { applyProps } from 'react-pixi-fiber'
 import { deleteCrumb } from '../../actions/crumbActions'
 import * as PIXI from 'pixi.js'
-
-
-
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -18,7 +15,6 @@ This component is a pixi.js sprite of an svg image of a fish from icons8,
 with a passed in x and y coordinate,
 scale tranforms the size
 */
-
 export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb,createCoin},props) => { 
    
     
@@ -36,23 +32,28 @@ export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb,createCoin},p
 
         // increase the counter
         let i = (iter.current += 0.00001 * delta)
+        
+        // check if crumbs exist
         let unit 
         if(goldfish.setHasCrumbsToChase(crumb)){
             goldfish.setCrumbList(crumb)
             goldfish.getClosestCrumb()
-            goldfish.direction[0] =  goldfish.crumb.x
-            goldfish.direction[1] =  goldfish.crumb.y; 
-            goldfish.difference[0] = goldfish.direction[0] - goldfish.x
-            goldfish.difference[1] = goldfish.direction[1] - goldfish.y
+            goldfish.direction[0] = goldfish.crumb.x
+            goldfish.direction[1] = goldfish.crumb.y-100; 
             let distance = Math.sqrt(Math.pow(goldfish.difference[0],2) + Math.pow(goldfish.difference[1],2))
             let unit = [(goldfish.difference[0]/distance), (goldfish.difference[1]/distance )] 
             goldfish.setPosition(goldfish.x+(unit[0]*1.1), 
             goldfish.y+(unit[1]*1.1))
-            }
-            else{
-                goldfish.resetDirection()
-            }
-
+        }
+        else{
+            goldfish.resetDirection()
+        }
+        
+        /* ternary for unit vector, simulates giggles
+         goldfish.difference[0] = (goldfish.direction[0] - goldfish.x) > 0 ? (goldfish.direction[0] - goldfish.x)+500 : (goldfish.direction[0] - goldfish.x)-500
+            goldfish.difference[1] = (goldfish.direction[1] - goldfish.y) > 0 ? (goldfish.direction[1] - goldfish.y)+500 : (goldfish.direction[1] - goldfish.y)-500
+        */
+       
 
         // hunger timer
         goldfish.setHunger(goldfish.hungerTimer +1);
@@ -98,9 +99,6 @@ export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb,createCoin},p
             goldfish.difference[1] = goldfish.difference[1] * -1;
             iter.current=0;
         }
-
-        // check if crumbs exist
-        
             
         // update position
         if(!goldfish.setHasCrumbsToChase(crumb)){
@@ -120,15 +118,13 @@ export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb,createCoin},p
 
         // delete crumb
         for(let j =0; j < crumb.length; j++){
-            if(Math.floor(goldfish.x)  === crumb[j].x && Math.floor(goldfish.y) == crumb[j].y || 
-            Math.ceil(goldfish.x)  === crumb[j].x && Math.ceil(goldfish.y) == crumb[j].y){
+            if(goldfish.x  <= crumb[j].x+30 && goldfish.x  >= crumb[j].x-30 
+                && goldfish.y <= (crumb[j].y-100)+30 && goldfish.y >= (crumb[j].y-100)-30){
                 console.log(crumb[j])
                 deleteCrumb(crumb[j]);
                 goldfish.crumb = null;
             }
         }
-
-        
         
         // update current frame
         update({

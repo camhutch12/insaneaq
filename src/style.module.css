@@ -44,7 +44,7 @@
    .label{
     height: 30px;
     display:block;
-    background: white;
+    
     border-radius: 10%;
     font-size:30px;
    }
@@ -60,7 +60,7 @@
 
    .labelThree{
     margin-top: 10px;
-    height: 30px;
+    height: 40px;
     display:block;
     background-color: #a6ee32;
     border-radius: 10%;
