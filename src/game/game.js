@@ -16,7 +16,7 @@ import Coin from "../drops/coin";
 import Player from "../model/player";
 import styles from "../style.module.css";
 import { createSnail } from "../actions/snailActions";
-import { createFish } from "../actions/fishActions";
+import { createFish, deleteFish } from "../actions/fishActions";
 import { createCoin, deleteCoin } from "../actions/coinActions";
 import { createCrumb, deleteCrumb } from "../actions/crumbActions";
 
@@ -44,26 +44,26 @@ const Game = ({ background, ...props }) => {
     Mouse listener
 */
   const getClick = (event) => {
-        // get click cooridnates
-        locationMouseClick.y = event.clientY;
-        setHasClicked(true);
-        const mousePos = { x: event.clientX, y: event.clientY };
+    // get click cooridnates
+    locationMouseClick.y = event.clientY;
+    setHasClicked(true);
+    const mousePos = { x: event.clientX, y: event.clientY };
 
-        let attackingMonster = false;
+    let attackingMonster = false;
 
-        // This function is going to carry all of the logic for different click events
-        if (attackingMonster) {
-        // shoot blaster
-        } else {
-            // check if we clicked on a coin, otherwise deploy a crumb
-            if (coinIsNotClicked(mousePos)) {
-                // check if crumbs are allowed to be deployed, based on crumb limit
-                if (crumb.length < props.player[0].food) {
-                    props.createCrumb({ x: event.clientX, y: event.clientY });
-                }
-            }
+    // This function is going to carry all of the logic for different click events
+    if (attackingMonster) {
+      // shoot blaster
+    } else {
+      // check if we clicked on a coin, otherwise deploy a crumb
+      if (coinIsNotClicked(mousePos)) {
+        // check if crumbs are allowed to be deployed, based on crumb limit
+        if (crumb.length < props.player[0].food) {
+          props.createCrumb({ x: event.clientX, y: event.clientY });
         }
-        setlocationMouseClick({ x: event.clientX, y: event.clientY });
+      }
+    }
+    setlocationMouseClick({ x: event.clientX, y: event.clientY });
   };
 
   /*
@@ -81,8 +81,8 @@ Always assume we are clicking a coin (innocent until proven guilty)
         // delete coin
         props.deleteCoin(currentCoin);
         // increase money counter
-        props.player[0].addCoins(currentCoin)
-        
+        props.player[0].addCoins(currentCoin);
+
         return false; // guilty, we are clicking a coin!
       }
     }
@@ -112,6 +112,7 @@ Map all the fish component sprites from our redux store to a variable to render
         goldfish={ele}
         crumb={props.crumb}
         deleteCrumb={props.deleteCrumb}
+        deleteFish={props.deleteFish}
         goldfishList={props.fish}
         createCoin={props.createCoin}
       />
@@ -122,12 +123,13 @@ Map all the fish component sprites from our redux store to a variable to render
     <Crumb key={index} crumb={ele} />
   ));
   const snail = props.snail.map((ele, index) => (
-    <Snail key={index}
-     snail={ele}
+    <Snail
+      key={index}
+      snail={ele}
       coin={props.coin}
       deleteCoin={props.deleteCoin}
       player={props.player}
-      />
+    />
   ));
 
   // get coin components/sprites to render
@@ -175,6 +177,7 @@ Connect gathers the data from our redux store
 */
 export default connect(mapStateToProps, {
   createFish,
+  deleteFish,
   createSnail,
   createCrumb,
   deleteCrumb,
