@@ -26,9 +26,6 @@ class GoldFish {
         
         // make the drop rate unique
         this.dropRate = 500+Math.random()*500;
-        
-        this.sprite.position.x = this.x;
-        this.sprite.position.y = this.y;
 
         // generate random direction
         // generate random point
