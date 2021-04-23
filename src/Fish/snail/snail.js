@@ -26,8 +26,8 @@ const Snail  = ({snail,coin}) => {
         // increase the counter
         let i = (iter.current += 0.00001 * delta)
         let unit 
-        if(snail.setHascoinsToChase(coin)){
-            snail.setcoinList(coin)
+        if(snail.setHasCoinsToChase(coin)){
+            snail.setCoinList(coin)
             snail.getClosestcoin()
             snail.direction[0] =  snail.coin.x
             snail.direction[1] =  snail.coin.y; 
@@ -92,7 +92,7 @@ const Snail  = ({snail,coin}) => {
         
             
         // update position
-        if(!snail.setHascoinsToChase(coin)){
+        if(!snail.setHasCoinsToChase(coin)){
             snail.setPosition(snail.x+(snail.difference[0]*i), 
             snail.y+(snail.difference[1]*i))
           
