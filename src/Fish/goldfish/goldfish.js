@@ -40,6 +40,9 @@ export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb,createCoin},p
             goldfish.getClosestCrumb()
             goldfish.direction[0] = goldfish.crumb.x
             goldfish.direction[1] = goldfish.crumb.y-100; 
+            goldfish.difference[0] = (goldfish.direction[0] - goldfish.x)
+            goldfish.difference[1] = (goldfish.direction[1] - goldfish.y) 
+            
             let distance = Math.sqrt(Math.pow(goldfish.difference[0],2) + Math.pow(goldfish.difference[1],2))
             let unit = [(goldfish.difference[0]/distance), (goldfish.difference[1]/distance )] 
             goldfish.setPosition(goldfish.x+(unit[0]*1.1), 
@@ -52,7 +55,13 @@ export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb,createCoin},p
         /* ternary for unit vector, simulates giggles
          goldfish.difference[0] = (goldfish.direction[0] - goldfish.x) > 0 ? (goldfish.direction[0] - goldfish.x)+500 : (goldfish.direction[0] - goldfish.x)-500
             goldfish.difference[1] = (goldfish.direction[1] - goldfish.y) > 0 ? (goldfish.direction[1] - goldfish.y)+500 : (goldfish.direction[1] - goldfish.y)-500
-        */
+        
+        
+         let distance = Math.sqrt(Math.pow(goldfish.difference[0],2) + Math.pow(goldfish.difference[1],2))
+            let unit = [(goldfish.difference[0]/distance), (goldfish.difference[1]/distance )] 
+            goldfish.setPosition(goldfish.x+(unit[0]*1.1), 
+            goldfish.y+(unit[1]*1.1))
+            */
        
 
         // hunger timer

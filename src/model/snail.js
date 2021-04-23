@@ -6,7 +6,7 @@
     difference = []
     coin = null;
     coinList = [];
-    hasCoinsToChase
+    hascoinsToChase
     isRandom = true;
     isJustCreated = true;
     isRandomCurrently = false;
@@ -43,11 +43,11 @@
     }
 
 
-    setPosition(x, y) {
+    setPosition(x) {
         this.x = x;
-        this.y = y;
+      
     }
-    setcoinList(c) {
+    setCoinList(c) {
         this.coinList = [...c]
     }
 
@@ -93,17 +93,17 @@
     }
 
 
-    setHasCoinsToChase(totalCoinList) {
-        if (totalCoinList.length > 0) {
+    setHascoinsToChase(totalcoinList) {
+        if (totalcoinList.length > 0) {
             this.isRandom = false;
-            this.hasCoinsToChase = true
+            this.hascoinsToChase = true
             this.isJustCreated = false;
             this.isRandomCurrently = false;
             return true;
         }
         else {
             this.isRandom = true;
-            this.hasCoinsToChase = false;
+            this.hascoinsToChase = false;
             return false;
         }
     }

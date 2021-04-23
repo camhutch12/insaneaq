@@ -26,13 +26,12 @@ const Snail  = ({snail,coin}) => {
         // increase the counter
         let i = (iter.current += 0.00001 * delta)
         let unit 
-        if(snail.setHasCoinsToChase(coin)){
+        if(snail.setHascoinsToChase(coin)){
             snail.setCoinList(coin)
-            snail.getClosestcoin()
+            snail.getClosestCoin()
             snail.direction[0] =  snail.coin.x
-            snail.direction[1] =  snail.coin.y; 
+    
             snail.difference[0] = snail.direction[0] - snail.x
-            snail.difference[1] = snail.direction[1] - snail.y
             let distance = Math.sqrt(Math.pow(snail.difference[0],2) + Math.pow(snail.difference[1],2))
             let unit = [(snail.difference[0]/distance), (snail.difference[1]/distance )] 
             snail.setPosition(snail.x+(unit[0]*1.1), 
@@ -43,19 +42,6 @@ const Snail  = ({snail,coin}) => {
             }
 
 
-        // hunger timer
-        // snail.setHunger(snail.hungerTimer +1);
-
-        // coin drop timer
-        // snail.setCoinDrop(snail.coinDropTimer +1);
-
-         // Check if coin needs to drop
-        // if(snail.coinDropTimer > snail.dropRate){
-        //     // reset timer
-        //     snail.setCoinDrop(0)
-        //     // add coin to array of coins (redux)
-        //     createCoin({x:snail.x ,y:snail.y})
-        // }
 
         // every 20 iterations (?) change the direction 
         if(i%0.00001==0){
@@ -92,9 +78,8 @@ const Snail  = ({snail,coin}) => {
         
             
         // update position
-        if(!snail.setHasCoinsToChase(coin)){
-            snail.setPosition(snail.x+(snail.difference[0]*i), 
-            snail.y+(snail.difference[1]*i))
+        if(!snail.setHascoinsToChase(coin)){
+            snail.setPosition(snail.x+(snail.difference[0]*i))
           
         } 
        
@@ -109,8 +94,8 @@ const Snail  = ({snail,coin}) => {
 
         // delete coin
         for(let j =0; j < coin.length; j++){
-            if(Math.floor(snail.x)  === coin[j].x && Math.floor(snail.y) == coin[j].y || 
-            Math.ceil(snail.x)  === coin[j].x && Math.ceil(snail.y) == coin[j].y){
+            if(Math.floor(snail.x)  === coin[j].x || 
+            Math.ceil(snail.x)  === coin[j].x){
                 console.log(coin[j])
                 // deletecoin(coin[j]);
                 snail.coin = null;
