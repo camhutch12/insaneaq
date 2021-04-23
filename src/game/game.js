@@ -54,7 +54,7 @@ const Game = ({background,...props}) => {
             )
 })
     const crumb = props.crumb.map((ele,index) => <Crumb key={index} crumb={ele}/>)
-    const snail = props.snail.map((ele,index) => <Snail key={index} {...ele}/>)
+    const snail = props.snail.map((ele,index) => <Snail key={index} snail={ele} coin={props.coin}/>)
     
     // get coin components/sprites to render
     var coin
