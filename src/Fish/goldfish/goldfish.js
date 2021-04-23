@@ -1,8 +1,12 @@
-import {Sprite} from '@inlet/react-pixi'
+import {Application, Sprite, useApp} from '@inlet/react-pixi'
 import React, { useEffect, useState, useReducer, useRef  } from 'react'
 import { useTick } from '@inlet/react-pixi'
 import { applyProps } from 'react-pixi-fiber'
 import { deleteCrumb } from '../../actions/crumbActions'
+import * as PIXI from 'pixi.js'
+
+
+
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -15,7 +19,8 @@ with a passed in x and y coordinate,
 scale tranforms the size
 */
 
-export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb,createCoin}) => { 
+export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb,createCoin},props) => { 
+    
     goldfishList.forEach((element) => {
         element.crumb = null
         element.crumbList = []
@@ -29,6 +34,19 @@ export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb,createCoin}) 
     useTick(delta => {
 
         let i = (iter.current += 0.00001 * delta)
+        
+        if(goldfish.setHasCrumbsToChase(crumb)){
+            goldfish.setCrumbList(crumb)
+            goldfish.getClosestCrumb()
+            goldfish.direction[0] =  goldfish.crumb.x
+            goldfish.direction[1] =  goldfish.crumb.y; 
+            goldfish.difference[0] = goldfish.direction[0] - goldfish.x
+            goldfish.difference[1] = goldfish.direction[1] - goldfish.y
+            }
+            else{
+                goldfish.resetDirection()
+            }
+
 
         // hunger timer
         goldfish.setHunger(goldfish.hungerTimer +1);
@@ -76,14 +94,7 @@ export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb,createCoin}) 
         }
 
         // check if crumbs exist
-        if(crumb.length > 0){
-            goldfish.setCrumbList(crumb)
-            goldfish.getClosestCrumb()
-            goldfish.direction[0] =  goldfish.crumb.x
-            goldfish.direction[1] =  goldfish.crumb.y; 
-            goldfish.difference[0] = goldfish.direction[0] - goldfish.x
-            goldfish.difference[1] = goldfish.direction[1] - goldfish.y
-            }
+        
             
             goldfish.setPosition(goldfish.x+(goldfish.difference[0]*i), 
             goldfish.y+(goldfish.difference[1]*i))
@@ -114,6 +125,7 @@ export  const GoldFish = ({goldfish,goldfishList,crumb,deleteCrumb,createCoin}) 
             y: goldfish.y,
             scale:{x:scaleX,y:scaleY},
             anchor:0.5,
+            
             }
         })
     })

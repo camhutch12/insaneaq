@@ -12,8 +12,6 @@ import {connect} from 'react-redux'
 import {createSnail} from '../actions/snailActions'
 import {createFish} from '../actions/fishActions'
 import {createCrumb,deleteCrumb} from '../actions/crumbActions'
-
-import {createCrumb} from '../actions/crumbActions'
 import {createCoin} from '../actions/coinActions'
 import Navbar from '../navbar/navbar';
 /*
@@ -29,7 +27,7 @@ and mouse click coordinates are passed in from the App.js and are passed to
 sub comnponents
 */
 const Game = ({background,...props}) => {
-
+    console.log(useApp())
     const [locationMouseClick, setlocationMouseClick] = useState({ x: null, y: null });
     const [hasClicked, setHasClicked] = useState(false);
 
