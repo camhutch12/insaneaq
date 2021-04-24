@@ -79,9 +79,9 @@ class GoldFish {
   }
 
   increaseSize() {
-    if (this.totalEatenFood >= 6) {
+    if (this.totalEatenFood >= 8) {
       this.size = 0.6;
-    } else if (this.totalEatenFood >= 3) {
+    } else if (this.totalEatenFood >= 4) {
       this.size = 0.4;
     } else {
       this.size = 0.2;

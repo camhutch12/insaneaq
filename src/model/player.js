@@ -1,7 +1,7 @@
 export class Player{
   coins;
   food;
-
+  currentLevel
   constructor(){
     this.coins = 0;
     this.food =2

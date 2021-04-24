@@ -87,14 +87,14 @@ const Navbar = (props) => {
 
     const navigation = navList.map((ele,index) => <NavItem key={index} {...ele}/>)
     return (
-        <div class={styles.navbar}>
+        <div className={styles.navbar}>
             {navigation} 
-            <div class={styles.navTwo}>
-                <button class={styles.buttonTwo}>
+            <div className={styles.navTwo}>
+                <button className={styles.buttonTwo}>
 
-                    <label class={styles.labelTwo}>Menu</label>
+                    <label className={styles.labelTwo}>Menu</label>
                 </button>
-                <label class={styles.labelThree}>$ {`${props.player[0].coins}`}</label>
+                <label className={styles.labelThree}>$ {`${props.player[0].coins}`}</label>
             </div>
         </div>
     )

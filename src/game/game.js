@@ -13,7 +13,6 @@ import Crumb from "../drops/crumb";
 import Snail from "../Fish/snail/snail";
 import GoldFish from "../Fish/goldfish/goldfish";
 import Coin from "../drops/coin";
-import Player from "../model/player";
 import styles from "../style.module.css";
 import { createSnail } from "../actions/snailActions";
 import { createFish, deleteFish } from "../actions/fishActions";
@@ -48,9 +47,7 @@ const Game = ({ background, ...props }) => {
     locationMouseClick.y = event.clientY;
     setHasClicked(true);
     const mousePos = { x: event.clientX, y: event.clientY };
-
     let attackingMonster = false;
-
     // This function is going to carry all of the logic for different click events
     if (attackingMonster) {
       // shoot blaster
@@ -146,7 +143,6 @@ Map all the fish component sprites from our redux store to a variable to render
   return (
     <React.Fragment>
       <Navbar {...props} />
-
       <Stage
         width={props.SCREEN_SIZE.x}
         height={props.SCREEN_SIZE.x}

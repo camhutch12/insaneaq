@@ -17,7 +17,7 @@ import { snail_reducer } from "../reducers/snailreducer";
     unitVector;
     goLeft;
     goRight;
-    speed
+    speed;
     constructor(x,y){
  
         // initialize position

@@ -16,35 +16,35 @@ const UI = ({onClick}) => {
 
     return (
 
-        <div class={styles.homeScreen}>
+        <div className={styles.homeScreen}>
             
-            <div class={styles.instruct}>
-                <div class={styles.instructions}>
+            <div className={styles.instruct}>
+                <div className={styles.instructions}>
                     <img src="../../assets/fish/fish.svg" width="100px"></img>
-                    <div class={styles.lab}>
-                        <label class={styles.lab}>Feed Me</label>
+                    <div className={styles.lab}>
+                        <label className={styles.lab}>Feed Me</label>
                     </div>
                     
                 </div>
 
-                <div class={styles.instructions}>
+                <div className={styles.instructions}>
                     <img src="../../assets/background/alien.svg" width="100px"></img>
-                    <div class={styles.lab}>
-                        <label class={styles.lab}>Fear Me</label>
+                    <div className={styles.lab}>
+                        <label className={styles.lab}>Fear Me</label>
                     </div>
                     
                 </div>
 
-                <div class={styles.instructions}>
+                <div className={styles.instructions}>
                     <img src="../../assets/upgrades/egg.svg" width="100px"></img>
-                    <div class={styles.lab}>
+                    <div className={styles.lab}>
                     <label >Find Me</label>
                     </div>
                     
                 </div>
             </div>
-            <div class={styles.buttonParent}>
-                <button class={styles.startButton} onClick={onClick}>
+            <div className={styles.buttonParent}>
+                <button className={styles.startButton} onClick={onClick}>
                     Start Game
                 </button>
             </div>

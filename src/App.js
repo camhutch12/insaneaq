@@ -29,7 +29,6 @@ const App = (props) => {
     }
     return p;
   };
-
   const setupKelp = () => {
     const p = [];
     for (let i = 0; i < 10; i++) {
@@ -41,7 +40,6 @@ const App = (props) => {
     }
     return p;
   };
-
   const setupKelp2 = () => {
     const p = [];
     for (let i = 0; i < 10; i++) {
@@ -53,16 +51,13 @@ const App = (props) => {
     }
     return p;
   };
-
   const background = {
     bubble: setupBubbles(),
     kelp: setupKelp(),
     kelp2: setupKelp2(),
   };
-
   const locationMouseClick = { x: 0, y: 0 };
   let hasClicked = false;
-
   const positons = [
     {
       pos: {
