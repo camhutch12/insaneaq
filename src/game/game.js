@@ -18,7 +18,8 @@ import { createSnail } from "../actions/snailActions";
 import { createFish, deleteFish } from "../actions/fishActions";
 import { createCoin, deleteCoin } from "../actions/coinActions";
 import { createCrumb, deleteCrumb } from "../actions/crumbActions";
-
+import { createAlien, deleteAlien } from "../actions/alienAction";
+import Alien from "../alien/alien";
 import Navbar from "../navbar/navbar";
 /*
 Written By:
@@ -37,20 +38,28 @@ const Game = ({ background, ...props }) => {
     x: null,
     y: null,
   });
+
   const [hasClicked, setHasClicked] = useState(false);
 
   /*
     Mouse listener
 */
   const getClick = (event) => {
+    let attackingMonster = {};
+    if (props.aliens.length < 1) {
+      props.createAlien(1);
+    }
     // get click cooridnates
     locationMouseClick.y = event.clientY;
     setHasClicked(true);
     const mousePos = { x: event.clientX, y: event.clientY };
-    let attackingMonster = false;
+
     // This function is going to carry all of the logic for different click events
-    if (attackingMonster) {
+
+    attackingMonster = alienIsClicked(mousePos);
+    if (attackingMonster.isAttacking) {
       // shoot blaster
+      damageMonster(attackingMonster, props);
     } else {
       // check if we clicked on a coin, otherwise deploy a crumb
       if (coinIsNotClicked(mousePos)) {
@@ -60,6 +69,7 @@ const Game = ({ background, ...props }) => {
         }
       }
     }
+
     setlocationMouseClick({ x: event.clientX, y: event.clientY });
   };
 
@@ -84,6 +94,28 @@ Always assume we are clicking a coin (innocent until proven guilty)
       }
     }
     return true; // not clicking on a coin
+  };
+
+  const alienIsClicked = (mousePos) => {
+    const obj = {
+      alien: null,
+      isAttacking: false,
+    };
+    if (props.aliens.length > 0) {
+      for (let alien of props.aliens) {
+        let hasCollision = isboundingBoxCoords(
+          mousePos,
+          { x: alien.x, y: alien.y  -100 },
+          30
+        );
+        if (hasCollision) {
+          console.log("attacking the monster");
+          obj.isAttacking = true;
+          obj.alien = alien;
+        }
+      }
+    }
+    return obj;
   };
 
   /*
@@ -117,9 +149,7 @@ Map all the fish component sprites from our redux store to a variable to render
   });
 
   const crumb = props.crumb.map((ele, index) => (
-    <Crumb key={index}
-     crumb={ele}
-     deleteCrumb={props.deleteCrumb} />
+    <Crumb key={index} crumb={ele} deleteCrumb={props.deleteCrumb} />
   ));
   const snail = props.snail.map((ele, index) => (
     <Snail
@@ -131,13 +161,22 @@ Map all the fish component sprites from our redux store to a variable to render
     />
   ));
 
+  const alien = props.aliens.map((ele, index) => {
+    return (
+      <Alien
+        key={index}
+        goldfishList={props.fish}
+        deleteFish={props.deleteFish}
+        alien={ele}
+      />
+    );
+  });
+
   // get coin components/sprites to render
   var coin;
   if (props.coin != undefined) {
     coin = props.coin.map((ele, index) => (
-      <Coin key={index}
-       coin={ele}
-        deleteCoin={props.deleteCoin} />
+      <Coin key={index} coin={ele} deleteCoin={props.deleteCoin} />
     ));
   }
   return (
@@ -148,12 +187,15 @@ Map all the fish component sprites from our redux store to a variable to render
         height={props.SCREEN_SIZE.x}
         options={{ backgroundColor: 0x00ffff }}
         onClick={(e) => getClick(e)}
+        raf={true}
       >
         <Background background={background} />
+        {alien}
         {fish}
         {snail}
         {coin}
         {crumb}
+
       </Stage>
     </React.Fragment>
   );
@@ -169,6 +211,7 @@ const mapStateToProps = (state) => {
     crumb: state.crumb_reducer,
     coin: state.coin_reducer,
     player: state.player_reducer,
+    aliens: state.alien_reducer,
   };
 };
 
@@ -183,4 +226,14 @@ export default connect(mapStateToProps, {
   deleteCrumb,
   createCoin,
   deleteCoin,
+  createAlien,
+  deleteAlien,
 })(Game);
+function damageMonster(attackingMonster, props) {
+  if (attackingMonster.alien.health - 1 === 0) {
+    // delete the monster
+    props.deleteAlien(attackingMonster.alien);
+  } else {
+    attackingMonster.alien.health -= 1;
+  }
+}
