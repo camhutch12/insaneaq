@@ -15,5 +15,15 @@ export const fish_reducer = (oldFishList=[
         oldFishList = oldFishList.filter((ele,index) => action.payload.fish.id !== ele.id );
         return oldFishList
     }
+
+    else if(action.type ==="RESET_FISH"){
+        oldFishList = [
+            new GoldFish(Math.floor((Math.random() * document.documentElement.clientWidth)),Math.floor((Math.random() * (window.innerHeight-100)))),
+    new GoldFish(Math.floor((Math.random() * document.documentElement.clientWidth)),Math.floor((Math.random() * (window.innerHeight-100)))),
+    new GoldFish(Math.floor((Math.random() * document.documentElement.clientWidth)),Math.floor((Math.random() * (window.innerHeight-100)))),
+        ]
+        
+        return [...oldFishList]
+    }
     return oldFishList
 }

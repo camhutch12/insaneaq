@@ -12,10 +12,10 @@ import Game from "./game/game";
 import UI from "./UI/ui";
 import { useState } from "react";
 import { connect } from "react-redux";
-import { createPlayer, deletePlayer } from "./actions/playerActions";
-import GoldFish from "./Fish/goldfish/goldfish";
+import { createPlayer, deletePlayer,resetPlayer } from "./actions/playerActions";
+import {createFish,resetFish} from './actions/fishActions'
+import {resetCoin} from './actions/coinActions'
 import { Player } from "./model/player";
-
 import {createTimer} from './actions/timerAction'
 import { Timer } from "./util/timer";
 const App = (props) => {
@@ -62,15 +62,7 @@ const App = (props) => {
   };
   const locationMouseClick = { x: 0, y: 0 };
   let hasClicked = false;
-  const positons = [
-    {
-      pos: {
-        x: Math.floor(Math.random() * window.innerWidth + 1),
-        y: Math.floor(Math.random() * window.innerWidth + 1),
-      },
-      food: { x: locationMouseClick.x, y: locationMouseClick.y },
-    },
-  ];
+
 
   /*
   Register the mouse click x and y coordinated with a mouse listener
@@ -87,6 +79,7 @@ const App = (props) => {
 
   // show UI on inisitial state
 const [start,setStart] = useState(false);
+const [needFish,setNeedFish] = useState(false)
 
 // called when start is clicked
   const appStart = () => {
@@ -96,13 +89,33 @@ const [start,setStart] = useState(false);
     const timer = new Timer()
     props.createTimer(timer)
     timer.startTime();
+    
+    
   };
+  
+  const reset = () =>{
+    setStart(false)
+    props.timer.stopTime();
+    props.resetPlayer(1)
+    setNeedFish(true)
+    //setNeedFish(true)
+    //props.resetFish();
+   // props.resetCoin();
+    
+    // props.createFish(new GoldFish(Math.floor((Math.random() * SCREEN_SIZE.x)),Math.floor((Math.random() * SCREEN_SIZE.y))))
+    // props.createFish(new GoldFish(Math.floor((Math.random() * SCREEN_SIZE.x)),Math.floor((Math.random() * SCREEN_SIZE.y))))
+    // props.createFish(new GoldFish(Math.floor((Math.random() * SCREEN_SIZE.x)),Math.floor((Math.random() * SCREEN_SIZE.y))))
+
+    //appStart()
+  };
+
 
 
 /* 
 Renders either the game or the UI based on whether start was clicked.
 Start button is defined in UI component 
  */
+console.log("Rerender app class")
   return (
     <div>
       {start ? (
@@ -113,6 +126,8 @@ Start button is defined in UI component
           background={background}
           playerList={props.player}
           SCREEN_SIZE={SCREEN_SIZE}
+          rr={reset}
+          needFish={needFish}
         />
       ) : (
         <UI onClick={appStart}/>
@@ -128,6 +143,8 @@ const mapStateToProps = (state) => {
   return {
     player: state.player_reducer,
     timer:state.timer_reducer,
+    //fish: state.fish_reducer,
+    //coin: state.coin_reducer,
   };
 };
 
@@ -138,4 +155,8 @@ export default connect(mapStateToProps, {
   createPlayer,
   deletePlayer,
   createTimer,
+  resetPlayer,
+  //createFish,
+  //resetFish,
+  //resetCoin,
 })(App);

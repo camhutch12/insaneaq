@@ -15,3 +15,12 @@ export const deleteAlien = alien => {
         }
     }
 }
+
+export const resetAlien = alien => {
+    return {
+        type:'RESET',
+        payload:{
+            alien
+        }
+    }
+}

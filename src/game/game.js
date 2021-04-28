@@ -12,16 +12,20 @@ import Background from "../background/background";
 import Crumb from "../drops/crumb";
 import Snail from "../Fish/snail/snail";
 import GoldFish from "../Fish/goldfish/goldfish";
+import {GoldFish as GL} from '../model/Goldfish'
 import Coin from "../drops/coin";
 import styles from "../style.module.css";
-import { createSnail } from "../actions/snailActions";
-import { createFish, deleteFish } from "../actions/fishActions";
-import { createCoin, deleteCoin } from "../actions/coinActions";
-import { createCrumb, deleteCrumb } from "../actions/crumbActions";
-import { createAlien, deleteAlien } from "../actions/alienAction";
+import { createSnail,resetSnail } from "../actions/snailActions";
+import { createFish, deleteFish,resetFish } from "../actions/fishActions";
+import { createCoin, deleteCoin,resetCoin } from "../actions/coinActions";
+import { createCrumb, deleteCrumb,resetCrumb } from "../actions/crumbActions";
+import { createAlien, deleteAlien,resetAlien } from "../actions/alienAction";
+import {createPlayer,resetPlayer} from '../actions/playerActions'
 import Alien from "../alien/alien";
 import Navbar from "../navbar/navbar";
 import { ContextSystem } from "@pixi/core";
+import GameOver from "../UI/gameover";
+import { unmountComponentAtNode } from "react-dom";
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -36,7 +40,19 @@ sub comnponents
 */
 const Game = ({ background, ...props }) => {
 
+
 const [app,setApp] = useState(null)
+
+
+useEffect(() => {
+  return () => {
+  props.createFish(new GL(Math.floor((Math.random() * props.SCREEN_SIZE.x)),Math.floor((Math.random() * props.SCREEN_SIZE.y))))
+  props.createFish(new GL(Math.floor((Math.random() * props.SCREEN_SIZE.x)),Math.floor((Math.random() * props.SCREEN_SIZE.y))))
+  props.createFish(new GL(Math.floor((Math.random() * props.SCREEN_SIZE.x)),Math.floor((Math.random() * props.SCREEN_SIZE.y))))
+
+}},[])
+
+
 
   const createMonster = () => {
     props.createAlien(1)
@@ -44,6 +60,9 @@ const [app,setApp] = useState(null)
     props.timer.currentTime = 0;
     props.timer.startTime()
   }
+
+
+
 
   const [locationMouseClick, setlocationMouseClick] = useState({
     x: null,
@@ -191,28 +210,36 @@ Map all the fish component sprites from our redux store to a variable to render
       <Coin key={index} coin={ele} deleteCoin={props.deleteCoin} />
     ));
   }
-  return (
-    <React.Fragment>
-      <Navbar {...props} />
-      <Stage
-        width={props.SCREEN_SIZE.x}
-        height={props.SCREEN_SIZE.x}
-        options={{ backgroundColor: 0x00ffff,sharedTicker:true }}
-        onClick={(e) => getClick(e)}
-        raf={true}
-        
-        
-      >
-        <Background background={background} />
-        {alien}
-        {fish}
-        {snail}
-        {coin}
-        {crumb}
-
-      </Stage>
-    </React.Fragment>
-  );
+  if(fish.length > 0){
+    return (
+      <React.Fragment>
+        <Navbar {...props} />
+        <Stage
+          width={props.SCREEN_SIZE.x}
+          height={props.SCREEN_SIZE.x}
+          options={{ backgroundColor: 0x00ffff}}
+          onClick={(e) => getClick(e)}       
+        >
+          <Background background={background} />
+          {alien}
+          {fish}
+          {snail}
+          {coin}
+          {crumb}
+  
+        </Stage>
+      </React.Fragment>
+    );
+  }
+  
+  else{
+    return (
+      
+        <GameOver {...props}/>
+      
+    )
+  }
+ 
 };
 
 /*
@@ -236,13 +263,20 @@ Connect gathers the data from our redux store
 export default connect(mapStateToProps, {
   createFish,
   deleteFish,
+  resetFish,
   createSnail,
+  resetSnail,
   createCrumb,
   deleteCrumb,
+  resetCrumb,
   createCoin,
   deleteCoin,
+  resetCoin,
   createAlien,
   deleteAlien,
+  resetAlien,
+  createPlayer,
+  resetPlayer,
 })(Game);
 function damageMonster(attackingMonster, props) {
   if (attackingMonster.alien.health - 1 === 0) {

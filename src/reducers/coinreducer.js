@@ -8,7 +8,13 @@ export const coin_reducer = (oldCoinList=[],action) => {
     }else if(action.type ==="DELETE_COIN"){
         
         oldCoinList = oldCoinList.filter((ele) => action.payload.coin.id !== ele.id );
-        return oldCoinList
+        return [...oldCoinList]
+    }
+
+    else if(action.type ==="RESET"){
+        
+       oldCoinList = []
+        return [...oldCoinList]
     }
     return oldCoinList
 }

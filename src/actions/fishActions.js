@@ -15,3 +15,12 @@ export const deleteFish = fish => {
         }
     }
 }
+
+export const resetFish = fish => {
+    return {
+        type:'RESET_FISH',
+        payload:{
+            fish
+        }
+    }
+}

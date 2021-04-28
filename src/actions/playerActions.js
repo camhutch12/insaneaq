@@ -15,3 +15,12 @@ export const deletePlayer = player => {
         }
     }
 }
+
+export const resetPlayer = player => {
+    return {
+        type:'RESET',
+        payload:{
+            player
+        }
+    }
+}

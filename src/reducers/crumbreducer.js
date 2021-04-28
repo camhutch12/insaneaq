@@ -13,5 +13,10 @@ export const crumb_reducer = (oldCrumbList=[],action) => {
         oldCrumbList = oldCrumbList.filter((ele,index) => action.payload.crumb.id !== ele.id );
         return oldCrumbList
     }
+
+    else if(action.type ==="RESET"){
+        oldCrumbList = [];
+        return oldCrumbList
+    }
     return oldCrumbList
 }

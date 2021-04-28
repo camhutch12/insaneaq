@@ -13,5 +13,13 @@ export const alien_reducer = (oldAlienList=[],action) => {
         oldAlienList = oldAlienList.filter((ele,index) => action.payload.alien.id !== ele.id );
         return oldAlienList
     }
+
+    else if(action.type ==="RESET"){
+        oldAlienList = []
+        
+        return oldAlienList
+    }
+
+
     return oldAlienList;
 }

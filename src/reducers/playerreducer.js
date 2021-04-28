@@ -11,6 +11,11 @@ export const player_reducer = (oldPlayerList=[],action) => {
         oldPlayerList = oldPlayerList.filter((ele,index) => action.payload.player.id !== ele.id );
         return oldPlayerList
     }
+
+    else if(action.type === "RESET"){
+        oldPlayerList = []
+        return [...oldPlayerList]
+    }
     return oldPlayerList
 }
 
