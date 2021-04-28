@@ -6,6 +6,7 @@ import {
   useApp,
   Container,
   render,
+  Application
 } from "@inlet/react-pixi";
 import Game from "./game/game";
 import UI from "./UI/ui";
@@ -14,6 +15,9 @@ import { connect } from "react-redux";
 import { createPlayer, deletePlayer } from "./actions/playerActions";
 import GoldFish from "./Fish/goldfish/goldfish";
 import { Player } from "./model/player";
+
+import {createTimer} from './actions/timerAction'
+import { Timer } from "./util/timer";
 const App = (props) => {
   const SCREEN_SIZE = {
     x: window.innerWidth,
@@ -89,7 +93,11 @@ const [start,setStart] = useState(false);
     setStart(true)
     const p = new Player();
     props.createPlayer(p);
+    const timer = new Timer()
+    props.createTimer(timer)
+    timer.startTime();
   };
+
 
 /* 
 Renders either the game or the UI based on whether start was clicked.
@@ -107,7 +115,7 @@ Start button is defined in UI component
           SCREEN_SIZE={SCREEN_SIZE}
         />
       ) : (
-        <UI onClick={appStart} />
+        <UI onClick={appStart}/>
       )}
     </div>
   );
@@ -119,6 +127,7 @@ This maps the redux store state to the props to pass in a paramters
 const mapStateToProps = (state) => {
   return {
     player: state.player_reducer,
+    timer:state.timer_reducer,
   };
 };
 
@@ -128,4 +137,5 @@ Connect gathers the data from our redux store
 export default connect(mapStateToProps, {
   createPlayer,
   deletePlayer,
+  createTimer,
 })(App);

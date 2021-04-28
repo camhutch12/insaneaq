@@ -6,6 +6,7 @@ import {coin_reducer} from './coinreducer'
 import { combineReducers } from 'redux'
 import {player_reducer} from './playerreducer'
 import {alien_reducer} from './alienreducer'
+import {timer_reducer} from './timer_reducer'
 export default combineReducers({
     snail_reducer,
     fish_reducer,
@@ -14,4 +15,5 @@ export default combineReducers({
     coin_reducer,
     player_reducer,
     alien_reducer,
+    timer_reducer
 })

@@ -12,7 +12,7 @@ Cameron Hutchings (6427892)
 This component is a simple button that registers whether the user has clicked. 
 If the button is clicked a boolean returns true in the callback, which starts the game
 */
-const UI = ({onClick}) => {
+const UI = ({onClick,...props}) => {
 
     return (
 

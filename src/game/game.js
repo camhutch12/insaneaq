@@ -21,6 +21,7 @@ import { createCrumb, deleteCrumb } from "../actions/crumbActions";
 import { createAlien, deleteAlien } from "../actions/alienAction";
 import Alien from "../alien/alien";
 import Navbar from "../navbar/navbar";
+import { ContextSystem } from "@pixi/core";
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -34,6 +35,16 @@ and mouse click coordinates are passed in from the App.js and are passed to
 sub comnponents
 */
 const Game = ({ background, ...props }) => {
+
+const [app,setApp] = useState(null)
+
+  const createMonster = () => {
+    props.createAlien(1)
+    props.timer.stopTime(props.timer.timerID);
+    props.timer.currentTime = 0;
+    props.timer.startTime()
+  }
+
   const [locationMouseClick, setlocationMouseClick] = useState({
     x: null,
     y: null,
@@ -45,10 +56,9 @@ const Game = ({ background, ...props }) => {
     Mouse listener
 */
   const getClick = (event) => {
+    
     let attackingMonster = {};
-    if (props.aliens.length < 1) {
-      props.createAlien(1);
-    }
+
     // get click cooridnates
     locationMouseClick.y = event.clientY;
     setHasClicked(true);
@@ -144,6 +154,8 @@ Map all the fish component sprites from our redux store to a variable to render
         deleteFish={props.deleteFish}
         goldfishList={props.fish}
         createCoin={props.createCoin}
+        createAlien = {createMonster}
+        timer={props.timer}
       />
     );
   });
@@ -185,9 +197,11 @@ Map all the fish component sprites from our redux store to a variable to render
       <Stage
         width={props.SCREEN_SIZE.x}
         height={props.SCREEN_SIZE.x}
-        options={{ backgroundColor: 0x00ffff }}
+        options={{ backgroundColor: 0x00ffff,sharedTicker:true }}
         onClick={(e) => getClick(e)}
         raf={true}
+        
+        
       >
         <Background background={background} />
         {alien}
@@ -212,6 +226,7 @@ const mapStateToProps = (state) => {
     coin: state.coin_reducer,
     player: state.player_reducer,
     aliens: state.alien_reducer,
+    timer:state.timer_reducer,
   };
 };
 

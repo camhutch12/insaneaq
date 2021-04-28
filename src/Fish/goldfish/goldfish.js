@@ -16,7 +16,7 @@ with a passed in x and y coordinate,
 scale tranforms the size
 */
 export const GoldFish = (
-  { goldfish, goldfishList, crumb, deleteCrumb, deleteFish, createCoin },
+  { goldfish, goldfishList, crumb, deleteCrumb, deleteFish, createCoin,timer,createAlien },
   props
 ) => {
   goldfishList.forEach((element) => {
@@ -28,6 +28,9 @@ export const GoldFish = (
   const [motion, update] = useReducer(reducer);
   const iter = useRef(0);
   useTick((delta) => {
+    if(timer.currentTime >= 30){
+      createAlien()
+    }
     // increase the counter
     let i = (iter.current += 0.00001 * delta);
     let scaleX = goldfish.size;
@@ -169,6 +172,7 @@ export const GoldFish = (
       },
     });
   });
-  return <Sprite image={"assets/fish/fish.svg"} {...motion} />;
+
+  return <Sprite image={"assets/fish/fish.svg"} {...motion}  />;
 };
 export default GoldFish;
