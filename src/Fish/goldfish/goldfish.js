@@ -16,7 +16,18 @@ with a passed in x and y coordinate,
 scale tranforms the size
 */
 export const GoldFish = (
-  { goldfish, goldfishList, crumb, deleteCrumb, deleteFish, createCoin,timer,createAlien },
+  {
+    goldfish,
+    goldfishList,
+    crumb,
+    deleteCrumb,
+    deleteFish,
+    createCoin,
+    timer,
+    createAlien,
+    createPortal,
+    createText,
+  },
   props
 ) => {
   goldfishList.forEach((element) => {
@@ -28,8 +39,11 @@ export const GoldFish = (
   const [motion, update] = useReducer(reducer);
   const iter = useRef(0);
   useTick((delta) => {
-    if(timer.currentTime >= 30){
-      createAlien()
+    if (timer.currentTime > 23 && timer.currentTime<25) {
+      createText();
+    }
+    if (timer.currentTime >= 30) {
+      createAlien();
     }
     // increase the counter
     let i = (iter.current += 0.00001 * delta);
@@ -48,7 +62,7 @@ export const GoldFish = (
         Math.pow(goldfish.difference[0], 2) +
           Math.pow(goldfish.difference[1], 2)
       );
-       goldfish.unitV = [
+      goldfish.unitV = [
         goldfish.difference[0] / distance,
         goldfish.difference[1] / distance,
       ];
@@ -56,7 +70,7 @@ export const GoldFish = (
         goldfish.x + goldfish.unitV[0] * goldfish.speed,
         goldfish.y + goldfish.unitV[1] * goldfish.speed
       );
-    } 
+    }
 
     // coin drop timer increases
     goldfish.setCoinDrop(goldfish.coinDropTimer + 1);
@@ -68,36 +82,39 @@ export const GoldFish = (
       // make coin either silver or gold based on fish size
       let type = 0;
       // small
-      if (goldfish.size == 0.2) {
+      if (goldfish.size === 0.2) {
         type = 0; // silver
         // medium
-      } else if (goldfish.size == 0.4) {
+      } else if (goldfish.size === 0.4) {
+
         const rand = Math.random() * 100;
         if (rand > 75) {
           type = 1; // gold
-        } else {
+        } 
+        else {
           type = 0; // silver
         }
+
         // large
-      } else if (goldfish.size == 0.6) {
+      } else if (goldfish.size === 0.6) {
         type = 1; // gold
       }
       // add coin to array of coins (redux)
       createCoin({ x: goldfish.x, y: goldfish.y, type: type });
     }
     // if outside the right bounds, change direction left
-    if (goldfish.x > window.innerWidth-50) {
+    if (goldfish.x > window.innerWidth - 50) {
       goldfish.unitV[0] = goldfish.unitV[0] * -1;
-      
+
       iter.current = 0;
     }
     // if outside the bounds left, change direction right
     if (goldfish.x < 30) {
-        goldfish.unitV[0] = goldfish.unitV[0] * -1;  
+      goldfish.unitV[0] = goldfish.unitV[0] * -1;
       iter.current = 0;
     }
     // if outside the top bounds, change direction down
-    if (goldfish.y < 30) {  
+    if (goldfish.y < 30) {
       goldfish.unitV[1] = goldfish.unitV[1] * -1;
       iter.current = 0;
     }
@@ -113,20 +130,23 @@ export const GoldFish = (
         goldfish.y + goldfish.unitV[1] * goldfish.speed
       );
     }
-    // delete crumb
-    for (let j = 0; j < crumb.length; j++) {
-      if (
-        goldfish.x <= crumb[j].x + 30 &&
-        goldfish.x >= crumb[j].x - 30 &&
-        goldfish.y <= crumb[j].y - 100 + 30 &&
-        goldfish.y >= crumb[j].y - 100 - 30
-      ) {
-        deleteCrumb(crumb[j]);
-        goldfish.totalEatenFood++;
-        goldfish.crumb = null;
-        goldfish.setHunger(goldfish.hunger - 1);
+    // delete crumb if not full/dead and fish hits crumb
+    if (goldfish.hunger == 1 || goldfish.hunger == 2) {
+      for (let j = 0; j < crumb.length; j++) {
+        if (
+          goldfish.x <= crumb[j].x + 30 &&
+          goldfish.x >= crumb[j].x - 30 &&
+          goldfish.y <= crumb[j].y - 100 + 30 &&
+          goldfish.y >= crumb[j].y - 100 - 30
+        ) {
+          deleteCrumb(crumb[j]);
+          goldfish.totalEatenFood++;
+          goldfish.crumb = null;
+          goldfish.setHunger(goldfish.hunger - 1);
+        }
       }
     }
+
     // hunger timer
     goldfish.setHungerTimer(goldfish.hungerTimer + 1);
     // if hungry for too long, change hunger level
@@ -150,7 +170,7 @@ export const GoldFish = (
     // if fish is dead, flip it
     if (goldfish.hunger == 3) {
       scaleY = scaleY * -1; // flip fish is Y axis
-      image='assets/fish/fishsick.svg'
+      image = "assets/fish/fishsick.svg";
     }
     // if fish has been dead, delete it
     if (goldfish.hunger > 3) {
@@ -173,6 +193,6 @@ export const GoldFish = (
     });
   });
 
-  return <Sprite image={"assets/fish/fish.svg"} {...motion}  />;
+  return <Sprite image={"assets/fish/fish.svg"} {...motion} />;
 };
 export default GoldFish;

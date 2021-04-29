@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid"
 import { GoldFish } from "./Goldfish";
 
-class Alien {
+class Clam {
   id;
   direction:number[] = [];
   difference:number[]  = [];
@@ -19,7 +19,8 @@ class Alien {
   dropRate = 500;
   speed;
   hunger = 1;
-  health = 5;
+  health = 3;
+  img:String = "";
 
   constructor(x:number, y:number) {
     this.id = uuidv4();
@@ -28,7 +29,7 @@ class Alien {
     this.totalEatenFood = 0;
     // make the drop rate unique
     this.dropRate = 500 + Math.random() * 500;
-    this.size = 1;
+    this.size = 3;
     this.speed = 3;
     
     // generate random direction
@@ -67,7 +68,7 @@ class Alien {
       this.size = 0.2;
     }
   }
-
+  
   getClosestFish() {
     let dist1 = -1;
     let dist2 = -1;
@@ -133,4 +134,4 @@ class Alien {
   // }
 }
 
-export { Alien };
+export { Clam };

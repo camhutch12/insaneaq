@@ -9,23 +9,57 @@ import {
 } from "@inlet/react-pixi";
 import { connect } from "react-redux";
 import Background from "../background/background";
+// Models ***************************************************
 import Crumb from "../drops/crumb";
+import Blaster from "../alien/blaster";
 import Snail from "../Fish/snail/snail";
 import GoldFish from "../Fish/goldfish/goldfish";
-import {GoldFish as GL} from '../model/Goldfish'
+import Carnivore from "../Fish/carnivore/carnivore";
+import { GoldFish as GL } from "../model/Goldfish";
 import Coin from "../drops/coin";
+import Portal from '../alien/portal.js'
+import TextWarning from '../alien/text.js'
 import styles from "../style.module.css";
-import { createSnail,resetSnail } from "../actions/snailActions";
-import { createFish, deleteFish,resetFish } from "../actions/fishActions";
-import { createCoin, deleteCoin,resetCoin } from "../actions/coinActions";
-import { createCrumb, deleteCrumb,resetCrumb } from "../actions/crumbActions";
-import { createAlien, deleteAlien,resetAlien } from "../actions/alienAction";
-import {createPlayer,resetPlayer} from '../actions/playerActions'
+// Actions ***********************************************
+import { createSnail, resetSnail } from "../actions/snailActions";
+import { createFish, deleteFish, resetFish } from "../actions/fishActions";
+import {
+  createCarnivore,
+  deleteCarnivore,
+  resetCarnivore,
+} from "../actions/carnivoreActions";
+import { createCoin, deleteCoin, resetCoin } from "../actions/coinActions";
+import { createCrumb, deleteCrumb, resetCrumb } from "../actions/crumbActions";
+import {
+  createBlaster,
+  deleteBlaster,
+  resetBlaster,
+} from "../actions/blasterActions";
+import {createClam,deleteClam} from '../actions/clamAction'
+import {createSwordFish,deleteSwordFish,resetSwordFish} from '../actions/swordfishAction' ;
+import {createSeahorse,deleteSeahorse,resetSeahorse} from '../actions/seahorseAction'
+import {createPreggo,deletePreggo,resetPreggo} from '../actions/preggoAction'
+import { createAlien, deleteAlien, resetAlien } from "../actions/alienAction";
+import { createPlayer, resetPlayer } from "../actions/playerActions";
 import Alien from "../alien/alien";
 import Navbar from "../navbar/navbar";
 import { ContextSystem } from "@pixi/core";
 import GameOver from "../UI/gameover";
 import { unmountComponentAtNode } from "react-dom";
+import Seahore from "../Fish/seahorse/seahorse";
+import {
+  createPortal,
+  deletePortal,
+  resetPortal,
+} from "../actions/portalActions";
+import {
+  createText,
+  deleteText,
+  resetText,
+} from "../actions/textActions";
+import { Preggo } from "../Fish/preggo/preggo";
+import SwordFish from "../Fish/swordfish/swordfish";
+import Clam  from '../Fish/clam/clam';
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -39,30 +73,45 @@ and mouse click coordinates are passed in from the App.js and are passed to
 sub comnponents
 */
 const Game = ({ background, ...props }) => {
+  const [app, setApp] = useState(null);
 
-
-const [app,setApp] = useState(null)
-
-
-useEffect(() => {
-  return () => {
-  props.createFish(new GL(Math.floor((Math.random() * props.SCREEN_SIZE.x)),Math.floor((Math.random() * props.SCREEN_SIZE.y))))
-  props.createFish(new GL(Math.floor((Math.random() * props.SCREEN_SIZE.x)),Math.floor((Math.random() * props.SCREEN_SIZE.y))))
-  props.createFish(new GL(Math.floor((Math.random() * props.SCREEN_SIZE.x)),Math.floor((Math.random() * props.SCREEN_SIZE.y))))
-
-}},[])
-
-
+  useEffect(() => {
+    return () => {
+      props.createFish(
+        new GL(
+          Math.floor(Math.random() * props.SCREEN_SIZE.x),
+          Math.floor(Math.random() * props.SCREEN_SIZE.y)
+        )
+      );
+      props.createFish(
+        new GL(
+          Math.floor(Math.random() * props.SCREEN_SIZE.x),
+          Math.floor(Math.random() * props.SCREEN_SIZE.y)
+        )
+      );
+      props.createFish(
+        new GL(
+          Math.floor(Math.random() * props.SCREEN_SIZE.x),
+          Math.floor(Math.random() * props.SCREEN_SIZE.y)
+        )
+      );
+    };
+  }, []);
 
   const createMonster = () => {
-    props.createAlien(1)
+    let alienX = Math.floor((Math.random() * document.documentElement.clientWidth));
+    let alienY = Math.floor((Math.random() * (window.innerHeight-100)));
+    props.createAlien({x:alienX, y:alienY});
+    props.createPortal({x:alienX, y:alienY});
     props.timer.stopTime(props.timer.timerID);
     props.timer.currentTime = 0;
-    props.timer.startTime()
+    props.timer.startTime();
+  };
+
+  const createWarning = () => {
+    props.createText()
+    
   }
-
-
-
 
   const [locationMouseClick, setlocationMouseClick] = useState({
     x: null,
@@ -75,7 +124,6 @@ useEffect(() => {
     Mouse listener
 */
   const getClick = (event) => {
-    
     let attackingMonster = {};
 
     // get click cooridnates
@@ -85,16 +133,22 @@ useEffect(() => {
 
     // This function is going to carry all of the logic for different click events
 
+    // check if mouse clicks are on monster
     attackingMonster = alienIsClicked(mousePos);
-    if (attackingMonster.isAttacking) {
+    if (attackingMonster.alienIsPresent) {
       // shoot blaster
-      damageMonster(attackingMonster, props);
+      props.createBlaster({ x: event.clientX, y: event.clientY });
+      if (attackingMonster.isAttacking) {
+        // damage monster
+        damageMonster(attackingMonster, props);
+      }
     } else {
       // check if we clicked on a coin, otherwise deploy a crumb
       if (coinIsNotClicked(mousePos)) {
         // check if crumbs are allowed to be deployed, based on crumb limit
         if (crumb.length < props.player[0].food) {
           props.createCrumb({ x: event.clientX, y: event.clientY });
+          props.player[0].removeCoins(5);
         }
       }
     }
@@ -129,16 +183,18 @@ Always assume we are clicking a coin (innocent until proven guilty)
     const obj = {
       alien: null,
       isAttacking: false,
+      alienIsPresent: false,
     };
     if (props.aliens.length > 0) {
       for (let alien of props.aliens) {
         let hasCollision = isboundingBoxCoords(
           mousePos,
-          { x: alien.x, y: alien.y  -100 },
-          30
+          { x: alien.x, y: alien.y - 100 },
+          25
         );
+        obj.alienIsPresent = true;
         if (hasCollision) {
-          console.log("attacking the monster");
+          
           obj.isAttacking = true;
           obj.alien = alien;
         }
@@ -173,7 +229,66 @@ Map all the fish component sprites from our redux store to a variable to render
         deleteFish={props.deleteFish}
         goldfishList={props.fish}
         createCoin={props.createCoin}
-        createAlien = {createMonster}
+        createAlien={createMonster}
+        timer={props.timer}
+        createPortal = {props.createPortal}
+        createText = {createWarning}
+      />
+    );
+  });
+
+  const seahorse = props.seahorse.map((ele, index) => {
+    return (
+      <Seahore
+        key={index}
+        seahorse={ele}
+        crumb={props.crumb}
+        createCrumb={props.createCrumb}
+      />
+    );
+  });
+
+
+  const preggo = props.preggo.map((ele, index) => {
+    return (
+      <Preggo
+        key={index}
+        preggo={ele}
+        deleteFish={props.deletePreggo}
+        createFish={props.createFish}
+        createCoin={props.createCoin}
+      />
+    );
+  });
+
+  const swordfish = props.swordFish.map((ele, index) => {
+    return (
+      <SwordFish
+        key={index}
+        swordFish={ele}
+        aliensList={props.aliens}
+        deleteCrumb={props.deleteCrumb}
+        deleteFish={props.deleteSwordFish}
+        goldfishList={props.swordFish}
+        createCoin={props.createCoin}
+        createAlien={createMonster}
+        timer={props.timer}
+      />
+    );
+  });
+
+
+  const carnivore = props.carnivore.map((ele, index) => {
+    return (
+      <Carnivore
+        key={index}
+        carnivore={ele}
+        crumb={props.crumb}
+        deleteCrumb={props.deleteCrumb}
+        deleteCarnivore={props.deleteCarnivore}
+        carnivoreList={props.carnivore}
+        createCoin={props.createCoin}
+        createAlien={createMonster}
         timer={props.timer}
       />
     );
@@ -191,6 +306,17 @@ Map all the fish component sprites from our redux store to a variable to render
       player={props.player}
     />
   ));
+  
+
+  const clam = props.clam.map((ele, index) => (
+    <Clam
+      key={index}
+      clam={ele}
+      coin={props.coin}
+      deleteCoin={props.deleteCoin}
+      player={props.player}
+    />
+  ));
 
   const alien = props.aliens.map((ele, index) => {
     return (
@@ -203,6 +329,32 @@ Map all the fish component sprites from our redux store to a variable to render
     );
   });
 
+  
+  const text = props.text.map((ele, index) => {
+     return (
+      <TextWarning
+         key={index}
+         deleteText={props.deleteText}
+         text={ele}
+       />
+     );
+   });
+  
+  const portal = props.portal.map((ele, index) => {
+     return (
+      <Portal
+         key={index}
+         deletePortal={props.deletePortal}
+         portal={ele}
+       />
+     );
+   });
+
+
+  const blaster = props.blaster.map((ele, index) => (
+    <Blaster key={index} blaster={ele} deleteBlaster={props.deleteBlaster} />
+  ));
+
   // get coin components/sprites to render
   var coin;
   if (props.coin != undefined) {
@@ -210,36 +362,37 @@ Map all the fish component sprites from our redux store to a variable to render
       <Coin key={index} coin={ele} deleteCoin={props.deleteCoin} />
     ));
   }
-  if(fish.length > 0){
+  if (fish.length > 0) {
     return (
       <React.Fragment>
         <Navbar {...props} />
         <Stage
           width={props.SCREEN_SIZE.x}
           height={props.SCREEN_SIZE.x}
-          options={{ backgroundColor: 0x00ffff}}
-          onClick={(e) => getClick(e)}       
+          options={{ backgroundColor: 0x00ffff }}
+          onClick={(e) => getClick(e)}
         >
           <Background background={background} />
+          
+          {seahorse}
+          {portal}
           {alien}
           {fish}
           {snail}
           {coin}
           {crumb}
-  
+          {blaster}
+          {carnivore}
+          {preggo}
+          {swordfish}
+          {clam}
+          {text}
         </Stage>
       </React.Fragment>
     );
+  } else {
+    return <GameOver {...props} />;
   }
-  
-  else{
-    return (
-      
-        <GameOver {...props}/>
-      
-    )
-  }
- 
 };
 
 /*
@@ -253,7 +406,15 @@ const mapStateToProps = (state) => {
     coin: state.coin_reducer,
     player: state.player_reducer,
     aliens: state.alien_reducer,
-    timer:state.timer_reducer,
+    timer: state.timer_reducer,
+    blaster: state.blaster_reducer,
+    carnivore: state.carnivore_reducer,
+    swordFish: state.swordFish_reducer,
+    seahorse: state.seahorse_reducer,
+    preggo: state.preggo_reducer,
+    text: state.text_reducer,
+    portal: state.portal_reducer,
+    clam:state.clam_reducer,
   };
 };
 
@@ -277,6 +438,28 @@ export default connect(mapStateToProps, {
   resetAlien,
   createPlayer,
   resetPlayer,
+  createBlaster,
+  deleteBlaster,
+  resetBlaster,
+  createCarnivore,
+  deleteCarnivore,
+  resetCarnivore,
+  createSwordFish,
+  deleteSwordFish,
+  resetSwordFish,
+  createPreggo,
+  deletePreggo,
+  resetPreggo,
+  createSeahorse,
+  deleteSeahorse,
+  resetSeahorse,
+  createPortal,
+  deletePortal,
+  resetPortal,
+  createText,
+  deleteText,
+  resetText,
+  createClam
 })(Game);
 function damageMonster(attackingMonster, props) {
   if (attackingMonster.alien.health - 1 === 0) {

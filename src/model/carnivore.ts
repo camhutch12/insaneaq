@@ -1,92 +1,102 @@
-import { v4 as uuidv4 } from "uuid"
-import { GoldFish } from "./Goldfish";
+import { v4 as uuidv4 } from "uuid";
+import {Crumb} from './crumb'
+class Carnivore {
 
-class Alien {
   id;
   direction:number[] = [];
-  difference:number[]  = [];
-  unitV:number[]  = [];
-  fishList:any[] = [];
-  x:number;
-  y:number;
-  fish:any;
-  hasFishToChase = false;
+  x = -1;
+  y = -1;
+  difference:number[] = [];
+  crumb:Crumb|null = null;
+  crumbList:Crumb[] = [];
+  hasCrumbsToChase:boolean = false;
   isRandom = true;
   isJustCreated = true;
   isRandomCurrently = false;
   totalEatenFood = 0;
-  size = 1;
+  size = 0.4;
+  unitV:number[] = [];
+  hungerTimer = 0;
+  coinDropTimer = 0;
   dropRate = 500;
   speed;
   hunger = 1;
-  health = 5;
 
   constructor(x:number, y:number) {
-    this.id = uuidv4();
+    this.id = uuidv4();;
     this.x = x;
     this.y = y;
     this.totalEatenFood = 0;
     // make the drop rate unique
     this.dropRate = 500 + Math.random() * 500;
-    this.size = 1;
-    this.speed = 3;
-    
+    this.size = 0.4;
+    this.speed = 2
     // generate random direction
     // generate random point
     this.isJustCreated = true;
     this.isRandom = true;
-    this.direction[0] = Math.random() * window.innerWidth - 30;
-    this.direction[1] = Math.random() * window.innerHeight - 150;
+    this.direction[0] = Math.random() * window.innerWidth-30;
+    this.direction[1] = Math.random() * window.innerHeight-150;
     // calculate the difference to random point (unit vector)
     this.difference[0] = this.direction[0] - x;
     this.difference[1] = this.direction[1] - y;
     let distance = Math.sqrt(
-      Math.pow(this.difference[0], 2) + Math.pow(this.difference[1], 2)
-    );
-    this.unitV = [this.difference[0] / distance, this.difference[1] / distance];
-
-}
-// initialize position
+        Math.pow(this.difference[0], 2) +
+          Math.pow(this.difference[1], 2)
+      );
+       this.unitV = [
+        this.difference[0] / distance,
+        this.difference[1] / distance,
+      ];
+    
+    // initialize position
+  }
 
   setPosition(x:number, y:number) {
     this.x = x;
     this.y = y;
   }
-  setFishList(fish:GoldFish[]) {
-    this.fishList = [...fish];
+  setCrumbList(c:Crumb[]) {
+    this.crumbList = [...c];
   }
 
-
-
-  increaseSize() {
-    if (this.totalEatenFood >= 8) {
-      this.size = 0.6;
-    } else if (this.totalEatenFood >= 4) {
-      this.size = 0.4;
-    } else {
-      this.size = 0.2;
-    }
+  setHungerTimer(value:number) {
+    this.hungerTimer = value;
   }
 
-  getClosestFish() {
+  // (0 is no hunger)
+  // (1 searches for food)
+  // (2 is yellow)
+  // (3 is dead)
+  setHunger(value:number) {
+    this.hunger = value;
+    this.hungerTimer = 0; // reset timer
+  }
+
+  setCoinDrop(value:number) {
+    this.coinDropTimer = value;
+  }
+
+  
+  getClosestCrumb() {
     let dist1 = -1;
     let dist2 = -1;
 
     // go through all the crumbs
-    for (let fish of this.fishList) {
-      if (this.fish == null) {
-        this.fish = fish;
+    for (let c of this.crumbList) {
+      if (this.crumb == null) {
+        this.crumb = c;
       } else {
         dist1 = Math.sqrt(
-          Math.pow(this.fish.x - this.x, 2) +
-            Math.pow(this.fish.y - this.y, 2)
+          Math.pow(this.crumb.x - this.x, 2) +
+            Math.pow(this.crumb.y - this.y, 2)
         );
         dist2 = Math.sqrt(
-          Math.pow(fish.x - this.x, 2) + Math.pow(fish.y - this.y, 2)
+          Math.pow(c.x - this.x, 2) + Math.pow(c.y - this.y, 2)
         );
-        // check if this fish is closer
+        // check if this crumb is closer
         if (dist1 > dist2) {
-          this.fish = fish;
+          this.crumb = c;
         }
       }
     }
@@ -101,36 +111,35 @@ class Alien {
       this.difference[0] = this.direction[0] - this.x;
       this.difference[1] = this.direction[1] - this.y;
       let distance = Math.sqrt(
-        Math.pow(this.difference[0], 2) + Math.pow(this.difference[1], 2)
+        Math.pow(this.difference[0], 2) +
+          Math.pow(this.difference[1], 2)
       );
-      this.unitV = [
+       this.unitV = [
         this.difference[0] / distance,
         this.difference[1] / distance,
       ];
     }
   }
 
-  setHasFishToChase(totalFishList:GoldFish[]) {
+  setHasCrumbsToChase(totalCrumbList:Crumb[]) {
     // check if hungry
     if (this.hunger > 0 && this.hunger < 3) {
       // check if crumbs exist
-      if (totalFishList.length > 0) {
+      if (totalCrumbList.length > 0) {
         this.isRandom = false;
-        this.hasFishToChase = true;
+        this.hasCrumbsToChase = true;
         this.isJustCreated = false;
         this.isRandomCurrently = false;
         return true;
       } else {
         this.isRandom = true;
-        this.hasFishToChase = false;
+        this.hasCrumbsToChase = false;
         return false;
       }
     }
   }
 
-  // setCoinDrop(value:any) {
-  //   this.coinDropTimer = value;
-  // }
+
 }
 
-export { Alien };
+export { Carnivore };

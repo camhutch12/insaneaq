@@ -102,7 +102,7 @@ export const Alien = ({ alien, goldfishList, deleteFish }, props) => {
     //   // (2 is yellow)
     //   // (3 is dead)
     // }
-    let image = '../assets/alien/alien.svg'
+    let image = '../assets/alien/octo.svg'
 
    
     // if fish has been dead, delete it
@@ -125,6 +125,6 @@ export const Alien = ({ alien, goldfishList, deleteFish }, props) => {
       },
     });
   });
-  return <Sprite image={"../assets/alien/alien.svg" } {...motion} />;
+  return <Sprite image={"../assets/alien/octo.svg" } {...motion} />;
 };
 export default Alien;

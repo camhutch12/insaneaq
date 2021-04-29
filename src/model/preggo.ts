@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid"
 import { GoldFish } from "./Goldfish";
-
-class Alien {
+import {Timer} from '../util/timer'
+class Preggo {
   id;
   direction:number[] = [];
   difference:number[]  = [];
@@ -15,20 +15,25 @@ class Alien {
   isJustCreated = true;
   isRandomCurrently = false;
   totalEatenFood = 0;
-  size = 1;
+  size = 0.5;
   dropRate = 500;
   speed;
   hunger = 1;
-  health = 5;
+  health = 3;
+  guppyDropTimer:number = 0;
+  timer:Timer
+  
 
   constructor(x:number, y:number) {
     this.id = uuidv4();
     this.x = x;
     this.y = y;
+    this.timer = new Timer();
+    this.startTimer();
     this.totalEatenFood = 0;
     // make the drop rate unique
     this.dropRate = 500 + Math.random() * 500;
-    this.size = 1;
+    this.size = 0.5;
     this.speed = 3;
     
     // generate random direction
@@ -52,45 +57,7 @@ class Alien {
     this.x = x;
     this.y = y;
   }
-  setFishList(fish:GoldFish[]) {
-    this.fishList = [...fish];
-  }
-
-
-
-  increaseSize() {
-    if (this.totalEatenFood >= 8) {
-      this.size = 0.6;
-    } else if (this.totalEatenFood >= 4) {
-      this.size = 0.4;
-    } else {
-      this.size = 0.2;
-    }
-  }
-
-  getClosestFish() {
-    let dist1 = -1;
-    let dist2 = -1;
-
-    // go through all the crumbs
-    for (let fish of this.fishList) {
-      if (this.fish == null) {
-        this.fish = fish;
-      } else {
-        dist1 = Math.sqrt(
-          Math.pow(this.fish.x - this.x, 2) +
-            Math.pow(this.fish.y - this.y, 2)
-        );
-        dist2 = Math.sqrt(
-          Math.pow(fish.x - this.x, 2) + Math.pow(fish.y - this.y, 2)
-        );
-        // check if this fish is closer
-        if (dist1 > dist2) {
-          this.fish = fish;
-        }
-      }
-    }
-  }
+ 
 
   resetDirection() {
     if (this.isRandom && !this.isJustCreated && !this.isRandomCurrently) {
@@ -110,27 +77,22 @@ class Alien {
     }
   }
 
-  setHasFishToChase(totalFishList:GoldFish[]) {
-    // check if hungry
-    if (this.hunger > 0 && this.hunger < 3) {
-      // check if crumbs exist
-      if (totalFishList.length > 0) {
-        this.isRandom = false;
-        this.hasFishToChase = true;
-        this.isJustCreated = false;
-        this.isRandomCurrently = false;
-        return true;
-      } else {
-        this.isRandom = true;
-        this.hasFishToChase = false;
-        return false;
-      }
-    }
-  }
+   startTimer(){
+     this.timer.startTime();
+   }
 
-  // setCoinDrop(value:any) {
-  //   this.coinDropTimer = value;
-  // }
+   getCurrentTimer(){
+     return this.timer.currentTime;
+   }
+
+   resetTimer(){
+     this.timer.stopTime()
+     this.timer.currentTime =0;
+   }
+
+  setguppyDrop(value:any) {
+    this.guppyDropTimer = value;
+  }
 }
 
-export { Alien };
+export { Preggo };

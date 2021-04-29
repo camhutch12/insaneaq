@@ -5,7 +5,6 @@ import {Crumb} from '../model/crumb'
 export const crumb_reducer = (oldCrumbList=[],action) => {
     if(action.type === "CREATE_CRUMB"){
         let {x,y} = action.payload.crumb
-        
         return [...oldCrumbList,new Crumb(x,y)]
     }
     else if(action.type ==="DELETE_CRUMB"){

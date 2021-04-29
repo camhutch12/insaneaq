@@ -48,9 +48,16 @@ const Coin = ({coin, deleteCoin}) => {
         if(coin.type == 0){
             // make silver
             image = '../../assets/drops/silver.svg'
-        }else{
+        }else if(coin.type == 1){
             // make gold
             image = '../../assets/drops/gold.svg'
+        }else if(coin.type == 2){
+            image = '../../assets/drops/diamond.svg'
+        }
+        
+        let scale=0.25
+        if(coin.type === 2){
+            scale=0.15
         }
 
         // update current frame
@@ -59,7 +66,7 @@ const Coin = ({coin, deleteCoin}) => {
             data: {
             x: coin.x,
             y: coin.y,
-            scale:{x:0.25,y:0.25},
+            scale:{x:scale,y:scale},
             anchor:0.5,
             image: image,
             }

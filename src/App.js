@@ -1,4 +1,4 @@
-import "./App.css";
+  import "./App.css";
 import {
   Stage,
   Sprite,
@@ -62,8 +62,8 @@ const App = (props) => {
   };
   const locationMouseClick = { x: 0, y: 0 };
   let hasClicked = false;
-
-
+  let [currentLevel, setCurrentLevel] = useState(0);
+  let [isLeveledUP, setIsLeveledUp] = useState(false);
   /*
   Register the mouse click x and y coordinated with a mouse listener
   */
@@ -98,16 +98,11 @@ const [needFish,setNeedFish] = useState(false)
     props.timer.stopTime();
     props.resetPlayer(1)
     setNeedFish(true)
-    //setNeedFish(true)
-    //props.resetFish();
-   // props.resetCoin();
-    
-    // props.createFish(new GoldFish(Math.floor((Math.random() * SCREEN_SIZE.x)),Math.floor((Math.random() * SCREEN_SIZE.y))))
-    // props.createFish(new GoldFish(Math.floor((Math.random() * SCREEN_SIZE.x)),Math.floor((Math.random() * SCREEN_SIZE.y))))
-    // props.createFish(new GoldFish(Math.floor((Math.random() * SCREEN_SIZE.x)),Math.floor((Math.random() * SCREEN_SIZE.y))))
-
-    //appStart()
   };
+
+  const isLevelup = () =>{
+    setIsLeveledUp(true)
+  }
 
 
 
@@ -116,10 +111,17 @@ Renders either the game or the UI based on whether start was clicked.
 Start button is defined in UI component 
  */
 console.log("Rerender app class")
+if(!isLeveledUP && !start){
   return (
     <div>
-      {start ? (
-        <Game
+        <UI onClick={appStart}/>
+    </div>
+  );
+}
+else if(!isLeveledUP && start){
+  return (
+    <>
+    <Game
           hasClicked={hasClicked}
           posClicked={locationMouseClick}
           getClick={getlocation}
@@ -128,12 +130,12 @@ console.log("Rerender app class")
           SCREEN_SIZE={SCREEN_SIZE}
           rr={reset}
           needFish={needFish}
+          isLevelup={isLevelup}
         />
-      ) : (
-        <UI onClick={appStart}/>
-      )}
-    </div>
-  );
+        </>
+  )
+}
+  
 };
 
 /*

@@ -3,7 +3,7 @@ export class Player{
   food;
   currentLevel
   constructor(){
-    this.coins = 0;
+    this.coins = 10000000;
     this.food =2
   }
 
@@ -12,8 +12,10 @@ export class Player{
 
       this.coins += 100
     }
-    else{
+    else if(currentCoin.type === 0){
       this.coins += 50
+    }else if(currentCoin.type === 2){
+      this.coins += 300
     }
 
   }

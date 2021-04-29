@@ -1,6 +1,8 @@
 import { NavItem } from "../navbar/navItem";
 import styles from '../style.module.css';
 import {GoldFish} from '../model/Goldfish';
+import {Carnivore} from '../model/carnivore';
+import UI from '../UI/ui'
 const Navbar = (props) => {
 
   
@@ -19,6 +21,18 @@ const Navbar = (props) => {
         }
     }
 
+    const createCarnivore=() =>{
+        if(props.player[0].coins >= 1000){
+        props.createCarnivore(new Carnivore(Math.floor((Math.random() * props.SCREEN_SIZE.x)),Math.floor((Math.random() * props.SCREEN_SIZE.y))))
+        props.player[0].coins -= 1000;
+        }
+    }
+
+    const levelUp =() =>{
+        
+        props.isLevelup()
+    }
+
     const upgradeFood = () =>{
         console.log('upgrade food')
     }
@@ -30,8 +44,6 @@ const Navbar = (props) => {
         onClick(){
             createFish()
         }
-            
-
     },
 
     {
@@ -61,7 +73,10 @@ const Navbar = (props) => {
     {
         img: '../assets/fish/bigfish/bigfish.svg',
         value:200,
-        hasImgTag: true
+        hasImgTag: true,
+        onClick(){
+            createCarnivore()
+        },
 
     },
 
@@ -74,7 +89,10 @@ const Navbar = (props) => {
     {
         img:'../assets/upgrades/egg.svg',
         value:750,
-        hasImgTag: true
+        hasImgTag: true,
+        onClick(){
+            levelUp()
+        }
 
     },
 

@@ -28,7 +28,7 @@ const UI = ({onClick,...props}) => {
                 </div>
 
                 <div className={styles.instructions}>
-                    <img src="../../assets/background/alien.svg" width="100px"></img>
+                    <img src="../../assets/background/octo.svg" width="100px"></img>
                     <div className={styles.lab}>
                         <label className={styles.lab}>Fear Me</label>
                     </div>

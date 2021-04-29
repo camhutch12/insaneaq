@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 240 240" width="240px" height="240px">
+<defs>
+<radialGradient id="radial0" gradientUnits="userSpaceOnUse" cx="54.348419" cy="54.348419" fx="54.348419" fy="54.348419" r="124.821831" gradientTransform="matrix(1.395349,0,0,1.395349,0,0)">
+<stop offset="0" style="stop-color:rgb(100%,100%,100%);stop-opacity:1;"/>
+<stop offset="0.765" style="stop-color:rgb(43.921569%,78.823531%,98.039216%);stop-opacity:1;"/>
+<stop offset="0.821" style="stop-color:rgb(34.509805%,76.47059%,97.254902%);stop-opacity:1;"/>
+<stop offset="0.87" style="stop-color:rgb(36.078432%,73.333335%,92.54902%);stop-opacity:1;"/>
+<stop offset="0.916" style="stop-color:rgb(36.470589%,75.686276%,99.215686%);stop-opacity:1;"/>
+<stop offset="0.96" style="stop-color:rgb(98.823529%,98.823529%,98.823529%);stop-opacity:1;"/>
+<stop offset="1" style="stop-color:rgb(100%,100%,100%);stop-opacity:1;"/>
+</radialGradient>
+</defs>
+<g id="surface27180772">
+<path style=" stroke:none;fill-rule:nonzero;fill:url(#radial0);" d="M 220 120 C 220 175.226562 175.226562 220 120 220 C 64.773438 220 20 175.226562 20 120 C 20 64.773438 64.773438 20 120 20 C 175.226562 20 220 64.773438 220 120 Z M 220 120 "/>
+</g>
+</svg>
