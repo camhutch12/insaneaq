@@ -3,7 +3,7 @@ import styles from '../style.module.css';
 import {GoldFish} from '../model/Goldfish';
 import {Carnivore} from '../model/carnivore';
 import UI from '../UI/ui'
-const Navbar = (props) => {
+const Navbar = ({levelParams,...props}) => {
 
   
     const money = 0;
@@ -28,9 +28,11 @@ const Navbar = (props) => {
         }
     }
 
-    const levelUp =() =>{
-        
+    const levelUp =(item) =>{
+        if(props.player[0].coins >= item.price){
         props.isLevelup()
+        }
+
     }
 
     const upgradeFood = () =>{
@@ -41,6 +43,7 @@ const Navbar = (props) => {
         img:'../assets/fish/fish.svg',
         value:100,
         hasImgTag: true,
+        item:levelParams.allowedUpgrades.babyFish,
         onClick(){
             createFish()
         }
@@ -50,6 +53,7 @@ const Navbar = (props) => {
         img:'../assets/drops/crumb.svg',
         value:200,
         hasImgTag: true,
+        item:levelParams.allowedUpgrades.foodQuality,
         onClick(){
             upgradeFood()
         }
@@ -63,6 +67,7 @@ const Navbar = (props) => {
         img: '../assets/fish/bigfish/bigfish.svg',
         value:100,
         labelVal:`${props.player[0].food + 1}`,
+        item:levelParams.allowedUpgrades.foodqty,
         onClick(){
             increaseFoodLimit()
         },
@@ -73,6 +78,7 @@ const Navbar = (props) => {
     {
         img: '../assets/fish/bigfish/bigfish.svg',
         value:200,
+        item:levelParams.allowedUpgrades.carnivore,
         hasImgTag: true,
         onClick(){
             createCarnivore()
@@ -84,14 +90,16 @@ const Navbar = (props) => {
         img:'../assets/gun/gunorange.svg',
         value:1000,
         hasImgTag: true,
+        item:levelParams.allowedUpgrades.laserUpgrade,
 
     },
     {
         img:'../assets/upgrades/egg.svg',
         value:750,
         hasImgTag: true,
+        item:levelParams.allowedUpgrades.levelupCost,
         onClick(){
-            levelUp()
+            levelUp(levelParams.allowedUpgrades.levelupCost)
         }
 
     },

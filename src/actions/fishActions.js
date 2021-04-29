@@ -24,3 +24,12 @@ export const resetFish = fish => {
         }
     }
 }
+
+export const clearFish = fish => {
+    return {
+        type:'CLEAR_FISH',
+        payload:{
+            fish
+        }
+    }
+}

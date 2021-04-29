@@ -16,31 +16,40 @@ with a passed in x and y coordinate,
 scale tranforms the size
 */
 export const Carnivore = (
-  { carnivore, carnivoreList, crumb, deleteCrumb, deleteCarnivore, createCoin,timer,createAlien },
+  {
+    carnivore,
+    carnivoreList,
+    goldfishList,
+    deleteFish,
+    deleteCarnivore,
+    createCoin,
+    timer,
+    createAlien,
+  },
   props
 ) => {
   carnivoreList.forEach((element) => {
-    element.crumb = null;
-    element.crumbList = [];
+    element.goldfish = null;
+    element.goldfishList = [];
   });
   const [pos, setPos] = useState({});
   const reducer = (_, { data }) => data;
   const [motion, update] = useReducer(reducer);
   const iter = useRef(0);
   useTick((delta) => {
-    if(timer.currentTime >= 30){
-      createAlien()
+    if (timer.currentTime >= 30) {
+      createAlien();
     }
     // increase the counter
     let i = (iter.current += 0.00001 * delta);
     let scaleX = carnivore.size;
     let scaleY = carnivore.size;
     // check if crumbs exist
-    if (carnivore.setHasCrumbsToChase(crumb)) {
-      carnivore.setCrumbList(crumb);
-      carnivore.getClosestCrumb();
-      carnivore.direction[0] = carnivore.crumb.x;
-      carnivore.direction[1] = carnivore.crumb.y - 100;
+    if (carnivore.setHasGoldfishToChase(goldfishList)) {
+      carnivore.setGoldfishList(goldfishList);
+      carnivore.getClosestGoldfish();
+      carnivore.direction[0] = carnivore.goldfish.x;
+      carnivore.direction[1] = carnivore.goldfish.y - 100;
       carnivore.difference[0] = carnivore.direction[0] - carnivore.x;
       carnivore.difference[1] = carnivore.direction[1] - carnivore.y;
 
@@ -48,7 +57,7 @@ export const Carnivore = (
         Math.pow(carnivore.difference[0], 2) +
           Math.pow(carnivore.difference[1], 2)
       );
-       carnivore.unitV = [
+      carnivore.unitV = [
         carnivore.difference[0] / distance,
         carnivore.difference[1] / distance,
       ];
@@ -56,7 +65,7 @@ export const Carnivore = (
         carnivore.x + carnivore.unitV[0] * carnivore.speed,
         carnivore.y + carnivore.unitV[1] * carnivore.speed
       );
-    } 
+    }
 
     // coin drop timer increases
     carnivore.setCoinDrop(carnivore.coinDropTimer + 1);
@@ -71,18 +80,18 @@ export const Carnivore = (
       createCoin({ x: carnivore.x, y: carnivore.y, type: type });
     }
     // if outside the right bounds, change direction left
-    if (carnivore.x > window.innerWidth-50) {
+    if (carnivore.x > window.innerWidth - 50) {
       carnivore.unitV[0] = carnivore.unitV[0] * -1;
-      
+
       iter.current = 0;
     }
     // if outside the bounds left, change direction right
     if (carnivore.x < 30) {
-        carnivore.unitV[0] = carnivore.unitV[0] * -1;  
+      carnivore.unitV[0] = carnivore.unitV[0] * -1;
       iter.current = 0;
     }
     // if outside the top bounds, change direction down
-    if (carnivore.y < 30) {  
+    if (carnivore.y < 30) {
       carnivore.unitV[1] = carnivore.unitV[1] * -1;
       iter.current = 0;
     }
@@ -92,29 +101,30 @@ export const Carnivore = (
       iter.current = 0;
     }
     // update position
-    if (!carnivore.setHasCrumbsToChase(crumb)) {
+    if (!carnivore.setHasGoldfishToChase(goldfishList)) {
       carnivore.setPosition(
         carnivore.x + carnivore.unitV[0] * carnivore.speed,
         carnivore.y + carnivore.unitV[1] * carnivore.speed
       );
     }
-    // delete crumb if not full/dead and carnivore hits crumb
-    if(carnivore.hunger == 1 || carnivore.hunger == 2){
-      for (let j = 0; j < crumb.length; j++) {
+    // delete goldfishList if not full/dead and carnivore hits goldfishList
+    if (carnivore.hunger == 1 || carnivore.hunger == 2) {
+      for (let j = 0; j < goldfishList.length; j++) {
         if (
-          carnivore.x <= crumb[j].x + 30 &&
-          carnivore.x >= crumb[j].x - 30 &&
-          carnivore.y <= crumb[j].y - 100 + 30 &&
-          carnivore.y >= crumb[j].y - 100 - 30
+          carnivore.x <= goldfishList[j].x + 30 &&
+          carnivore.x >= goldfishList[j].x - 30 &&
+          carnivore.y <= goldfishList[j].y - 100 + 30 &&
+          carnivore.y >= goldfishList[j].y - 100 - 30 &&
+          goldfishList[j].size === 0.2
         ) {
-          deleteCrumb(crumb[j]);
+          deleteFish(goldfishList[j]);
           carnivore.totalEatenFood++;
-          carnivore.crumb = null;
+          carnivore.goldfishList = null;
           carnivore.setHunger(carnivore.hunger - 1);
         }
       }
     }
-    
+
     // hunger timer
     carnivore.setHungerTimer(carnivore.hungerTimer + 1);
     // if hungry for too long, change hunger level
@@ -134,11 +144,11 @@ export const Carnivore = (
     if (carnivore.hunger == 1 || carnivore.hunger == 0) {
       image = "assets/fish/bigfish/bigfish.svg";
     }
-    
+
     // if carnivore is dead, flip it
     if (carnivore.hunger == 3) {
       scaleY = scaleY * -1; // flip carnivore is Y axis
-      image='assets/fish/bigfish/bigfishdead.svg'
+      image = "assets/fish/bigfish/bigfishdead.svg";
     }
     // if carnivore has been dead, delete it
     if (carnivore.hunger > 3) {
@@ -161,6 +171,6 @@ export const Carnivore = (
     });
   });
 
-  return <Sprite image={"assets/fish/bigfish/bigfish.svg"} {...motion}  />;
+  return <Sprite image={"assets/fish/bigfish/bigfish.svg"} {...motion} />;
 };
 export default Carnivore;

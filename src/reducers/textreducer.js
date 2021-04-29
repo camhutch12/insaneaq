@@ -5,7 +5,6 @@ export const text_reducer = (oldTextList=[],action) => {
     if(action.type === "CREATE_TEXT"){
         
         const text = new Text(window.innerWidth/2,window.innerHeight-200)
-        console.log("CREATING TEXT")
         return [...oldTextList,text]
         
     }else if(action.type ==="DELETE_TEXT"){

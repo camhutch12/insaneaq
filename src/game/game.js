@@ -72,9 +72,9 @@ which holds all of the games components (background, fish, food, etc),
 and mouse click coordinates are passed in from the App.js and are passed to
 sub comnponents
 */
-const Game = ({ background, ...props }) => {
+const Game = ({ background,levelParams, ...props }) => {
   const [app, setApp] = useState(null);
-
+  let totalFishList = props.fish.concat(props.carnivore)
   useEffect(() => {
     return () => {
       props.createFish(
@@ -122,6 +122,7 @@ const Game = ({ background, ...props }) => {
 
   /*
     Mouse listener
+    // This function is going to carry all of the logic for different click events
 */
   const getClick = (event) => {
     let attackingMonster = {};
@@ -131,18 +132,24 @@ const Game = ({ background, ...props }) => {
     setHasClicked(true);
     const mousePos = { x: event.clientX, y: event.clientY };
 
-    // This function is going to carry all of the logic for different click events
+    
 
     // check if mouse clicks are on monster
+   
     attackingMonster = alienIsClicked(mousePos);
     if (attackingMonster.alienIsPresent) {
       // shoot blaster
+      if(levelParams.allowedAliens.canhaveAlien1){
       props.createBlaster({ x: event.clientX, y: event.clientY });
       if (attackingMonster.isAttacking) {
         // damage monster
         damageMonster(attackingMonster, props);
       }
-    } else {
+    }
+    } 
+  
+    
+    else {
       // check if we clicked on a coin, otherwise deploy a crumb
       if (coinIsNotClicked(mousePos)) {
         // check if crumbs are allowed to be deployed, based on crumb limit
@@ -233,6 +240,7 @@ Map all the fish component sprites from our redux store to a variable to render
         timer={props.timer}
         createPortal = {props.createPortal}
         createText = {createWarning}
+        levelParams={levelParams}
       />
     );
   });
@@ -283,8 +291,8 @@ Map all the fish component sprites from our redux store to a variable to render
       <Carnivore
         key={index}
         carnivore={ele}
-        crumb={props.crumb}
-        deleteCrumb={props.deleteCrumb}
+        goldfishList={props.fish}
+        deleteFish={props.deleteFish}
         deleteCarnivore={props.deleteCarnivore}
         carnivoreList={props.carnivore}
         createCoin={props.createCoin}
@@ -297,7 +305,8 @@ Map all the fish component sprites from our redux store to a variable to render
   const crumb = props.crumb.map((ele, index) => (
     <Crumb key={index} crumb={ele} deleteCrumb={props.deleteCrumb} />
   ));
-  const snail = props.snail.map((ele, index) => (
+  const snail  = levelParams.allowedPets.canhaveSnail === true ?
+  props.snail.map((ele, index) => (
     <Snail
       key={index}
       snail={ele}
@@ -305,7 +314,8 @@ Map all the fish component sprites from our redux store to a variable to render
       deleteCoin={props.deleteCoin}
       player={props.player}
     />
-  ));
+  ))
+  :null;
   
 
   const clam = props.clam.map((ele, index) => (
@@ -318,19 +328,19 @@ Map all the fish component sprites from our redux store to a variable to render
     />
   ));
 
-  const alien = props.aliens.map((ele, index) => {
+  const alien = levelParams.allowedAliens.canhaveAlien1 === true ?  props.aliens.map((ele, index) => {
     return (
       <Alien
         key={index}
-        goldfishList={props.fish}
+        goldfishList={totalFishList}
         deleteFish={props.deleteFish}
         alien={ele}
       />
     );
-  });
+  }) : null;
 
   
-  const text = props.text.map((ele, index) => {
+  const text = levelParams.allowedAliens.canhaveAlien1 === true ?  props.text.map((ele, index) => {
      return (
       <TextWarning
          key={index}
@@ -338,9 +348,9 @@ Map all the fish component sprites from our redux store to a variable to render
          text={ele}
        />
      );
-   });
+   }) : null;
   
-  const portal = props.portal.map((ele, index) => {
+  const portal = levelParams.allowedAliens.canhaveAlien1 === true ?  props.portal.map((ele, index) => {
      return (
       <Portal
          key={index}
@@ -348,24 +358,25 @@ Map all the fish component sprites from our redux store to a variable to render
          portal={ele}
        />
      );
-   });
+   }) : null;
 
 
-  const blaster = props.blaster.map((ele, index) => (
+  const blaster = levelParams.allowedAliens.canhaveAlien1 === true ? props.blaster.map((ele, index) => (
     <Blaster key={index} blaster={ele} deleteBlaster={props.deleteBlaster} />
-  ));
+  )) : null;
 
   // get coin components/sprites to render
-  var coin;
+  let coin;
   if (props.coin != undefined) {
     coin = props.coin.map((ele, index) => (
       <Coin key={index} coin={ele} deleteCoin={props.deleteCoin} />
     ));
   }
-  if (fish.length > 0) {
+  
+  if ( totalFishList.length > 0) {
     return (
       <React.Fragment>
-        <Navbar {...props} />
+        <Navbar levelParams={levelParams} {...props} />
         <Stage
           width={props.SCREEN_SIZE.x}
           height={props.SCREEN_SIZE.x}
@@ -374,19 +385,19 @@ Map all the fish component sprites from our redux store to a variable to render
         >
           <Background background={background} />
           
-          {seahorse}
-          {portal}
-          {alien}
+          {levelParams.allowedPets.canhaveSeahorse === true ? seahorse : null}
+          {levelParams.allowedAliens.canhaveAlien1 === true ? portal : null}
+          {levelParams.allowedAliens.canhaveAlien1 === true ? alien : null}
           {fish}
-          {snail}
+          {levelParams.allowedPets.canhaveSnail === true ? snail : null}
           {coin}
           {crumb}
-          {blaster}
-          {carnivore}
-          {preggo}
-          {swordfish}
-          {clam}
-          {text}
+          {levelParams.allowedAliens.canhaveAlien1 === true ? blaster : null}
+          {levelParams.allowedUpgrades.carnivore.canhave === true ? carnivore : null}
+          {levelParams.allowedPets.canhavePreggo === true ? preggo : null}
+          {levelParams.allowedPets.canhaveSwordFish === true ? swordfish : null}
+          {levelParams.allowedPets.canhaveClam === true ? clam : null}
+          {levelParams.allowedAliens.canhaveAlien1 === true ? text : null}
         </Stage>
       </React.Fragment>
     );

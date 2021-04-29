@@ -27,6 +27,7 @@ export const GoldFish = (
     createAlien,
     createPortal,
     createText,
+    levelParams,
   },
   props
 ) => {
@@ -39,11 +40,13 @@ export const GoldFish = (
   const [motion, update] = useReducer(reducer);
   const iter = useRef(0);
   useTick((delta) => {
-    if (timer.currentTime > 23 && timer.currentTime<25) {
-      createText();
-    }
-    if (timer.currentTime >= 30) {
-      createAlien();
+    if (levelParams.allowedAliens.canhaveAlien1) {
+      if (timer.currentTime > 23 && timer.currentTime < 25) {
+        createText();
+      }
+      if (timer.currentTime >= 30) {
+        createAlien();
+      }
     }
     // increase the counter
     let i = (iter.current += 0.00001 * delta);
@@ -86,12 +89,10 @@ export const GoldFish = (
         type = 0; // silver
         // medium
       } else if (goldfish.size === 0.4) {
-
         const rand = Math.random() * 100;
         if (rand > 75) {
           type = 1; // gold
-        } 
-        else {
+        } else {
           type = 0; // silver
         }
 

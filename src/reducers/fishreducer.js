@@ -10,9 +10,18 @@ export const fish_reducer = (oldFishList=[
     if(action.type === "CREATE_FISH"){
         
         return [...oldFishList,action.payload.fish]
-    }else if(action.type ==="DELETE_FISH"){
+
+    }
+    else if(action.type ==="DELETE_FISH"){
         
         oldFishList = oldFishList.filter((ele,index) => action.payload.fish.id !== ele.id );
+        return oldFishList
+    }
+
+
+    else if(action.type ==="CLEAR_FISH"){
+        
+        oldFishList = []
         return oldFishList
     }
 

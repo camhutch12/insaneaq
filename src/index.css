@@ -14,9 +14,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100%;
   width: 100%;
+  font-size: 16px;
 }
 
 canvas{

@@ -5,7 +5,7 @@ export const portal_reducer = (oldPortalList=[],action) => {
     if(action.type === "CREATE_PORTAL"){
         let {x,y} = action.payload.portal
         const portal = new Portal(x,y)
-        //console.log("portal create")
+
         return [...oldPortalList,portal]
     }else if(action.type ==="DELETE_PORTAL"){
         

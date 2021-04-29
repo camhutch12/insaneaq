@@ -30,13 +30,11 @@ const Clam = ({ clam, coin, ...props }) => {
     if (clam.x > window.innerWidth - 30) {
       clam.goRight = true;
       clam.goLeft = false;
-      clam.unitVector[0] = clam.unitVector[0] * -1;
       iter.current = 0;
     }
 
     // if outside the bounds left, change direction right
-    if (clam.x < 30) {
-      clam.unitVector[0] = clam.unitVector[0] * -1;
+    if (clam.x < 50) {
       iter.current = 0;
     }
 
