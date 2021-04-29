@@ -37,3 +37,15 @@
     transition: 0.12s;
 
 }
+
+.levelup__snail{
+    width: 100%;
+}
+
+.levelup__shell{
+    width: 40%;
+}
+
+.levelup__swordfish{
+    width: 40%;
+}

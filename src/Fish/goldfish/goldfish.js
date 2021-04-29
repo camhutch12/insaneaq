@@ -44,7 +44,7 @@ export const GoldFish = (
       if (timer.currentTime > 23 && timer.currentTime < 25) {
         createText();
       }
-      if (timer.currentTime >= 30) {
+      if (timer.currentTime >= 10) {
         createAlien();
       }
     }

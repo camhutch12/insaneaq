@@ -279,7 +279,7 @@ Map all the fish component sprites from our redux store to a variable to render
         deleteFish={props.deleteSwordFish}
         goldfishList={props.swordFish}
         createCoin={props.createCoin}
-        createAlien={createMonster}
+        deleteAlien={props.deleteAlien}
         timer={props.timer}
       />
     );
@@ -334,6 +334,7 @@ Map all the fish component sprites from our redux store to a variable to render
         key={index}
         goldfishList={totalFishList}
         deleteFish={props.deleteFish}
+        deleteCarnivore={props.deleteCarnivore}
         alien={ele}
       />
     );

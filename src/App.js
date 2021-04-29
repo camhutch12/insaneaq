@@ -341,7 +341,6 @@ const App = (props) => {
 
   // called when start is clicked
   const appStart = () => {
-   console.log(currentLevel)
     setStart(true);
     const p = new Player();
     props.createPlayer(p);
@@ -389,11 +388,11 @@ const App = (props) => {
       setIsLeveledUp(true)
       //setIsLeveledUp(true);
       props.clearFish();
+      props.player.coins = 0;
       
     }
     else{
       setIsLeveledUp(false)
-      console.log('is level up true')
       appStart();
     }
   };
@@ -427,7 +426,7 @@ Start button is defined in UI component
       </>
     );
   } else if (isLeveledUP) {
-    return <LevelUp onClick={isLevelup} />;
+    return <LevelUp onClick={isLevelup} level={currentLevel} />;
   }
 };
 

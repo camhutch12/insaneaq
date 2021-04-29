@@ -5,6 +5,7 @@ import { applyProps } from "react-pixi-fiber";
 import { deleteCrumb } from "../../actions/crumbActions";
 import * as PIXI from "pixi.js";
 import {isboundingBoxCoords} from '../../util/utilities'
+import { deleteAlien } from "../../actions/alienAction";
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -26,7 +27,7 @@ export const SwordFish = (
     deleteFish,
     createCoin,
     timer,
-    createAlien,
+    deleteAlien,
   },
   props
 ) => {
@@ -79,7 +80,7 @@ export const SwordFish = (
     //   createCoin({ x: swordFish.x, y: swordFish.y, type: type });
     // }
     // if outside the right bounds, change direction left
-    if (swordFish.x > window.innerWidth - 50) {
+    if (swordFish.x > window.innerWidth - 100) {
       swordFish.unitV[0] = swordFish.unitV[0] * -1;
 
       iter.current = 0;
@@ -90,7 +91,7 @@ export const SwordFish = (
       iter.current = 0;
     }
     // if outside the top bounds, change direction down
-    if (swordFish.y < 30) {
+    if (swordFish.y < 50) {
       swordFish.unitV[1] = swordFish.unitV[1] * -1;
       iter.current = 0;
     }
@@ -106,11 +107,15 @@ export const SwordFish = (
         swordFish.y + swordFish.unitV[1] * swordFish.speed
       );
     }
-    for(let alien of aliensList){
-      let p1 = {x:alien.x,y:alien.y}
+    for(let i = 0; i <  aliensList.length; i++){
+      let p1 = {x:aliensList[i].x,y:aliensList[i].y}
       let p2 = {x:swordFish.x,y:swordFish.y}
-      if(isboundingBoxCoords(p1,p2)){
-        alien.health -= 1;
+      if(isboundingBoxCoords(p1,p2,30)){
+        aliensList[i].health -= 1;
+        
+      }
+      if(aliensList[i].health <= 0){
+        deleteAlien(aliensList[i]);
       }
     }
 

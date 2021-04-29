@@ -3,6 +3,8 @@ import React, { useEffect, useState, useReducer, useRef } from "react";
 import { useTick } from "@inlet/react-pixi";
 import { applyProps } from "react-pixi-fiber";
 import * as PIXI from "pixi.js";
+import { GoldFish } from "../model/Goldfish";
+import { Carnivore } from "../model/carnivore";
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -14,7 +16,7 @@ This component is a pixi.js sprite of an svg image of a alien from icons8,
 with a passed in x and y coordinate,
 scale tranforms the size
 */
-export const Alien = ({ alien, goldfishList, deleteFish }, props) => {
+export const Alien = ({ alien, goldfishList, deleteFish,deleteCarnivore }, props) => {
   
   const [pos, setPos] = useState({});
   const reducer = (_, { data }) => data;
@@ -87,7 +89,14 @@ export const Alien = ({ alien, goldfishList, deleteFish }, props) => {
         alien.y <= goldfishList[j].y - 100 + 10 &&
         alien.y >= goldfishList[j].y - 100 - 10
       ) {
-        deleteFish(goldfishList[j]);
+        
+        if(goldfishList[j] instanceof GoldFish){
+          deleteFish(goldfishList[j]);
+
+        }
+        if(goldfishList[j] instanceof Carnivore){
+          deleteCarnivore(goldfishList[j])
+        }
         alien.totalEatenFood++;
         alien.fish = null;
       }
