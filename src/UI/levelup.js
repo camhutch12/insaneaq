@@ -14,27 +14,34 @@ If the button is clicked a boolean returns true in the callback, which starts th
 const LevelUp = ({ onClick, ...props }) => {
   let img = "";
   let style = "";
+  let name = ""
   switch (props.level) {
     case 0:
       break;
     case 1:
       img = "../assets/background/snail.svg";
       style = classes.Levelup__snail;
+      name = "Snail"
+
       break;
     case 2:
       img = "../assets/background/shell.svg";
       style = classes.levelup__shell;
+      name = "Shell"
       break;
     case 3:
       img = "../assets/fish/swordfish.svg";
       style = classes.levelup__shell;
+      name = "Swordfish"
       break;
     case 4:
       img = "../assets/fish/fishpreg.svg";
       style = classes.levelup__shell;
+      name = "Preggo"
       break;
     case 5:
       img = "../assets/fish/seahorse.svg";
+      name="Seahorse"
       break;
     default:
       img = "../assets/background/snail.svg";
@@ -44,7 +51,7 @@ const LevelUp = ({ onClick, ...props }) => {
   return (
     <div className={classes.levelup__container}>
       <h1 className={classes.levelup__title}>Level Complete</h1>
-      <h2 className={classes.levelup__titlesub}>You unlocked The Snail</h2>
+      <h2 className={classes.levelup__titlesub}>You unlocked The {name}</h2>
       <img className={style} src={img}></img>
       <button className={classes.levelup__button} onClick={onClick}>
         Next Level
