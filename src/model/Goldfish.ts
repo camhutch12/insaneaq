@@ -1,30 +1,30 @@
 import { v4 as uuidv4 } from "uuid";
+import { Crumb } from "./crumb";
 
 class GoldFish {
-  static count = 0;
+
   id;
-  direction = [];
+  direction:number[] = [];
+  difference:number[] = [];
+  unitV:number[] = [];
   x = -1;
   y = -1;
-  difference = [];
-  crumb = null;
-  crumbList = [];
-  hasCrumbsToChase;
+  crumb:Crumb|null = null;
+  crumbList:Crumb[] = [];
+  hasCrumbsToChase:boolean = false;
   isRandom = true;
   isJustCreated = true;
   isRandomCurrently = false;
   totalEatenFood = 0;
   size = 0.2;
-  unitV = [];
   hungerTimer = 0;
   coinDropTimer = 0;
   dropRate = 500;
   speed
   hunger = 1;
 
-  constructor(x, y) {
+  constructor(x:number, y:number) {
     this.id = uuidv4();;
-    this.count++;
     this.x = x;
     this.y = y;
     this.totalEatenFood = 0;
@@ -53,15 +53,15 @@ class GoldFish {
     // initialize position
   }
 
-  setPosition(x, y) {
+  setPosition(x:number, y:number) {
     this.x = x;
     this.y = y;
   }
-  setCrumbList(c) {
+  setCrumbList(c:Crumb[]) {
     this.crumbList = [...c];
   }
 
-  setHungerTimer(value) {
+  setHungerTimer(value:number) {
     this.hungerTimer = value;
   }
 
@@ -69,12 +69,12 @@ class GoldFish {
   // (1 searches for food)
   // (2 is yellow)
   // (3 is dead)
-  setHunger(value) {
+  setHunger(value:number) {
     this.hunger = value;
     this.hungerTimer = 0; // reset timer
   }
 
-  setCoinDrop(value) {
+  setCoinDrop(value:number) {
     this.coinDropTimer = value;
   }
 
@@ -131,7 +131,7 @@ class GoldFish {
     }
   }
 
-  setHasCrumbsToChase(totalCrumbList) {
+  setHasCrumbsToChase(totalCrumbList:Crumb[]) {
     // check if hungry
     if (this.hunger > 0 && this.hunger < 3) {
       // check if crumbs exist
@@ -149,9 +149,6 @@ class GoldFish {
     }
   }
 
-  setCoinDrop(value) {
-    this.coinDropTimer = value;
-  }
 }
 
 export { GoldFish };

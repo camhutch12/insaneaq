@@ -1,6 +1,6 @@
 import {Graphics} from '@inlet/react-pixi'
 import React from 'react'
-
+import {CONSTANTS} from '../../util/utilities'
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -15,7 +15,7 @@ const Sand  = () => {
     const draw = React.useCallback(g => {
         g.clear();
         g.beginFill(0xffd500)
-        g.drawEllipse(document.documentElement.clientWidth/2,(window.innerHeight-100), document.documentElement.clientWidth, (window.innerHeight-100)/5)
+        g.drawEllipse((CONSTANTS.MAXX+200)/2,(window.innerHeight-100), (CONSTANTS.MAXX+200), (CONSTANTS.MAXY+100)/5)
         g.endFill()
       }, []);
     return (

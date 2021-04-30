@@ -60,6 +60,8 @@ import {
 import { Preggo } from "../Fish/preggo/preggo";
 import SwordFish from "../Fish/swordfish/swordfish";
 import Clam  from '../Fish/clam/clam';
+import {CONSTANTS,randomNumber} from '../util/utilities'
+
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -72,35 +74,29 @@ which holds all of the games components (background, fish, food, etc),
 and mouse click coordinates are passed in from the App.js and are passed to
 sub comnponents
 */
+
+
+
+
 const Game = ({ background,levelParams, ...props }) => {
   const [app, setApp] = useState(null);
   let totalFishList = props.fish.concat(props.carnivore)
   useEffect(() => {
     return () => {
       props.createFish(
-        new GL(
-          Math.floor(Math.random() * props.SCREEN_SIZE.x),
-          Math.floor(Math.random() * props.SCREEN_SIZE.y)
-        )
+        new GL(randomNumber(CONSTANTS.MINX, CONSTANTS.MAXX),randomNumber(CONSTANTS.MINY, CONSTANTS.MAXY)),
+
       );
       props.createFish(
-        new GL(
-          Math.floor(Math.random() * props.SCREEN_SIZE.x),
-          Math.floor(Math.random() * props.SCREEN_SIZE.y)
-        )
-      );
-      props.createFish(
-        new GL(
-          Math.floor(Math.random() * props.SCREEN_SIZE.x),
-          Math.floor(Math.random() * props.SCREEN_SIZE.y)
-        )
+        new GL(randomNumber(CONSTANTS.MINX, CONSTANTS.MAXX),randomNumber(CONSTANTS.MINY, CONSTANTS.MAXY)),
+       
       );
     };
   }, []);
 
   const createMonster = () => {
-    let alienX = Math.floor((Math.random() * document.documentElement.clientWidth));
-    let alienY = Math.floor((Math.random() * (window.innerHeight-100)));
+    let alienX = randomNumber(CONSTANTS.MINX,CONSTANTS.MAXX-200)
+    let alienY = randomNumber(CONSTANTS.MINY,CONSTANTS.MAXY-200)
     props.createAlien({x:alienX, y:alienY});
     props.createPortal({x:alienX, y:alienY});
     props.timer.stopTime(props.timer.timerID);

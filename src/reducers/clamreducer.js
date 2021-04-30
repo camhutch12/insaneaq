@@ -1,7 +1,7 @@
 import { Clam } from "../model/clam"
 
 export const clam_reducer = (oldClamList=[
-    new Clam(Math.floor((Math.random() * document.documentElement.clientWidth)),
+    new Clam(Math.floor((Math.random() * window.innerWidth)),
     (window.innerHeight-100) / 1.3 + Math.floor(Math.random() * ((window.innerHeight-100) / 6))),
    
   
@@ -13,7 +13,7 @@ export const clam_reducer = (oldClamList=[
 
     else if(action.type === "RESET"){
         
-        oldClamList= [new Clam(Math.floor((Math.random() * document.documentElement.clientWidth)),
+        oldClamList= [new Clam(Math.floor((Math.random() * window.innerWidth)),
             (window.innerHeight-100) / 1.3 + Math.floor(Math.random() * ((window.innerHeight-100) / 6)))]
     }
     return [...oldClamList]

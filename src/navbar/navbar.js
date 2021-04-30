@@ -3,6 +3,7 @@ import styles from '../style.module.css';
 import {GoldFish} from '../model/Goldfish';
 import {Carnivore} from '../model/carnivore';
 import UI from '../UI/ui'
+import {randomNumber} from '../util/utilities'
 const Navbar = ({levelParams,...props}) => {
 
   
@@ -16,14 +17,15 @@ const Navbar = ({levelParams,...props}) => {
 
     const createFish=() =>{
         if(props.player[0].coins >= 100){
-        props.createFish(new GoldFish(Math.floor((Math.random() * props.SCREEN_SIZE.x)),Math.floor((Math.random() * props.SCREEN_SIZE.y))))
-        props.player[0].coins -= 100;
+            
+            props.createFish(new GoldFish(randomNumber(100,props.SCREEN_SIZE.x-200),randomNumber(100,props.SCREEN_SIZE.y-200)));
+            props.player[0].coins -= 100;
         }
     }
 
     const createCarnivore=() =>{
         if(props.player[0].coins >= 1000){
-        props.createCarnivore(new Carnivore(Math.floor((Math.random() * props.SCREEN_SIZE.x)),Math.floor((Math.random() * props.SCREEN_SIZE.y))))
+        props.createCarnivore(new Carnivore(randomNumber(100,props.SCREEN_SIZE.x-200),randomNumber(100,props.SCREEN_SIZE.y-200)))
         props.player[0].coins -= 1000;
         }
     }

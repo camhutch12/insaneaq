@@ -1,9 +1,11 @@
 import { SwordFish } from "../model/swordfish";
+import { randomNumber, CONSTANTS } from "../util/utilities";
+
 
 export const swordFish_reducer = (oldSwordFishList=[
-    new SwordFish(Math.floor((Math.random() * document.documentElement.clientWidth)),Math.floor((Math.random() * (window.innerHeight-100)))),
-  
-],action) => {
+    new SwordFish(randomNumber(CONSTANTS.MINX, CONSTANTS.MAXX),randomNumber(CONSTANTS.MINY, CONSTANTS.MAXY))
+
+  ],action) => {
     if(action.type === "CREATE_SWORDFISH"){
         
         return [...oldSwordFishList,action.payload.swordFish]
@@ -15,9 +17,7 @@ export const swordFish_reducer = (oldSwordFishList=[
 
     else if(action.type ==="RESET_SWORDFISH"){
         oldSwordFishList = [
-            new SwordFish(Math.floor((Math.random() * document.documentElement.clientWidth)),Math.floor((Math.random() * (window.innerHeight-100)))),
-    
-        ]
+        new SwordFish(randomNumber(CONSTANTS.MINX, CONSTANTS.MAXX),randomNumber(CONSTANTS.MINY, CONSTANTS.MAXY))]
         
         return [...oldSwordFishList]
     }

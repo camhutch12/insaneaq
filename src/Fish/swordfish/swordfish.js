@@ -6,6 +6,7 @@ import { deleteCrumb } from "../../actions/crumbActions";
 import * as PIXI from "pixi.js";
 import {isboundingBoxCoords} from '../../util/utilities'
 import { deleteAlien } from "../../actions/alienAction";
+import {CONSTANTS} from '../../util/utilities'
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -20,18 +21,13 @@ scale tranforms the size
 export const SwordFish = (
   {
     swordFish,
-    goldfishList,
-    crumb,
     aliensList,
-    deleteCrumb,
-    deleteFish,
-    createCoin,
-    timer,
     deleteAlien,
   },
   props
 ) => {
- 
+  swordFish.aliensList = [];
+  swordFish.alien = null;
   const [pos, setPos] = useState({});
   const reducer = (_, { data }) => data;
   const [motion, update] = useReducer(reducer);
@@ -80,23 +76,23 @@ export const SwordFish = (
     //   createCoin({ x: swordFish.x, y: swordFish.y, type: type });
     // }
     // if outside the right bounds, change direction left
-    if (swordFish.x > window.innerWidth - 100) {
+    if (swordFish.x > CONSTANTS.MAXX) {
       swordFish.unitV[0] = swordFish.unitV[0] * -1;
 
       iter.current = 0;
     }
     // if outside the bounds left, change direction right
-    if (swordFish.x < 30) {
+    if (swordFish.x < 100) {
       swordFish.unitV[0] = swordFish.unitV[0] * -1;
       iter.current = 0;
     }
     // if outside the top bounds, change direction down
-    if (swordFish.y < 50) {
+    if (swordFish.y < 110) {
       swordFish.unitV[1] = swordFish.unitV[1] * -1;
       iter.current = 0;
     }
     // if outside the bottom bounds, change direction up
-    if (swordFish.y > window.innerHeight - 130) {
+    if (swordFish.y > CONSTANTS.MAXY) {
       swordFish.unitV[1] = swordFish.unitV[1] * -1;
       iter.current = 0;
     }
