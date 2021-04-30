@@ -3,6 +3,7 @@ import React, { useEffect, useState, useReducer, useRef } from "react";
 import { useTick } from "@inlet/react-pixi";
 import { applyProps } from "react-pixi-fiber";
 import { deleteCrumb } from "../../actions/crumbActions";
+import {CONSTANTS} from '../../util/utilities'
 import * as PIXI from "pixi.js";
 /*
 Written By:
@@ -104,23 +105,23 @@ export const GoldFish = (
       createCoin({ x: goldfish.x, y: goldfish.y, type: type });
     }
     // if outside the right bounds, change direction left
-    if (goldfish.x > window.innerWidth - 50) {
+    if (goldfish.x > CONSTANTS.MAXX) {
       goldfish.unitV[0] = goldfish.unitV[0] * -1;
 
       iter.current = 0;
     }
     // if outside the bounds left, change direction right
-    if (goldfish.x < 30) {
+    if (goldfish.x < CONSTANTS.MINX) {
       goldfish.unitV[0] = goldfish.unitV[0] * -1;
       iter.current = 0;
     }
     // if outside the top bounds, change direction down
-    if (goldfish.y < 30) {
+    if (goldfish.y < CONSTANTS.MAXY) {
       goldfish.unitV[1] = goldfish.unitV[1] * -1;
       iter.current = 0;
     }
     // if outside the bottom bounds, change direction up
-    if (goldfish.y > window.innerHeight - 130) {
+    if (goldfish.y > CONSTANTS.MINY) {
       goldfish.unitV[1] = goldfish.unitV[1] * -1;
       iter.current = 0;
     }

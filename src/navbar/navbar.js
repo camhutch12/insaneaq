@@ -2,8 +2,8 @@ import { NavItem } from "../navbar/navItem";
 import styles from '../style.module.css';
 import {GoldFish} from '../model/Goldfish';
 import {Carnivore} from '../model/carnivore';
-import UI from '../UI/ui'
-import {randomNumber} from '../util/utilities'
+import {randomNumber,CONSTANTS} from '../util/utilities'
+
 const Navbar = ({levelParams,...props}) => {
 
   
@@ -15,17 +15,17 @@ const Navbar = ({levelParams,...props}) => {
         }
     }
 
-    const createFish=() =>{
+    const createGoldFish=() =>{
         if(props.player[0].coins >= 100){
             
-            props.createFish(new GoldFish(randomNumber(100,props.SCREEN_SIZE.x-200),randomNumber(100,props.SCREEN_SIZE.y-200)));
+            props.createFish(new GoldFish(randomNumber(CONSTANTS.MINX,CONSTANTS.MAXX),randomNumber(CONSTANTS.MINY,CONSTANTS.MAXY)));
             props.player[0].coins -= 100;
         }
     }
 
     const createCarnivore=() =>{
         if(props.player[0].coins >= 1000){
-        props.createCarnivore(new Carnivore(randomNumber(100,props.SCREEN_SIZE.x-200),randomNumber(100,props.SCREEN_SIZE.y-200)))
+        props.createCarnivore(new Carnivore(randomNumber(CONSTANTS.MINX,CONSTANTS.MAXX),randomNumber(CONSTANTS.MINY,CONSTANTS.MAXY)))
         props.player[0].coins -= 1000;
         }
     }
@@ -47,7 +47,7 @@ const Navbar = ({levelParams,...props}) => {
         hasImgTag: true,
         item:levelParams.allowedUpgrades.babyFish,
         onClick(){
-            createFish()
+            createGoldFish()
         }
     },
 

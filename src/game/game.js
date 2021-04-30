@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
-import {
-  Stage,
-  Sprite,
-  Graphics,
-  useApp,
-  Container,
-  render,
-} from "@inlet/react-pixi";
+import {Stage,Sprite,Graphics,useApp,Container,render,} from "@inlet/react-pixi";
+import { ContextSystem } from "@pixi/core";
+import { unmountComponentAtNode } from "react-dom";
 import { connect } from "react-redux";
 import Background from "../background/background";
 // Models ***************************************************
@@ -19,44 +14,26 @@ import { GoldFish as GL } from "../model/Goldfish";
 import Coin from "../drops/coin";
 import Portal from '../alien/portal.js'
 import TextWarning from '../alien/text.js'
+import Alien from "../alien/alien";
+import Navbar from "../navbar/navbar";
+import GameOver from "../UI/gameover";
+import Seahore from "../Fish/seahorse/seahorse";
 import styles from "../style.module.css";
 // Actions ***********************************************
 import { createSnail, resetSnail } from "../actions/snailActions";
-import { createFish, deleteFish, resetFish } from "../actions/fishActions";
-import {
-  createCarnivore,
-  deleteCarnivore,
-  resetCarnivore,
-} from "../actions/carnivoreActions";
+import { createFish, deleteFish, resetFish ,clearFish} from "../actions/fishActions";
+import {createCarnivore,deleteCarnivore,resetCarnivore,} from "../actions/carnivoreActions";
 import { createCoin, deleteCoin, resetCoin } from "../actions/coinActions";
 import { createCrumb, deleteCrumb, resetCrumb } from "../actions/crumbActions";
-import {
-  createBlaster,
-  deleteBlaster,
-  resetBlaster,
-} from "../actions/blasterActions";
+import {createBlaster,deleteBlaster,resetBlaster,} from "../actions/blasterActions";
 import {createClam,deleteClam} from '../actions/clamAction'
 import {createSwordFish,deleteSwordFish,resetSwordFish} from '../actions/swordfishAction' ;
 import {createSeahorse,deleteSeahorse,resetSeahorse} from '../actions/seahorseAction'
 import {createPreggo,deletePreggo,resetPreggo} from '../actions/preggoAction'
 import { createAlien, deleteAlien, resetAlien } from "../actions/alienAction";
 import { createPlayer, resetPlayer } from "../actions/playerActions";
-import Alien from "../alien/alien";
-import Navbar from "../navbar/navbar";
-import { ContextSystem } from "@pixi/core";
-import GameOver from "../UI/gameover";
-import { unmountComponentAtNode } from "react-dom";
-import Seahore from "../Fish/seahorse/seahorse";
-import {
-  createPortal,
-  deletePortal,
-  resetPortal,
-} from "../actions/portalActions";
-import {
-  createText,
-  deleteText,
-  resetText,
-} from "../actions/textActions";
+import {createPortal,deletePortal,resetPortal,} from "../actions/portalActions";
+import {createText,deleteText,resetText,} from "../actions/textActions";
 import { Preggo } from "../Fish/preggo/preggo";
 import SwordFish from "../Fish/swordfish/swordfish";
 import Clam  from '../Fish/clam/clam';
@@ -75,14 +52,12 @@ and mouse click coordinates are passed in from the App.js and are passed to
 sub comnponents
 */
 
-
-
-
 const Game = ({ background,levelParams, ...props }) => {
   const [app, setApp] = useState(null);
   let totalFishList = props.fish.concat(props.carnivore)
   useEffect(() => {
     return () => {
+      props.clearFish()
       props.createFish(
         new GL(randomNumber(CONSTANTS.MINX, CONSTANTS.MAXX),randomNumber(CONSTANTS.MINY, CONSTANTS.MAXY)),
 
@@ -95,8 +70,8 @@ const Game = ({ background,levelParams, ...props }) => {
   }, []);
 
   const createMonster = () => {
-    let alienX = randomNumber(CONSTANTS.MINX,CONSTANTS.MAXX-200)
-    let alienY = randomNumber(CONSTANTS.MINY,CONSTANTS.MAXY-200)
+    let alienX = randomNumber(CONSTANTS.MINX,CONSTANTS.MAXX)
+    let alienY = randomNumber(CONSTANTS.MINY,CONSTANTS.MAXY)
     props.createAlien({x:alienX, y:alienY});
     props.createPortal({x:alienX, y:alienY});
     props.timer.stopTime(props.timer.timerID);
@@ -433,6 +408,7 @@ export default connect(mapStateToProps, {
   createFish,
   deleteFish,
   resetFish,
+  clearFish,
   createSnail,
   resetSnail,
   createCrumb,

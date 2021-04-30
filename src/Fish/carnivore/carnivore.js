@@ -3,6 +3,7 @@ import React, { useEffect, useState, useReducer, useRef } from "react";
 import { useTick } from "@inlet/react-pixi";
 import { applyProps } from "react-pixi-fiber";
 import { deleteCrumb } from "../../actions/crumbActions";
+import {CONSTANTS} from '../../util/utilities'
 import * as PIXI from "pixi.js";
 /*
 Written By:
@@ -23,8 +24,6 @@ export const Carnivore = (
     deleteFish,
     deleteCarnivore,
     createCoin,
-    timer,
-    createAlien,
   },
   props
 ) => {
@@ -37,9 +36,7 @@ export const Carnivore = (
   const [motion, update] = useReducer(reducer);
   const iter = useRef(0);
   useTick((delta) => {
-    if (timer.currentTime >= 30) {
-      createAlien();
-    }
+    
     // increase the counter
     let i = (iter.current += 0.00001 * delta);
     let scaleX = carnivore.size;
@@ -49,7 +46,7 @@ export const Carnivore = (
       carnivore.setGoldfishList(goldfishList);
       carnivore.getClosestGoldfish();
       carnivore.direction[0] = carnivore.goldfish.x;
-      carnivore.direction[1] = carnivore.goldfish.y - 100;
+      carnivore.direction[1] = carnivore.goldfish.y - 200;
       carnivore.difference[0] = carnivore.direction[0] - carnivore.x;
       carnivore.difference[1] = carnivore.direction[1] - carnivore.y;
 
@@ -80,23 +77,23 @@ export const Carnivore = (
       createCoin({ x: carnivore.x, y: carnivore.y, type: type });
     }
     // if outside the right bounds, change direction left
-    if (carnivore.x > window.innerWidth - 50) {
+    if (carnivore.x > CONSTANTS.MAXX) {
       carnivore.unitV[0] = carnivore.unitV[0] * -1;
 
       iter.current = 0;
     }
     // if outside the bounds left, change direction right
-    if (carnivore.x < 30) {
+    if (carnivore.x < CONSTANTS.MINX) {
       carnivore.unitV[0] = carnivore.unitV[0] * -1;
       iter.current = 0;
     }
     // if outside the top bounds, change direction down
-    if (carnivore.y < 30) {
+    if (carnivore.y < CONSTANTS.MINY) {
       carnivore.unitV[1] = carnivore.unitV[1] * -1;
       iter.current = 0;
     }
     // if outside the bottom bounds, change direction up
-    if (carnivore.y > window.innerHeight - 130) {
+    if (carnivore.y > CONSTANTS.MAXY) {
       carnivore.unitV[1] = carnivore.unitV[1] * -1;
       iter.current = 0;
     }

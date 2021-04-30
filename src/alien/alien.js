@@ -22,6 +22,12 @@ export const Alien = ({ alien, goldfishList, deleteFish,deleteCarnivore }, props
   const reducer = (_, { data }) => data;
   const [motion, update] = useReducer(reducer);
   const iter = useRef(0);
+
+
+  alien.goldfishList = []
+  alien.goldfish = null;
+
+
   useTick((delta) => {
     // increase the counter
     let i = (iter.current += 0.00001 * delta);
@@ -54,23 +60,23 @@ export const Alien = ({ alien, goldfishList, deleteFish,deleteCarnivore }, props
     
   
     // if outside the right bounds, change direction left
-    if (alien.x > window.innerWidth - 50) {
+    if (alien.x > window.innerWidth - 200) {
       alien.unitV[0] = alien.unitV[0] * -1;
 
       iter.current = 0;
     }
     // if outside the bounds left, change direction right
-    if (alien.x < 30) {
+    if (alien.x < 200) {
       alien.unitV[0] = alien.unitV[0] * -1;
       iter.current = 0;
     }
     // if outside the top bounds, change direction down
-    if (alien.y < 30) {
+    if (alien.y < 200) {
       alien.unitV[1] = alien.unitV[1] * -1;
       iter.current = 0;
     }
     // if outside the bottom bounds, change direction up
-    if (alien.y > window.innerHeight - 130) {
+    if (alien.y > window.innerHeight - 200) {
       alien.unitV[1] = alien.unitV[1] * -1;
       iter.current = 0;
     }
@@ -137,3 +143,4 @@ export const Alien = ({ alien, goldfishList, deleteFish,deleteCarnivore }, props
   return <Sprite image={"../assets/alien/octo.svg" } {...motion} />;
 };
 export default Alien;
+

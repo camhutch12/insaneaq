@@ -1,28 +1,11 @@
 import "./App.css";
-import {
-  Stage,
-  Sprite,
-  Graphics,
-  useApp,
-  Container,
-  render,
-  Application,
-} from "@inlet/react-pixi";
+import {Stage,Sprite,Graphics,useApp,Container,render,Application,  createFish,} from "@inlet/react-pixi";
 import Game from "./game/game";
 import UI from "./UI/ui";
 import { useState } from "react";
 import { connect } from "react-redux";
-import {
-  createPlayer,
-  deletePlayer,
-  resetPlayer,
-} from "./actions/playerActions";
-import {
-  createFish,
-  deleteFish,
-  resetFish,
-  clearFish,
-} from "./actions/fishActions";
+import {createPlayer,deletePlayer,resetPlayer} from "./actions/playerActions";
+import {deleteFish,} from "./actions/fishActions";
 import { resetCoin } from "./actions/coinActions";
 import { Player } from "./model/player";
 import { createTimer } from "./actions/timerAction";
@@ -31,7 +14,7 @@ import LevelUp from "./UI/levelup";
 const App = (props) => {
   const SCREEN_SIZE = {
     x: window.innerWidth,
-    y: window.innerHeight - 100,
+    y: window.innerHeight,
   };
   const setupBubbles = () => {
     const p = [];
@@ -385,9 +368,7 @@ const App = (props) => {
     if(!isLeveledUP){
       let cl = currentLevel;
       setCurrentLevel(cl+1)
-      setIsLeveledUp(true)
-      //setIsLeveledUp(true);
-      props.clearFish();
+      setIsLeveledUp(true)      
       props.player.coins = 0;
       
     }
@@ -401,7 +382,6 @@ const App = (props) => {
 Renders either the game or the UI based on whether start was clicked.
 Start button is defined in UI component 
  */
-  console.log("Rerender app class");
   if (!isLeveledUP && !start) {
     return (
       <div>
@@ -437,7 +417,7 @@ const mapStateToProps = (state) => {
   return {
     player: state.player_reducer,
     timer: state.timer_reducer,
-    fish: state.fish_reducer,
+    
     //coin: state.coin_reducer,
   };
 };
@@ -450,9 +430,5 @@ export default connect(mapStateToProps, {
   deletePlayer,
   createTimer,
   resetPlayer,
-  //createFish,
   deleteFish,
-  clearFish,
-  //resetFish,
-  //resetCoin,
 })(App);
