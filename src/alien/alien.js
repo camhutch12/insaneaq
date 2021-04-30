@@ -117,9 +117,8 @@ export const Alien = ({ alien, goldfishList, deleteFish,deleteCarnivore }, props
     //   // (2 is yellow)
     //   // (3 is dead)
     // }
-    let image = '../assets/alien/octo.svg'
-
    
+
     // if fish has been dead, delete it
     // if (alien.hunger > 3) {
     //   deleteFish(alien);
@@ -136,11 +135,11 @@ export const Alien = ({ alien, goldfishList, deleteFish,deleteCarnivore }, props
         y: alien.y,
         scale: { x: scaleX, y: scaleY },
         anchor: new PIXI.Point(0.5,0.5),
-        image: image,
+        image: alien.img,
       },
     });
   });
-  return <Sprite image={"../assets/alien/octo.svg" } {...motion} />;
+  return <Sprite image={alien.img } {...motion} />;
 };
 export default Alien;
 

@@ -18,6 +18,7 @@ import Alien from "../alien/alien";
 import Navbar from "../navbar/navbar";
 import GameOver from "../UI/gameover";
 import Seahore from "../Fish/seahorse/seahorse";
+import Pearl from '../drops/pearl'
 import styles from "../style.module.css";
 // Actions ***********************************************
 import { createSnail, resetSnail } from "../actions/snailActions";
@@ -34,6 +35,7 @@ import { createAlien, deleteAlien, resetAlien } from "../actions/alienAction";
 import { createPlayer, resetPlayer } from "../actions/playerActions";
 import {createPortal,deletePortal,resetPortal,} from "../actions/portalActions";
 import {createText,deleteText,resetText,} from "../actions/textActions";
+import {createPearl,deletePearl} from '../actions/pearlActions'
 import { Preggo } from "../Fish/preggo/preggo";
 import SwordFish from "../Fish/swordfish/swordfish";
 import Clam  from '../Fish/clam/clam';
@@ -69,10 +71,10 @@ const Game = ({ background,levelParams, ...props }) => {
     };
   }, []);
 
-  const createMonster = () => {
+  const createMonster = (type) => {
     let alienX = randomNumber(CONSTANTS.MINX,CONSTANTS.MAXX)
     let alienY = randomNumber(CONSTANTS.MINY,CONSTANTS.MAXY)
-    props.createAlien({x:alienX, y:alienY});
+    props.createAlien({x:alienX, y:alienY,type:type});
     props.createPortal({x:alienX, y:alienY});
     props.timer.stopTime(props.timer.timerID);
     props.timer.currentTime = 0;
@@ -122,7 +124,11 @@ const Game = ({ background,levelParams, ...props }) => {
     
     else {
       // check if we clicked on a coin, otherwise deploy a crumb
-      if (coinIsNotClicked(mousePos)) {
+
+      
+
+
+      if (coinIsNotClicked(mousePos) && pearlIsNotClicked(mousePos)) {
         // check if crumbs are allowed to be deployed, based on crumb limit
         if (crumb.length < props.player[0].food) {
           props.createCrumb({ x: event.clientX, y: event.clientY,isSeahorse:false });
@@ -156,6 +162,28 @@ Always assume we are clicking a coin (innocent until proven guilty)
     }
     return true; // not clicking on a coin
   };
+
+  const pearlIsNotClicked = (mousePos) => {
+    // go through all the coins
+    for (let i = 0; i < props.pearl.length; i++) {
+      let currentPearl = props.pearl[i];
+      const pearlPos = { x: currentPearl.x, y: currentPearl.y };
+      // check if clicking on coin
+      if (isboundingBoxCoords(mousePos, pearlPos, 14)) {
+        // delete coin
+        currentPearl.resetTimer();
+        props.deletePearl(currentPearl);
+        props.clam[0].startTimer();
+        props.clam[0].pearlCreated = false;
+        // increase money counter
+        props.player[0].addCoins(250);
+
+        return false; // guilty, we are clicking a coin!
+      }
+    }
+    return true; // not clicking on a coin
+  };
+
 
   const alienIsClicked = (mousePos) => {
     const obj = {
@@ -267,7 +295,6 @@ Map all the fish component sprites from our redux store to a variable to render
         deleteCarnivore={props.deleteCarnivore}
         carnivoreList={props.carnivore}
         createCoin={props.createCoin}
-        createAlien={createMonster}
         timer={props.timer}
       />
     );
@@ -296,9 +323,17 @@ Map all the fish component sprites from our redux store to a variable to render
       coin={props.coin}
       deleteCoin={props.deleteCoin}
       player={props.player}
+      createPearl={props.createPearl}
+      deletePearl={props.deletePearl}
+      pearlList={props.pearl}
+
     />
   ));
-
+    const pearl = props.pearl.map((ele,index) => {
+      return (
+        <Pearl key={index} pearl={ele}/>
+      )
+    })
   const alien = levelParams.allowedAliens.canhaveAlien1 === true ?  props.aliens.map((ele, index) => {
     return (
       <Alien
@@ -357,18 +392,20 @@ Map all the fish component sprites from our redux store to a variable to render
         >
           <Background background={background} />
           
-          {levelParams.allowedPets.canhaveSeahorse === true ? seahorse : null}
           {levelParams.allowedAliens.canhaveAlien1 === true ? portal : null}
           {levelParams.allowedAliens.canhaveAlien1 === true ? alien : null}
-          {fish}
+          {levelParams.allowedPets.canhaveClam === true ? clam : null}
+          {pearl}
           {levelParams.allowedPets.canhaveSnail === true ? snail : null}
           {coin}
           {crumb}
+          {fish}
+          
+          {levelParams.allowedPets.canhaveSeahorse === true ? seahorse : null}
           {levelParams.allowedAliens.canhaveAlien1 === true ? blaster : null}
           {levelParams.allowedUpgrades.carnivore.canhave === true ? carnivore : null}
           {levelParams.allowedPets.canhavePreggo === true ? preggo : null}
           {levelParams.allowedPets.canhaveSwordFish === true ? swordfish : null}
-          {levelParams.allowedPets.canhaveClam === true ? clam : null}
           {levelParams.allowedAliens.canhaveAlien1 === true ? text : null}
         </Stage>
       </React.Fragment>
@@ -398,6 +435,7 @@ const mapStateToProps = (state) => {
     text: state.text_reducer,
     portal: state.portal_reducer,
     clam:state.clam_reducer,
+    pearl:state.pearl_reducer,
   };
 };
 
@@ -443,7 +481,9 @@ export default connect(mapStateToProps, {
   createText,
   deleteText,
   resetText,
-  createClam
+  createClam,
+  createPearl,
+  deletePearl
 })(Game);
 function damageMonster(attackingMonster, props) {
   if (attackingMonster.alien.health - 1 === 0) {

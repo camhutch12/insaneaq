@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid"
+import { Timer } from "../util/timer";
 import { GoldFish } from "./Goldfish";
 
 class Clam {
@@ -20,8 +21,9 @@ class Clam {
   speed;
   hunger = 1;
   health = 3;
-  img:String = "";
-
+  img:String = "../assets/background/shellfish.svg";
+  timer:Timer
+  pearlCreated = false
   constructor(x:number, y:number) {
     this.id = uuidv4();
     this.x = x;
@@ -29,9 +31,10 @@ class Clam {
     this.totalEatenFood = 0;
     // make the drop rate unique
     this.dropRate = 500 + Math.random() * 500;
-    this.size = 3;
+    this.size = 1;
     this.speed = 3;
-    
+    this.timer = new Timer()
+    this.timer.startTime()
     // generate random direction
     // generate random point
     this.isJustCreated = true;
@@ -53,82 +56,24 @@ class Clam {
     this.x = x;
     this.y = y;
   }
-  setFishList(fish:GoldFish[]) {
-    this.fishList = [...fish];
+
+  startTimer(){
+    this.timer.startTime();
   }
 
-
-
-  increaseSize() {
-    if (this.totalEatenFood >= 8) {
-      this.size = 0.6;
-    } else if (this.totalEatenFood >= 4) {
-      this.size = 0.4;
-    } else {
-      this.size = 0.2;
-    }
-  }
-  
-  getClosestFish() {
-    let dist1 = -1;
-    let dist2 = -1;
-
-    // go through all the crumbs
-    for (let fish of this.fishList) {
-      if (this.fish == null) {
-        this.fish = fish;
-      } else {
-        dist1 = Math.sqrt(
-          Math.pow(this.fish.x - this.x, 2) +
-            Math.pow(this.fish.y - this.y, 2)
-        );
-        dist2 = Math.sqrt(
-          Math.pow(fish.x - this.x, 2) + Math.pow(fish.y - this.y, 2)
-        );
-        // check if this fish is closer
-        if (dist1 > dist2) {
-          this.fish = fish;
-        }
-      }
-    }
+  getCurrentTimer(){
+    return this.timer.currentTime;
   }
 
-  resetDirection() {
-    if (this.isRandom && !this.isJustCreated && !this.isRandomCurrently) {
-      this.isRandomCurrently = true;
-      this.direction[0] = Math.random() * window.innerWidth;
-      this.direction[1] = Math.random() * window.innerHeight;
-      // calculate the difference to random point (unit vector)
-      this.difference[0] = this.direction[0] - this.x;
-      this.difference[1] = this.direction[1] - this.y;
-      let distance = Math.sqrt(
-        Math.pow(this.difference[0], 2) + Math.pow(this.difference[1], 2)
-      );
-      this.unitV = [
-        this.difference[0] / distance,
-        this.difference[1] / distance,
-      ];
-    }
+  resetTimer(){
+    this.timer.stopTime()
+    this.timer.currentTime =0;
   }
 
-  setHasFishToChase(totalFishList:GoldFish[]) {
-    // check if hungry
-    if (this.hunger > 0 && this.hunger < 3) {
-      // check if crumbs exist
-      if (totalFishList.length > 0) {
-        this.isRandom = false;
-        this.hasFishToChase = true;
-        this.isJustCreated = false;
-        this.isRandomCurrently = false;
-        return true;
-      } else {
-        this.isRandom = true;
-        this.hasFishToChase = false;
-        return false;
-      }
-    }
-  }
-
+  stopTimer(){
+    this.timer.stopTime()
+}
+ 
   // setCoinDrop(value:any) {
   //   this.coinDropTimer = value;
   // }

@@ -15,6 +15,7 @@ import {seahorse_reducer} from './seahorsereducer'
 import {swordFish_reducer} from './swordfishreducer'
 import {portal_reducer} from './portalreducer'
 import {text_reducer} from './textreducer'
+import {pearl_reducer} from './pearlreducer'
 export default combineReducers({
     snail_reducer,
     fish_reducer,
@@ -32,4 +33,5 @@ export default combineReducers({
     swordFish_reducer,
     portal_reducer,
     text_reducer,
-})
+    pearl_reducer,
+});

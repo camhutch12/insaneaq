@@ -19,11 +19,11 @@ export class Crumb{
           this.img = '../../assets/drops/crumb.svg'
         }
         else if(this.value === 2){
-          this.img = '../../assets/drops/crumb.svg'
+          this.img = '../../assets/drops/fishfood.svg'
           
         }
         else if(this.value >= 3){
-          this.img = '../../assets/drops/crumb.svg'
+          this.img = '../../assets/drops/pill.svg'
         }
     }
 
@@ -38,5 +38,25 @@ export class Crumb{
     
       setCoinState(value) {
         this.type = value;
+      }
+
+      static getCrumbImage(){
+        if(Crumb.level === 1){
+          console.log(Crumb.value)
+          return "../assets/drops/crumb.svg"
+        }
+        else if(Crumb.level === 2){
+          console.log(Crumb.level)
+          return "../assets/drops/fishfood.svg"
+          
+        }
+        else if(Crumb.level >= 3){
+          console.log(Crumb.level)
+          return "../assets/drops/pill.svg"
+        }
+        else{
+          return ".../../assets/drops/fishfood.svg"
+
+        }
       }
 }

@@ -1,6 +1,7 @@
 import { Sprite } from "@inlet/react-pixi";
 import React, { useRef, useState, useReducer } from "react";
 import { useTick } from "@inlet/react-pixi";
+import { createPearl, deletePearl } from "../../actions/pearlActions";
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -12,7 +13,7 @@ This component is a pixi.js sprite of an svg image of a clam from icons8,
 with a passed in x and y coordinate,
 scale tranforms the size
 */
-const Clam = ({ clam, coin, ...props }) => {
+const Clam = ({ pearlList,clam, coin, ...props }) => {
   clam.coin = null;
   clam.coinList = [];
   const [pos, setPos] = useState({});
@@ -20,22 +21,28 @@ const Clam = ({ clam, coin, ...props }) => {
   const reducer = (_, { data }) => data;
   const [motion, update] = useReducer(reducer);
   const iter = useRef(0);
-
+  
   useTick((delta) => {
     // increase the counter
+    
     let i = (iter.current += 0.00001 * delta);
 
-    // if outside the right bounds, change direction left
-
-    if (clam.x > window.innerWidth - 30) {
-      clam.goRight = true;
-      clam.goLeft = false;
-      iter.current = 0;
+    if(pearlList.length === 0 && clam.getCurrentTimer() > 10){
+      // create a pearl
+      props.createPearl(clam);
+      clam.pearlCreated = true;
+      clam.resetTimer()
     }
+    else{
+      // check if the timer is expired delete pearl
+      if(clam.pearlCreated === true)
+      if(pearlList[0].getCurrentTimer() > 30){
+        pearlList[0].resetTimer()
+        props.deletePearl(pearlList[0]);
+        clam.pearlCreated = false;
+        clam.startTimer();
 
-    // if outside the bounds left, change direction right
-    if (clam.x < 50) {
-      iter.current = 0;
+      }
     }
 
    
@@ -43,8 +50,8 @@ const Clam = ({ clam, coin, ...props }) => {
     
 
     // update position
-    let scaleX = 0.3;
-    let scaleY = 0.3;
+    let scaleX = clam.size;
+    let scaleY = clam.size;
     // check if fish is moving right
   
 
@@ -61,7 +68,7 @@ const Clam = ({ clam, coin, ...props }) => {
     });
   });
 
-  return <Sprite image="../assets/background/shell.svg" {...motion} />;
+  return <Sprite image={clam.img} {...motion} />;
 };
 
 export default Clam;

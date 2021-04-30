@@ -1,12 +1,20 @@
 import { NavItem } from "./navItem";
+import {useEffect,useState} from 'react'
 import styles from '../style.module.css';
 import {GoldFish} from '../model/Goldfish';
 import {Carnivore} from '../model/carnivore';
 import {randomNumber,CONSTANTS} from '../util/utilities'
 import {Crumb} from '../model/crumb'
 const Navbar = ({levelParams,...props}) => {
-
-  
+let [qImg,setQimg] = useState(() => Crumb.getCrumbImage())
+  useEffect(() => {
+      console.log("Rerendering")
+    setQimg(Crumb.getCrumbImage())
+    console.log(Crumb.getCrumbImage())
+      return () => {
+          setQimg(Crumb.getCrumbImage())
+      }
+  },[qImg])
     const money = 0;
     const increaseFoodLimit = () => {
         if(props.player[0].coins >= 200){
@@ -38,13 +46,11 @@ const Navbar = ({levelParams,...props}) => {
     }
 
     const upgradeFood = () =>{
-        console.log('upgrade food')
-        Crumb.level++;
-        console.log(Crumb.level)
-        
+        Crumb.level++; 
     }
 
-   const navList = [{
+   const navList = [
+       {
         img:'../assets/fish/fish.svg',
         value:100,
         hasImgTag: true,
@@ -55,12 +61,13 @@ const Navbar = ({levelParams,...props}) => {
     },
 
     {
-        img:'../assets/drops/crumb.svg',
+        img: qImg,
         value:200,
         hasImgTag: true,
         item:levelParams.allowedUpgrades.foodQuality,
         onClick(){
             upgradeFood()
+            setQimg(() => Crumb.getCrumbImage());
         }
         
         

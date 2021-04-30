@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid"
 import { GoldFish } from "./Goldfish";
-
+import {CONSTANTS, randomNumber} from '../util/utilities'
 class Alien {
   id;
   direction:number[] = [];
@@ -20,17 +20,28 @@ class Alien {
   speed;
   hunger = 1;
   health = 5;
+  type:number;
+  img:string;
 
-  constructor(x:number, y:number) {
+  constructor(x:number, y:number,type:number) {
+    this.type = type;
+    this.img = ""
+    if(this.type === 1){
+      this.img = "../assets/alien/octo.svg"
+      this.speed = 3;
+      this.health = 5
+    }
+    else if(this.type === 2){
+      this.img = "../assets/alien/aliengreen.svg"
+      this.speed = 4;
+      this.health=10;
+    }
+
     this.id = uuidv4();
     this.x = x;
     this.y = y;
-    this.totalEatenFood = 0;
     // make the drop rate unique
     this.dropRate = 500 + Math.random() * 500;
-    this.size = 1;
-    this.speed = 3;
-    
     // generate random direction
     // generate random point
     this.isJustCreated = true;
@@ -54,18 +65,6 @@ class Alien {
   }
   setFishList(fish:GoldFish[]) {
     this.fishList = [...fish];
-  }
-
-
-
-  increaseSize() {
-    if (this.totalEatenFood >= 8) {
-      this.size = 0.6;
-    } else if (this.totalEatenFood >= 4) {
-      this.size = 0.4;
-    } else {
-      this.size = 0.2;
-    }
   }
 
   getClosestFish() {
@@ -95,8 +94,8 @@ class Alien {
   resetDirection() {
     if (this.isRandom && !this.isJustCreated && !this.isRandomCurrently) {
       this.isRandomCurrently = true;
-      this.direction[0] = Math.random() * window.innerWidth;
-      this.direction[1] = Math.random() * window.innerHeight;
+      this.direction[0] = randomNumber(CONSTANTS.MINX,CONSTANTS.MAXX);
+      this.direction[1] = randomNumber(CONSTANTS.MINY,CONSTANTS.MAXY);
       // calculate the difference to random point (unit vector)
       this.difference[0] = this.direction[0] - this.x;
       this.difference[1] = this.direction[1] - this.y;
@@ -111,8 +110,7 @@ class Alien {
   }
 
   setHasFishToChase(totalFishList:GoldFish[]) {
-    // check if hungry
-    if (this.hunger > 0 && this.hunger < 3) {
+
       // check if crumbs exist
       if (totalFishList.length > 0) {
         this.isRandom = false;
@@ -125,12 +123,9 @@ class Alien {
         this.hasFishToChase = false;
         return false;
       }
-    }
+    
   }
 
-  // setCoinDrop(value:any) {
-  //   this.coinDropTimer = value;
-  // }
 }
 
 export { Alien };

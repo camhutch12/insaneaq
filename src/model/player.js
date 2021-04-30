@@ -21,6 +21,9 @@ export class Player{
     else if(currentCoin.type === 2){
       this.coins += 300
     }
+    else if(currentCoin === 250){
+      this.coins += 350
+    }
 
   }
 

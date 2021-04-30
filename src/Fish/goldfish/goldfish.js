@@ -46,7 +46,7 @@ export const GoldFish = (
         createText();
       }
       if (timer.currentTime >= 10) {
-        createAlien();
+        createAlien(1);
       }
     }
     // increase the counter

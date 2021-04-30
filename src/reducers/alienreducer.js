@@ -3,8 +3,8 @@ import {Alien} from '../model/alien'
 
 export const alien_reducer = (oldAlienList=[],action) => {
     if(action.type === "CREATE_ALIEN"){  
-            let {x,y} = action.payload.alien
-            const alien = new Alien(x,y)
+            let {x,y,type} = action.payload.alien
+            const alien = new Alien(x,y,type)
         return [...oldAlienList,alien]
         
     }else if(action.type ==="DELETE_ALIEN"){
