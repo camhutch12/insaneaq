@@ -31,7 +31,6 @@ export class Player{
   removeCoins(amount){
     this.coins -= amount;
     this.coins = this.coins < 0 ? 0:this.coins;
-
   }
 
   removeFood(){

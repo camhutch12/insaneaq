@@ -39,7 +39,7 @@ export const Seahorse = (
       // reset timer
      
       seahorse.resetTimer();
-      createCrumb({x:seahorse.x,y:(seahorse.y+100)})
+      createCrumb({x:seahorse.x,y:(seahorse.y+100),isSeahorse:true})
       seahorse.startTimer();
   
      

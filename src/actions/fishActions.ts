@@ -1,4 +1,7 @@
-export const createFish = fish => {
+import { GoldFish } from "../model/Goldfish"
+
+
+export const createFish = (fish:GoldFish) => {
     return {
         type:'CREATE_FISH',
         payload:{
@@ -7,7 +10,7 @@ export const createFish = fish => {
     }
 }
 
-export const deleteFish = fish => {
+export const deleteFish = (fish:GoldFish) => {
     return {
         type:'DELETE_FISH',
         payload:{
@@ -16,7 +19,7 @@ export const deleteFish = fish => {
     }
 }
 
-export const resetFish = fish => {
+export const resetFish = (fish:GoldFish) => {
     return {
         type:'RESET_FISH',
         payload:{
@@ -25,7 +28,7 @@ export const resetFish = fish => {
     }
 }
 
-export const clearFish = fish => {
+export const clearFish = (fish:GoldFish) => {
     return {
         type:'CLEAR_FISH',
         payload:{

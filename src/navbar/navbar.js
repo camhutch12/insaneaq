@@ -1,9 +1,9 @@
-import { NavItem } from "../navbar/navItem";
+import { NavItem } from "./navItem";
 import styles from '../style.module.css';
 import {GoldFish} from '../model/Goldfish';
 import {Carnivore} from '../model/carnivore';
 import {randomNumber,CONSTANTS} from '../util/utilities'
-
+import {Crumb} from '../model/crumb'
 const Navbar = ({levelParams,...props}) => {
 
   
@@ -15,7 +15,7 @@ const Navbar = ({levelParams,...props}) => {
         }
     }
 
-    const createGoldFish=() =>{
+    const createGoldFish= () =>{
         if(props.player[0].coins >= 100){
             
             props.createFish(new GoldFish(randomNumber(CONSTANTS.MINX,CONSTANTS.MAXX),randomNumber(CONSTANTS.MINY,CONSTANTS.MAXY)));
@@ -39,6 +39,9 @@ const Navbar = ({levelParams,...props}) => {
 
     const upgradeFood = () =>{
         console.log('upgrade food')
+        Crumb.level++;
+        console.log(Crumb.level)
+        
     }
 
    const navList = [{

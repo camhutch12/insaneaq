@@ -125,7 +125,7 @@ const Game = ({ background,levelParams, ...props }) => {
       if (coinIsNotClicked(mousePos)) {
         // check if crumbs are allowed to be deployed, based on crumb limit
         if (crumb.length < props.player[0].food) {
-          props.createCrumb({ x: event.clientX, y: event.clientY });
+          props.createCrumb({ x: event.clientX, y: event.clientY,isSeahorse:false });
           props.player[0].removeCoins(5);
         }
       }

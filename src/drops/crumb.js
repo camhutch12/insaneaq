@@ -64,7 +64,7 @@ const Crumb = ({crumb,deleteCrumb}) => {
         })
     })   
     return <Sprite 
-    image = '../../assets/drops/crumb.svg'
+    image = {crumb.img}
     x={crumb.x-10}
     y={crumb.y-110}
     scale = {[0.2,0.2]}

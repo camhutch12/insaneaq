@@ -11,6 +11,7 @@ import { Player } from "./model/player";
 import { createTimer } from "./actions/timerAction";
 import { Timer } from "./util/timer";
 import LevelUp from "./UI/levelup";
+import CharacterSelection from "./UI/charselection";
 const App = (props) => {
   const SCREEN_SIZE = {
     x: window.innerWidth,
@@ -48,6 +49,40 @@ const App = (props) => {
     }
     return p;
   };
+
+  let unlockablePets = [
+    {
+      level:1,
+      imgPath:'./assets/background/snail.svg',
+      chosen: false,
+      id: 'snail'
+    },
+    {
+      level:2,
+      imgPath:'./assets/fish/seashell.svg',
+      chosen: false,
+      id: 'clam'
+    },
+    {
+      level:3,
+      imgPath:'./assets/fish/swordfish.svg',
+      chosen: false,
+      id: 'swordfish'
+    },
+    {
+      level:4,
+      imgPath:'./assets/fish/fishpreg.svg',
+      chosen: false,
+      id: 'prego'
+    },
+    {
+      level:5,
+      imgPath:'./assets/fish/seahorse.svg',
+      chosen: false,
+      id: 'seahorse'
+    }
+  ]
+
   const background = {
     bubble: setupBubbles(),
     kelp: setupKelp(),
@@ -298,6 +333,7 @@ const App = (props) => {
     
   };
 
+  
 
 
   const locationMouseClick = { x: 0, y: 0 };
@@ -305,6 +341,7 @@ const App = (props) => {
   let [currentLevel, setCurrentLevel] = useState(0);
   let [isLeveledUP, setIsLeveledUp] = useState(false);
   let [levelParams, setLevelParams] = useState({});
+  let [levelSelectionScreen, setLevelSelectionScreen] = useState(false);
   /*
   Register the mouse click x and y coordinated with a mouse listener
   */
@@ -318,10 +355,13 @@ const App = (props) => {
     return locationMouseClick;
   };
 
+ 
+
+
   // show UI on inisitial state
   const [start, setStart] = useState(false);
   const [needFish, setNeedFish] = useState(false);
-
+  const [chosenPets, setChosenPets] = useState({})
   // called when start is clicked
   const appStart = () => {
     setStart(true);
@@ -349,6 +389,7 @@ const App = (props) => {
         setLevelParams(levelFive)
         break;
       default:
+        setLevelParams(levelFive)
     }
     
 
@@ -370,13 +411,67 @@ const App = (props) => {
       setCurrentLevel(cl+1)
       setIsLeveledUp(true)      
       props.player.coins = 0;
+      setLevelSelectionScreen(true)
       
     }
     else{
       setIsLeveledUp(false)
-      appStart();
+      
+      // appStart();
     }
   };
+
+  const charSelect = () =>{
+    setIsLeveledUp(false)
+    switch (currentLevel) {
+     
+      case 1:
+        levelOne.allowedPets.canhaveSnail = unlockablePets[0].chosen
+       
+        break;
+        case 2:
+        levelTwo.allowedPets.canhaveSnail = unlockablePets[0].chosen
+        levelTwo.allowedPets.canhaveClam = unlockablePets[1].chosen
+        console.log(unlockablePets[0].chosen)
+        console.log(unlockablePets[1].chosen)
+        break;
+      case 3:
+        
+        levelThree.allowedPets.canhaveSnail = unlockablePets[0].chosen
+        levelThree.allowedPets.canhaveClam = unlockablePets[1].chosen
+        levelThree.allowedPets.canhaveSwordFish = unlockablePets[2].chosen
+        break;
+      case 4:
+        
+        levelFour.allowedPets.canhaveSnail = unlockablePets[0].chosen
+        levelFour.allowedPets.canhaveClam = unlockablePets[1].chosen
+        levelFour.allowedPets.canhaveSwordFish = unlockablePets[2].chosen
+        levelFour.allowedPets.canhavePreggo = unlockablePets[3].chosen
+        break;
+      case 5:
+    
+        levelFive.allowedPets.canhaveSnail = unlockablePets[0].chosen
+        levelFive.allowedPets.canhaveClam = unlockablePets[1].chosen
+        levelFive.allowedPets.canhaveSwordFish = unlockablePets[2].chosen
+        levelFive.allowedPets.canhavePreggo = unlockablePets[3].chosen
+        levelFive.allowedPets.canhaveSeahorse = unlockablePets[4].chosen
+        console.log(unlockablePets[0].chosen)
+        console.log(unlockablePets[1].chosen)
+        console.log(unlockablePets[2].chosen)
+        console.log(unlockablePets[3].chosen)
+        console.log(unlockablePets[4].chosen)
+        break;
+      default:
+        levelFive.allowedPets.canhaveSnail = unlockablePets[0].chosen
+        levelFive.allowedPets.canhaveClam = unlockablePets[1].chosen
+        levelFive.allowedPets.canhaveSwordFish = unlockablePets[2].chosen
+        levelFive.allowedPets.canhavePreggo = unlockablePets[3].chosen
+        levelFive.allowedPets.canhaveSeahorse = unlockablePets[4].chosen
+        break;
+    }
+    appStart()
+  }
+
 
   /* 
 Renders either the game or the UI based on whether start was clicked.
@@ -405,9 +500,15 @@ Start button is defined in UI component
         />
       </>
     );
-  } else if (isLeveledUP) {
-    return <LevelUp onClick={isLevelup} level={currentLevel} />;
+  } 
+  else if(levelSelectionScreen){
+    return <CharacterSelection onClick={charSelect} levelParams={levelParams} currentLevel={currentLevel} unlockablePets={unlockablePets}/>
   }
+  
+  else if (isLeveledUP) {
+    return <LevelUp onClick={isLevelup} level={currentLevel}  />;
+  }
+  
 };
 
 /*

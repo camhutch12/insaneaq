@@ -141,8 +141,8 @@ export const GoldFish = (
           goldfish.y <= crumb[j].y - 100 + 30 &&
           goldfish.y >= crumb[j].y - 100 - 30
         ) {
+          goldfish.increaseSize(crumb[j]);
           deleteCrumb(crumb[j]);
-          goldfish.totalEatenFood++;
           goldfish.crumb = null;
           goldfish.setHunger(goldfish.hunger - 1);
         }
@@ -168,7 +168,6 @@ export const GoldFish = (
     if (goldfish.hunger == 1 || goldfish.hunger == 0) {
       image = "assets/fish/fish.svg";
     }
-    goldfish.increaseSize();
     // if fish is dead, flip it
     if (goldfish.hunger == 3) {
       scaleY = scaleY * -1; // flip fish is Y axis

@@ -1,4 +1,8 @@
-export const createAlien = alien => {
+import {Alien} from '../model/alien'
+
+
+
+export const createAlien = (alien:Alien) => {
     return {
         type:'CREATE_ALIEN',
         payload:{
@@ -7,7 +11,7 @@ export const createAlien = alien => {
     }
 }
 
-export const deleteAlien = alien => {
+export const deleteAlien = (alien:Alien) => {
     return {
         type:'DELETE_ALIEN',
         payload:{
@@ -16,7 +20,7 @@ export const deleteAlien = alien => {
     }
 }
 
-export const resetAlien = alien => {
+export const resetAlien = (alien:Alien) => {
     return {
         type:'RESET',
         payload:{

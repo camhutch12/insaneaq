@@ -78,7 +78,17 @@ class GoldFish {
     this.coinDropTimer = value;
   }
 
-  increaseSize() {
+  increaseSize(crumb:Crumb) {
+    if(crumb.value == 1){
+        this.totalEatenFood += 1;
+    }
+    else if(crumb.value ==2){
+      this.totalEatenFood += 2;
+    }
+    else if(crumb.value >=3){
+      this.totalEatenFood += 3;
+    }
+    
     if (this.totalEatenFood >= 8) {
       this.size = 0.6;
     } else if (this.totalEatenFood >= 4) {
