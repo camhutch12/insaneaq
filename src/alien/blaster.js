@@ -2,7 +2,6 @@
 import {Sprite} from '@inlet/react-pixi'
 import React, { useEffect, useState, useReducer, useRef  } from 'react'
 import { useTick } from '@inlet/react-pixi'
-import {deleteBlaster} from '../actions/blasterActions'
 /*
 Written By:
 Daniel Gannage (6368898)

@@ -5,6 +5,7 @@ import { applyProps } from "react-pixi-fiber";
 import * as PIXI from "pixi.js";
 import { GoldFish } from "../model/Goldfish";
 import { Carnivore } from "../model/carnivore";
+import {CONSTANTS} from '../util/utilities'
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -60,23 +61,23 @@ export const Alien = ({ alien, goldfishList, deleteFish,deleteCarnivore }, props
     
   
     // if outside the right bounds, change direction left
-    if (alien.x > window.innerWidth - 200) {
+    if (alien.x > CONSTANTS.MAXX) {
       alien.unitV[0] = alien.unitV[0] * -1;
 
       iter.current = 0;
     }
     // if outside the bounds left, change direction right
-    if (alien.x < 200) {
+    if (alien.x < CONSTANTS.MINX) {
       alien.unitV[0] = alien.unitV[0] * -1;
       iter.current = 0;
     }
     // if outside the top bounds, change direction down
-    if (alien.y < 200) {
+    if (alien.y < CONSTANTS.MINY) {
       alien.unitV[1] = alien.unitV[1] * -1;
       iter.current = 0;
     }
     // if outside the bottom bounds, change direction up
-    if (alien.y > window.innerHeight - 200) {
+    if (alien.y > CONSTANTS.MAXY) {
       alien.unitV[1] = alien.unitV[1] * -1;
       iter.current = 0;
     }
