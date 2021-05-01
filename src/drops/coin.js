@@ -1,6 +1,7 @@
 import {Sprite} from '@inlet/react-pixi'
 import React, { useEffect, useState, useReducer, useRef  } from 'react'
 import { useTick } from '@inlet/react-pixi'
+import {CONSTANTS} from '../util/utilities'
 
 /*
 Written By:
@@ -24,12 +25,12 @@ const Coin = ({coin, deleteCoin}) => {
         let i = (iter.current += 0.005 * delta)
 
         // give the coin a lifespan once it hits the bottom
-        if(coin.y>window.innerHeight-170){
+        if(coin.y>CONSTANTS.MAXY){
             coin.setThreshold(coin.threshold+1)
         }
         
         // make the coin fall
-        if(coin.y<window.innerHeight-160){
+        if(coin.y<CONSTANTS.MAXY){
             coin.setPos(coin.x,coin.y+i);
         }
         

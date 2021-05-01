@@ -13,7 +13,7 @@ export const isboundingBoxCoords = (p1:{x:number,y:number}, p2:{x:number,y:numbe
 
   export let CONSTANTS = {
     MINX: 200,
-    MAXX: window.innerWidth-200,
+    MAXX: window.innerWidth-110,
     MINY: 200,
-    MAXY: window.innerHeight -200,
+    MAXY: window.innerHeight -110,
   }

@@ -108,16 +108,7 @@ export const Alien = ({ alien, goldfishList, deleteFish,deleteCarnivore }, props
         alien.fish = null;
       }
     }
-    // hunger timer
-    // alien.setHungerTimer(alien.hungerTimer + 1);
-    // if hungry for too long, change hunger level
-    // if (alien.hungerTimer > 500) {
-    //   alien.setHunger(alien.hunger + 1);
-    //   // (0 is no hunger)
-    //   // (1 searches for food)
-    //   // (2 is yellow)
-    //   // (3 is dead)
-    // }
+   
    
 
     // if fish has been dead, delete it
