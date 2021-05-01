@@ -2,7 +2,7 @@
 import {Sprite} from '@inlet/react-pixi'
 import React, { useEffect, useState, useReducer, useRef  } from 'react'
 import { useTick } from '@inlet/react-pixi'
-import {deleteCrumb} from '../actions/crumbActions'
+import {CONSTANTS} from '../util/utilities'
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -25,12 +25,12 @@ const Crumb = ({crumb,deleteCrumb}) => {
         let i = (iter.current += 0.005 * delta)
 
         // give the crumb a lifespan once it hits the bottom
-        if(crumb.y>window.innerHeight-100){
+        if(crumb.y>CONSTANTS.MAXY){
             crumb.setThreshold(crumb.threshold+1)
         }
         
         // make the crumb fall
-        if(crumb.y<window.innerHeight-30){
+        if(crumb.y<CONSTANTS.MAXY){
             crumb.setPos(crumb.x,crumb.y+0.5);
         }
         

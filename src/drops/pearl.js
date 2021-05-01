@@ -23,15 +23,6 @@ const Pearl = ({pearl, deletePearl}) => {
         // increase the counter
         let i = (iter.current += 0.005 * delta)
 
-        
-        
-        // delete pearl
-        if(pearl.threshold>150){
-            iter.current=0;
-            // deleteCoin(pearl);
-        }
-
-
         // update current frame
         update({
             type: 'update',
