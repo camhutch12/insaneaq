@@ -126,7 +126,7 @@ const Game = ({ background,levelParams, ...props }) => {
     attackingMonster = alienIsClicked(mousePos);
     if (attackingMonster.alienIsPresent) {
       // shoot blaster
-      if(levelParams.allowedAliens.canhaveAlien1){
+      if(levelParams.allowedAliens.canhaveAlien1 || levelParams.allowedAliens.canhaveAlien2 ){
       props.createBlaster({ x: event.clientX, y: event.clientY });
       if (attackingMonster.isAttacking) {
         // damage monster
@@ -375,7 +375,7 @@ Map all the fish component sprites from our redux store to a variable to render
   }) : null;
   
   
-  const text = levelParams.allowedAliens.canhaveAlien1 === true ?  props.text.map((ele, index) => {
+  const text = (levelParams.allowedAliens.canhaveAlien1 === true || levelParams.allowedAliens.canhaveAlien2 === true) ?  props.text.map((ele, index) => {
      return (
       <TextWarning
          key={index}
@@ -385,7 +385,7 @@ Map all the fish component sprites from our redux store to a variable to render
      );
    }) : null;
   
-  const portal = levelParams.allowedAliens.canhaveAlien1 === true ?  props.portal.map((ele, index) => {
+  const portal = (levelParams.allowedAliens.canhaveAlien1 === true || levelParams.allowedAliens.canhaveAlien2 === true) ?  props.portal.map((ele, index) => {
      return (
       <Portal
          key={index}
@@ -396,7 +396,7 @@ Map all the fish component sprites from our redux store to a variable to render
    }) : null;
 
 
-  const blaster = levelParams.allowedAliens.canhaveAlien1 === true ? props.blaster.map((ele, index) => (
+  const blaster = (levelParams.allowedAliens.canhaveAlien1 === true || levelParams.allowedAliens.canhaveAlien2 === true) ? props.blaster.map((ele, index) => (
     <Blaster key={index} blaster={ele} deleteBlaster={props.deleteBlaster} />
   )) : null;
 
@@ -520,6 +520,6 @@ function damageMonster(attackingMonster, props) {
     // delete the monster
     props.deleteAlien(attackingMonster.alien);
   } else {
-    attackingMonster.alien.health -= props.player[0].damage;
+    attackingMonster.alien.health -= props.player[0].damag9998315e;
   }
 }
