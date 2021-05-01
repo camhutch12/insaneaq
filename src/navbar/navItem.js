@@ -3,7 +3,7 @@ import React,{useState} from 'react'
 import styles from '../style.module.css';
 
 export const NavItem = ({item, onClick,img, value, hasImgTag=false,labelVal=-1 }) => {
-    const [temp, setTemp] = useState(0);
+    // const [temp, setTemp] = useState(0);
     if(hasImgTag){
         if(item.canhave === true){
             return (

@@ -42,16 +42,16 @@ export class Crumb{
 
       static getCrumbImage(){
         if(Crumb.level === 1){
-          console.log(Crumb.value)
+          
           return "../assets/drops/crumb.svg"
         }
         else if(Crumb.level === 2){
-          console.log(Crumb.level)
+          
           return "../assets/drops/fishfood.svg"
           
         }
         else if(Crumb.level >= 3){
-          console.log(Crumb.level)
+          
           return "../assets/drops/pill.svg"
         }
         else{

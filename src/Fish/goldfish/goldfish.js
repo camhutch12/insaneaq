@@ -28,7 +28,6 @@ export const GoldFish = (
     timer,
     timer2,
     createAlien,
-    createPortal,
     createText,
     levelParams,
   },
@@ -45,7 +44,7 @@ export const GoldFish = (
   useTick((delta) => {
     if (levelParams.allowedAliens.canhaveAlien1) {
       if (timer.currentTime > 23 && timer.currentTime < 25) {
-        // createText();
+         createText();
       }
       if (timer.currentTime >= 30) {
         createAlien(1);
@@ -54,7 +53,7 @@ export const GoldFish = (
 
     if (levelParams.allowedAliens.canhaveAlien2) {
       if (GL.getCurrentTimer() > 50 && GL.getCurrentTimer()< 55) {
-        // createText();
+         createText();
       }
       if (GL.getCurrentTimer() >= 60) {
         GL.resetTimer();

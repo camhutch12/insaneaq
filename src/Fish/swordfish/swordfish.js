@@ -43,7 +43,7 @@ export const SwordFish = (
       swordFish.setAlienList(aliensList);
       swordFish.getClosestAlien();
       swordFish.direction[0] = swordFish.alien.x;
-      swordFish.direction[1] = swordFish.alien.y - 100;
+      swordFish.direction[1] = swordFish.alien.y-100;
       swordFish.difference[0] = swordFish.direction[0] - swordFish.x;
       swordFish.difference[1] = swordFish.direction[1] - swordFish.y;
 

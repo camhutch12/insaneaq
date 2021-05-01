@@ -6,23 +6,44 @@ import {Carnivore} from '../model/carnivore';
 import {randomNumber,CONSTANTS} from '../util/utilities'
 import {Crumb} from '../model/crumb'
 const Navbar = ({levelParams,...props}) => {
-let [qImg,setQimg] = useState(() => Crumb.getCrumbImage())
+    let image = () =>{
+       
+        switch(props.player[0].damage){
+            case 1:
+                return '../../assets/gun/gunred.svg'
+                
+            case 2:
+                return '../../assets/gun/gunorange.svg'
+                
+            case 4:
+                return '../../assets/gun/gunblack.svg'
+                
+            default: 
+                return '../../assets/gun/gunblack.svg'
+        }
+    }
+    
+
+    let [qImg,setQimg] = useState(() => Crumb.getCrumbImage())
+let [foodQty,setFoodQty] = useState(() => 1);
+let [blasterImg,setBlasterImg] = useState(() => image())
   useEffect(() => {
-      console.log("Rerendering")
+     
     setQimg(Crumb.getCrumbImage())
-    console.log(Crumb.getCrumbImage())
+   
       return () => {
           setQimg(Crumb.getCrumbImage())
       }
-  },[qImg])
+  },[qImg,foodQty,blasterImg])
     const money = 0;
     const increaseFoodLimit = () => {
         if(props.player[0].coins >= 200){
             props.player[0].food += 1;
             props.player[0].coins -= 200;
+            setFoodQty(props.player[0].food);
         }
     }
-
+    
     const createGoldFish= () =>{
         if(props.player[0].coins >= 100){
             
@@ -79,7 +100,7 @@ let [qImg,setQimg] = useState(() => Crumb.getCrumbImage())
 
     {
         img: '../assets/fish/bigfish/bigfish.svg',
-        value:100,
+        value:200,
         labelVal:`${props.player[0].food + 1}`,
         item:levelParams.allowedUpgrades.foodqty,
         onClick(){
@@ -101,15 +122,18 @@ let [qImg,setQimg] = useState(() => Crumb.getCrumbImage())
     },
 
     {
-        img:'../assets/gun/gunorange.svg',
+        img: blasterImg,
         value:1000,
         hasImgTag: true,
         item:levelParams.allowedUpgrades.laserUpgrade,
         onClick(){
-            if(props.player[0] >= levelParams.allowedUpgrades.laserUpgrade.price){
+            if(props.player[0].coins >= levelParams.allowedUpgrades.laserUpgrade.price){
                 props.player[0].coins -= levelParams.allowedUpgrades.laserUpgrade.price;
             props.player[0].upgradeDamage();
+            setBlasterImg(() => image())
             }
+            
+            
         }
 
     },

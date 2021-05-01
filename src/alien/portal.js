@@ -26,7 +26,7 @@ export const Portal = ({ portal, deletePortal}, props) => {
     let scaleX = portal.size;
     let scaleY = portal.size;
   
-    let image = '../assets/alien/portal.svg'
+    let image = '../assets/alien/portal.png'
 
     portal.increaseCounter(portal.counter+1)
     if(portal.counter>100){
@@ -45,6 +45,6 @@ export const Portal = ({ portal, deletePortal}, props) => {
       },
     });
   });
-  return <Sprite image={"../assets/alien/portal.svg" } {...motion} />;
+  return <Sprite image={"../assets/alien/portal.png" } {...motion} />;
 };
 export default Portal;

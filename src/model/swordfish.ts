@@ -40,7 +40,7 @@ class SwordFish {
     this.isJustCreated = true;
     this.isRandom = true;
     this.direction[0] = Math.random() * window.innerWidth-30;
-    this.direction[1] = Math.random() * window.innerHeight-150;
+    this.direction[1] = Math.random() * window.innerHeight-50;
     
     // calculate the difference to random point (unit vector)
     this.difference[0] = this.direction[0] - x;

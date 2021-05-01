@@ -17,3 +17,6 @@ export const isboundingBoxCoords = (p1:{x:number,y:number}, p2:{x:number,y:numbe
     MINY: 110,
     MAXY: window.innerHeight -110,
   }
+
+
+  

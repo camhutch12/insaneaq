@@ -31,6 +31,7 @@ export class Player{
 
   upgradeDamage(){
     this.damage *= 2;
+    
   }
   addFood(){
     this.food += 1

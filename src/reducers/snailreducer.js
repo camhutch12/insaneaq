@@ -5,7 +5,7 @@ import { randomNumber, CONSTANTS } from "../util/utilities";
 
 
 export const snail_reducer = (oldSnailList=[
-    new Snail(randomNumber(100, window.innerHeight - 200),randomNumber(100, window.innerHeight - 200)),
+    new Snail(randomNumber(250, window.innerHeight - 250),randomNumber(100, window.innerHeight - 200)),
    
   
 ],action) => {
@@ -16,7 +16,7 @@ export const snail_reducer = (oldSnailList=[
 
     else if(action.type === "RESET"){
         
-        oldSnailList= [new Snail(Math.floor((Math.random() * window.innerWidth)),
+        oldSnailList= [new Snail(Math.floor((Math.random() * (window.innerWidth-100))+100),
             (window.innerHeight-100) / 1.3 + Math.floor(Math.random() * ((window.innerHeight-100) / 6)))]
     }
     return [...oldSnailList]

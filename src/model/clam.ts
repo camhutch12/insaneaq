@@ -14,10 +14,9 @@ class Clam {
   hasFishToChase = false;
   isRandom = true;
   isJustCreated = true;
-  isRandomCurrently = false;
+
   totalEatenFood = 0;
   size = 1;
-  dropRate = 500;
   speed;
   hunger = 1;
   health = 3;
@@ -28,26 +27,14 @@ class Clam {
     this.id = uuidv4();
     this.x = x;
     this.y = y;
-    this.totalEatenFood = 0;
     // make the drop rate unique
-    this.dropRate = 500 + Math.random() * 500;
     this.size = 1;
     this.speed = 3;
     this.timer = new Timer()
     this.timer.startTime()
-    // generate random direction
-    // generate random point
+
     this.isJustCreated = true;
-    this.isRandom = true;
-    this.direction[0] = Math.random() * window.innerWidth - 30;
-    this.direction[1] = Math.random() * window.innerHeight - 150;
-    // calculate the difference to random point (unit vector)
-    this.difference[0] = this.direction[0] - x;
-    this.difference[1] = this.direction[1] - y;
-    let distance = Math.sqrt(
-      Math.pow(this.difference[0], 2) + Math.pow(this.difference[1], 2)
-    );
-    this.unitV = [this.difference[0] / distance, this.difference[1] / distance];
+    
 
 }
 // initialize position
@@ -74,9 +61,7 @@ class Clam {
     this.timer.stopTime()
 }
  
-  // setCoinDrop(value:any) {
-  //   this.coinDropTimer = value;
-  // }
+
 }
 
 export { Clam };

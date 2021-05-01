@@ -40,7 +40,7 @@ export const Alien = ({ alien, goldfishList, deleteFish,deleteCarnivore }, props
       alien.setFishList(goldfishList);
       alien.getClosestFish();
       alien.direction[0] = alien.fish.x;
-      alien.direction[1] = alien.fish.y - 100;
+      alien.direction[1] = alien.fish.y;
       alien.difference[0] = alien.direction[0] - alien.x;
       alien.difference[1] = alien.direction[1] - alien.y;
 
@@ -93,8 +93,8 @@ export const Alien = ({ alien, goldfishList, deleteFish,deleteCarnivore }, props
       if (
         alien.x <= goldfishList[j].x + 10 &&
         alien.x >= goldfishList[j].x - 10 &&
-        alien.y <= goldfishList[j].y - 100 + 10 &&
-        alien.y >= goldfishList[j].y - 100 - 10
+        alien.y <= goldfishList[j].y  + 10 &&
+        alien.y >= goldfishList[j].y  - 10
       ) {
         
         if(goldfishList[j] instanceof GoldFish){

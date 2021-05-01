@@ -73,10 +73,13 @@ const Game = ({ background,levelParams, ...props }) => {
        
       );
 
-      props.player[0].coins =1000;
+      props.player[0].coins =10000;
       props.player[0].damge =1;
       CB.level = 1;
-      
+      if(props.pearl.length > 0){
+      props.deletePearl(props.pearl[0])
+      console.log('inside useEffect')
+      }
     };
     
   }, []);
@@ -86,8 +89,10 @@ const Game = ({ background,levelParams, ...props }) => {
     if(type === 1){
       let alienX = randomNumber(CONSTANTS.MINX,CONSTANTS.MAXX)
       let alienY = randomNumber(CONSTANTS.MINY,CONSTANTS.MAXY)
+      props.deleteText(props.text[0])
       props.createAlien({x:alienX, y:alienY,type:type});
       props.createPortal({x:alienX, y:alienY});
+      // prevents multiple aliens being creates
       props.timer.stopTime(props.timer.timerID);
       props.timer.currentTime = 0;
       props.timer.startTime();
@@ -96,6 +101,8 @@ const Game = ({ background,levelParams, ...props }) => {
     else if(type === 2){
       let alienX = randomNumber(CONSTANTS.MINX,CONSTANTS.MAXX)
       let alienY = randomNumber(CONSTANTS.MINY,CONSTANTS.MAXY)
+      props.deleteText(props.text[0])
+
       props.createAlien({x:alienX, y:alienY,type:type});
       props.createPortal({x:alienX, y:alienY});
     }
@@ -103,6 +110,9 @@ const Game = ({ background,levelParams, ...props }) => {
 
   const createWarning = () => {
     props.createText()
+    props.timer.stopTime(props.timer.timerID);
+      props.timer.currentTime = 25;
+      props.timer.startTime();
     
   }
 
@@ -397,7 +407,7 @@ Map all the fish component sprites from our redux store to a variable to render
   }) : null;
   
   
-  const text = (levelParams.allowedAliens.canhaveAlien1 === true || levelParams.allowedAliens.canhaveAlien2 === true) ?  props.text.map((ele, index) => {
+  const text = (levelParams.allowedAliens.canhaveAlien1 === true || levelParams.allowedAliens.canhaveAlien2 === true) ? props.text.filter((ele,index) => index === 0).map((ele, index) => {
      return (
       <TextWarning
          key={index}
@@ -436,7 +446,7 @@ Map all the fish component sprites from our redux store to a variable to render
         <Navbar levelParams={levelParams} {...props} />
         <Stage
           width={props.SCREEN_SIZE.x}
-          height={props.SCREEN_SIZE.x}
+          height={props.SCREEN_SIZE.y-110}
           options={{ backgroundColor: 0x00ffff }}
           onClick={(e) => getClick(e)}
         >
@@ -538,10 +548,14 @@ export default connect(mapStateToProps, {
   deletePearl
 })(Game);
 function damageMonster(attackingMonster, props) {
-  if (attackingMonster.alien.health - 1 === 0) {
+  if (attackingMonster.alien.health - props.player[0].damage <= 0) {
     // delete the monster
     props.deleteAlien(attackingMonster.alien);
   } else {
-    attackingMonster.alien.health -= props.player[0].damage;
+   
+      attackingMonster.alien.health = (attackingMonster.alien.health -  props.player[0].damage);
+    
+
   }
+
 }

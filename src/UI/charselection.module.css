@@ -5,13 +5,14 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    background-color: rgba(85, 24, 24, 0.801);
+
 }
 .title__container{
     height: 15vh;
-    font-size: 2rem;
+    font-size: 1.5rem;
     text-align: center;
     padding: 1% 0;
+    
    
 }
 
@@ -20,28 +21,44 @@ font-size: 2rem;
 text-align: center;
 
 
+
 }
 .row{
-    height: 25vh;
-    width: 75%;
+    /* height: 25vh; */
+    /* width: 75%; */
+    width: 100%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content:space-evenly;
-    align-content: center;
+    justify-content:center;
+    align-content: flex-end;
     align-items: center;
     padding: 1rem 0;
+    
 
 }
 .img__container{
 display: flex;
 justify-content: center;
+background-color: aliceblue;
 }
 
 .img__containerSelected{
     background-color: rgb(24, 238, 77);
 }
 
+.pet__container{
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-end;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+
+
+    
+}
 
 
 .btn{
@@ -56,31 +73,81 @@ justify-content: center;
     margin-top: 2%;
 }
 
+p{
+    word-wrap: break-word;
+}
+
+
+.p_container{
+max-width: 45%;;
+
+
+}
+.snail__container{
+height: 100%;
+max-width: 75%;
+display: flex;
+justify-content: center;
+
+}
+
+.shell__container{
+    
+    height: 25%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.swordfish__container{
+    display: flexbox;
+
+}
+
+.prego__container{
+display:flex;
+
+justify-content: center;
+}
+
+.seahorse__container{
+    display: flex;
+    justify-content: center;
+
+}
+
 
 
 .snail{
-    /* width: 20%; */
-    height: inherit
+    width: 50%;
+    
+    /* max-height: 100%; */
+    
 }
 
 .shell{
-    /* width: 10%; */
-    height: inherit;
+    
+    width: 25%;
+    /* height: 15%; */
+    
+    /* height: inherit; */
 }
 
 .swordfish{
-    /* width: 25%; */
+     width: 90%;; 
     /* height: auto; */
-    height: inherit;
+    /* height: inherit; */
 }
 
 .prego{
-    /* width: 15%; */
-    height: inherit;
+     width: 60%; 
+    
+    /* height: inherit; */
 }
 
 .seahorse{
     /* height: inherit; */
-    /* height: 50%; */
+    width: 50%;
 }
 

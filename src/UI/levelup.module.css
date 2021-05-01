@@ -25,7 +25,7 @@
     max-width: 40rem;
     width: 40rem;
     height: 8rem;
-    font-size: 5rem;
+    font-size: 3.5rem;
     border-radius: 10%;
     border: none;
     margin-bottom: 5%;
@@ -40,12 +40,38 @@
 
 .levelup__snail{
     width: 100%;
+    height: 90%;
 }
 
 .levelup__shell{
-    width: 40%;
+    width: 25%;
 }
 
 .levelup__swordfish{
     width: 40%;
+}
+
+
+.levelup__prego{
+    width: 20%;
+    height: 70%;
+}
+
+.levelup__text{
+    font-size: 2rem;
+}
+
+
+
+.elements{
+
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    padding: 3rem;
+    width: 100%;
+    height: 100%;
+    display: block;
+
 }

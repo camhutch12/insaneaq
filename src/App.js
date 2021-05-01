@@ -57,31 +57,37 @@ const App = (props) => {
       level:1,
       imgPath:'./assets/background/snail.svg',
       chosen: false,
-      id: 'snail'
+      id: 'snail',
+      label: 'roams around the bottom of your tank, catching any coins you may have missed'
+
     },
     {
       level:2,
       imgPath:'./assets/fish/seashell.svg',
       chosen: false,
-      id: 'clam'
+      id: 'clam',
+      label: 'produces pearls that you can click on for a hefty sum of money'
     },
     {
       level:3,
       imgPath:'./assets/fish/swordfish.svg',
       chosen: false,
-      id: 'swordfish'
+      id: 'swordfish',
+      label: 'helps you by attacking aliens when they appear'
     },
     {
       level:4,
       imgPath:'./assets/fish/fishpreg.svg',
       chosen: false,
-      id: 'prego'
+      id: 'prego',
+      label: 'helps populate your tank by giving birth to a new baby guppy every so often'
     },
     {
       level:5,
       imgPath:'./assets/fish/seahorse.svg',
       chosen: false,
-      id: 'seahorse'
+      id: 'seahorse',
+      label: 'gives you a hand in keeping your fish fed'
     }
   ]
 
@@ -414,17 +420,22 @@ const App = (props) => {
     if(!isLeveledUP){
       let cl = currentLevel;
       setCurrentLevel(cl+1)
-      setIsLeveledUp(true)      
+      setIsLeveledUp(true)   
+      setLevelSelectionScreen(true)   
       props.player.coins = 0;
-      setLevelSelectionScreen(true)
     }
     else{
-      setIsLeveledUp(false)
+      // setIsLeveledUp(false)
     }
   };
-
+  const isCharSelectScreen = () =>{
+    setIsLeveledUp(false);
+   setLevelSelectionScreen(true);
+  //  setStart(false);
+  }
   const charSelect = () =>{
     setIsLeveledUp(false)
+    setLevelSelectionScreen(false)
     switch (currentLevel) {
      
       case 1:
@@ -434,8 +445,6 @@ const App = (props) => {
         case 2:
         levelTwo.allowedPets.canhaveSnail = unlockablePets[0].chosen
         levelTwo.allowedPets.canhaveClam = unlockablePets[1].chosen
-        console.log(unlockablePets[0].chosen)
-        console.log(unlockablePets[1].chosen)
         break;
       case 3:
         
@@ -479,15 +488,16 @@ const App = (props) => {
 Renders either the game or the UI based on whether start was clicked.
 Start button is defined in UI component 
  */
-  if (!isLeveledUP && !start) {
+  if (!isLeveledUP && !start && !levelSelectionScreen) {
     return (
-      <div>
+      <div class="scrollable">
         <UI onClick={appStart} />
       </div>
     );
-  } else if (!isLeveledUP && start) {
+  } else if (!isLeveledUP && start && !levelSelectionScreen) {
     return (
       <>
+       
         <Game
           hasClicked={hasClicked}
           posClicked={locationMouseClick}
@@ -499,17 +509,24 @@ Start button is defined in UI component
           needFish={needFish}
           isLevelup={isLevelup}
           levelParams={levelParams}
+          
         />
+      
       </>
     );
   } 
+
+  else if (isLeveledUP) {
+      
+
+      return <LevelUp onClick={isCharSelectScreen} levelSelect={setLevelSelectionScreen} level={currentLevel}  />;
+  }
+
   else if(levelSelectionScreen){
     return <CharacterSelection onClick={charSelect} levelParams={levelParams} currentLevel={currentLevel} unlockablePets={unlockablePets}/>
   }
   
-  else if (isLeveledUP) {
-    return <LevelUp onClick={isLevelup} level={currentLevel}  />;
-  }
+ 
   
 };
 

@@ -44,17 +44,19 @@ const selected = (e) => {
 
     const unlockable = unlockablePets.map((element,index) => {
         if(element.level <= props.currentLevel){
-            return (<ImgContainer id={element.id} key={index} element={element} onclick={selected} /> )
+            return (<ImgContainer id={element.id} key={index} element={element} onclick={selected} ch={true} />)
         }
     })
     
-    chosen = unlockablePets.filter((ele,index) => ele.chosen ).map((ele,index) => <ImgContainer id={ele.id} key={index} element={ele}/>)
+    
+
+    chosen = unlockablePets.filter((ele,index) => ele.chosen ).map((ele,index) => <ImgContainer id={ele.id} key={index} element={ele} label={ele.label} ch={false}/>)
 
     return (
         
         <div className={classes.char__container}>
             <div className={classes.title__container}>
-            <h1> select you characters</h1>
+            <h1> Select Your Characters</h1>
             </div>
             <div className={classes.row}>
             {unlockable}

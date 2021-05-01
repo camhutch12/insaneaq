@@ -45,8 +45,11 @@ export const Carnivore = (
     if (carnivore.setHasGoldfishToChase(goldfishList)) {
       carnivore.setGoldfishList(goldfishList);
       carnivore.getClosestGoldfish();
+      try{
       carnivore.direction[0] = carnivore.goldfish.x;
-      carnivore.direction[1] = carnivore.goldfish.y - 200;
+      carnivore.direction[1] = carnivore.goldfish.y;
+      
+
       carnivore.difference[0] = carnivore.direction[0] - carnivore.x;
       carnivore.difference[1] = carnivore.direction[1] - carnivore.y;
 
@@ -62,6 +65,8 @@ export const Carnivore = (
         carnivore.x + carnivore.unitV[0] * carnivore.speed,
         carnivore.y + carnivore.unitV[1] * carnivore.speed
       );
+      }
+      catch(e){}
     }
 
     // coin drop timer increases
@@ -110,8 +115,8 @@ export const Carnivore = (
         if (
           carnivore.x <= goldfishList[j].x + 30 &&
           carnivore.x >= goldfishList[j].x - 30 &&
-          carnivore.y <= goldfishList[j].y - 100 + 30 &&
-          carnivore.y >= goldfishList[j].y - 100 - 30 &&
+          carnivore.y <= goldfishList[j].y + 30 &&
+          carnivore.y >= goldfishList[j].y - 30 &&
           goldfishList[j].size === 0.2
         ) {
           deleteFish(goldfishList[j]);

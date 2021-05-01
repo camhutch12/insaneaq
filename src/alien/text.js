@@ -15,41 +15,19 @@ This component is a pixi.js sprite of an svg image of a text from icons8,
 with a passed in x and y coordinate,
 scale tranforms the size
 */
-export const TextWarning = ({ text, deleteText }, props) => {
+export const TextWarning = ({ text, deleteText }) => {
   
-    const [pos, setPos] = useState({});
-    const reducer = (_, { data }) => data;
-    const [motion, update] = useReducer(reducer);
-    const iter = useRef(0);
-    useTick((delta) => {
-      // increase the counter
-      let i = (iter.current += 0.00001 * delta);
-      let scaleX = text.size;
-      let scaleY = text.size;
-      
-      text.increaseCounter(text.counter+1)
-      if(text.counter>100){
-        deleteText(text)
-      }
 
-      // update current frame
-      update({
-        type: "update",
-        data: {
-          anchor: [0.5,0.5],
-          text: "DANGER: PREDATOR COMING",
-          x: text.x,
-          y: text.y,
-        },
-      });
+    useTick(() => {
+      // increase the counter
+      
     });
 
     return <Sprite 
-    image="assets/alien/danger.png" 
+    image="assets/alien/danger.png"  
     anchor={0.5}
     x={window.innerWidth/2}
-    y={window.innerHeight-200}
-    
+    y={window.innerHeight-400}
     />;
   };
 export default TextWarning
