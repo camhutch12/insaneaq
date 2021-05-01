@@ -542,6 +542,6 @@ function damageMonster(attackingMonster, props) {
     // delete the monster
     props.deleteAlien(attackingMonster.alien);
   } else {
-    attackingMonster.alien.health -= props.player[0].damag9998315e;
+    attackingMonster.alien.health -= props.player[0].damage;
   }
 }
