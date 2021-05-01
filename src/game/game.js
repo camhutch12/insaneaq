@@ -19,7 +19,8 @@ import Navbar from "../navbar/navbar";
 import GameOver from "../UI/gameover";
 import Seahore from "../Fish/seahorse/seahorse";
 import Pearl from '../drops/pearl'
-import styles from "../style.module.css";
+import styles from "../style.module.css"
+import {Crumb as CB }from '../model/crumb' ;
 // Actions ***********************************************
 import { createSnail, resetSnail } from "../actions/snailActions";
 import { createFish, deleteFish, resetFish ,clearFish} from "../actions/fishActions";
@@ -41,6 +42,7 @@ import SwordFish from "../Fish/swordfish/swordfish";
 import Clam  from '../Fish/clam/clam';
 import {CONSTANTS,randomNumber} from '../util/utilities'
 import { Timer } from "../util/timer";
+import { CloseButton } from "react-bootstrap";
 
 /*
 Written By:
@@ -70,6 +72,10 @@ const Game = ({ background,levelParams, ...props }) => {
         new GL(randomNumber(CONSTANTS.MINX, CONSTANTS.MAXX),randomNumber(CONSTANTS.MINY, CONSTANTS.MAXY)),
        
       );
+
+      props.player[0].coins =1000;
+      props.player[0].damge =1;
+      CB.level = 1;
       
     };
     
@@ -131,6 +137,22 @@ const Game = ({ background,levelParams, ...props }) => {
       if (attackingMonster.isAttacking) {
         // damage monster
         damageMonster(attackingMonster, props);
+        // change the position of x and y in the oppsite direction of the vector 
+      
+      const difference = [(mousePos.x - attackingMonster.alien.x),(mousePos.y - attackingMonster.alien.y)]
+
+      let distance = Math.sqrt(
+        Math.pow(difference[0], 2) +
+          Math.pow(difference[1], 2)
+      );
+      const unitV = [
+        -1*(difference[0] / distance),
+        -1*(difference[1] / distance),
+      ];
+      attackingMonster.alien.setPosition(
+        attackingMonster.alien.x + (unitV[0]*10) * attackingMonster.alien.speed,
+        attackingMonster.alien.y + (unitV[1]*10) * attackingMonster.alien.speed
+      );
       }
     }
     } 

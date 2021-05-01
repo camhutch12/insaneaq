@@ -30,12 +30,12 @@ class Alien {
     if(this.type === 1){
       this.img = "../assets/alien/octo.svg"
       this.speed = 3;
-      this.health = 5
+      this.health = 3
     }
     else if(this.type === 2){
       this.img = "../assets/alien/aliengreen.svg"
       this.speed = 4;
-      this.health=10;
+      this.health=8;
     }
     this.timer = new Timer()
     this.id = uuidv4();

@@ -4,7 +4,7 @@ export class Player{
   currentLevel
   damage = 1;
   constructor(){
-    this.coins = 0;
+    this.coins = 10000;
     // this.coins = 0;
     this.food =2
     this.damage = 1;

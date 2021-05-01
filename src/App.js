@@ -370,9 +370,7 @@ const App = (props) => {
     GoldFish.startTimer();
     const p = new Player();
     props.createPlayer(p);
-    props.player[0].coins =0;
-    props.player[0].damage =1;
-
+    
     
     const timer = new Timer();
 
