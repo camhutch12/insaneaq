@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { Crumb } from "./crumb";
-
+import {Timer} from '../util/timer'
 class GoldFish {
 
   id;
@@ -22,7 +22,7 @@ class GoldFish {
   dropRate = 500;
   speed
   hunger = 1;
-
+  static timer:Timer = new Timer()
   constructor(x:number, y:number) {
     this.id = uuidv4();;
     this.x = x;
@@ -158,6 +158,25 @@ class GoldFish {
       }
     }
   }
+
+
+  static startTimer(){
+    GoldFish.timer.startTime();
+  }
+
+  static getCurrentTimer(){
+    return GoldFish.timer.currentTime;
+  }
+
+ static resetTimer(){
+  GoldFish.timer.stopTime()
+  GoldFish.timer.currentTime =0;
+  }
+
+  static stopTimer(){
+    GoldFish.timer.stopTime()
+}
+
 
 }
 

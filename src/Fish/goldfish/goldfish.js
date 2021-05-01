@@ -5,6 +5,7 @@ import { applyProps } from "react-pixi-fiber";
 import { deleteCrumb } from "../../actions/crumbActions";
 import {CONSTANTS} from '../../util/utilities'
 import * as PIXI from "pixi.js";
+import {GoldFish as GL} from '../../model/Goldfish'
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -25,6 +26,7 @@ export const GoldFish = (
     deleteFish,
     createCoin,
     timer,
+    timer2,
     createAlien,
     createPortal,
     createText,
@@ -43,12 +45,27 @@ export const GoldFish = (
   useTick((delta) => {
     if (levelParams.allowedAliens.canhaveAlien1) {
       if (timer.currentTime > 23 && timer.currentTime < 25) {
-        createText();
+        // createText();
       }
-      if (timer.currentTime >= 10) {
+      if (timer.currentTime >= 30) {
         createAlien(1);
       }
     }
+
+    if (levelParams.allowedAliens.canhaveAlien2) {
+      if (GL.getCurrentTimer() > 50 && GL.getCurrentTimer()< 55) {
+        // createText();
+      }
+      if (GL.getCurrentTimer() >= 60) {
+        GL.resetTimer();
+        createAlien(2);
+        GL.startTimer();
+        
+      //  console.log(timer2)
+      }
+    }
+
+
     // increase the counter
     let i = (iter.current += 0.00001 * delta);
     let scaleX = goldfish.size;

@@ -12,6 +12,7 @@ import { createTimer } from "./actions/timerAction";
 import { Timer } from "./util/timer";
 import LevelUp from "./UI/levelup";
 import CharacterSelection from "./UI/charselection";
+import { GoldFish } from "./model/Goldfish";
 const App = (props) => {
   const SCREEN_SIZE = {
     x: window.innerWidth,
@@ -365,6 +366,7 @@ const App = (props) => {
   // called when start is clicked
   const appStart = () => {
     setStart(true);
+    GoldFish.startTimer();
     const p = new Player();
     props.createPlayer(p);
     const timer = new Timer();

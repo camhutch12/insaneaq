@@ -14,6 +14,7 @@ export class Timer{
 
     stopTime(){
         clearInterval(this.timerId);
+        this.currentTime = 0;
     }
 
     getTime(){

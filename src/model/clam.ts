@@ -22,7 +22,7 @@ class Clam {
   hunger = 1;
   health = 3;
   img:String = "../assets/background/shellfish.svg";
-  timer:Timer
+  timer:Timer;
   pearlCreated = false
   constructor(x:number, y:number) {
     this.id = uuidv4();

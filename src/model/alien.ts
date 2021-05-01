@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid"
 import { GoldFish } from "./Goldfish";
 import {CONSTANTS, randomNumber} from '../util/utilities'
+import { Timer } from "../util/timer";
 class Alien {
   id;
   direction:number[] = [];
@@ -22,7 +23,7 @@ class Alien {
   health = 5;
   type:number;
   img:string;
-
+  timer:Timer
   constructor(x:number, y:number,type:number) {
     this.type = type;
     this.img = ""
@@ -36,7 +37,7 @@ class Alien {
       this.speed = 4;
       this.health=10;
     }
-
+    this.timer = new Timer()
     this.id = uuidv4();
     this.x = x;
     this.y = y;
@@ -124,6 +125,23 @@ class Alien {
         return false;
       }
     
+  }
+
+  startTimer(){
+    this.timer.startTime();
+  }
+
+  getCurrentTimer(){
+    return this.timer.currentTime;
+  }
+
+  resetTimer(){
+    this.timer.stopTime()
+    this.timer.currentTime =0;
+  }
+
+  stopTimer(){
+      this.timer.stopTime()
   }
 
 }

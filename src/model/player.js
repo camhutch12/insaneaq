@@ -2,10 +2,12 @@ export class Player{
   coins;
   food;
   currentLevel
+  damage = 1;
   constructor(){
     this.coins = 10000000;
     // this.coins = 0;
     this.food =2
+    this.damage = 1;
   }
 
   addCoins(currentCoin){
@@ -27,6 +29,9 @@ export class Player{
 
   }
 
+  upgradeDamage(){
+    this.damage *= 2;
+  }
   addFood(){
     this.food += 1
   }

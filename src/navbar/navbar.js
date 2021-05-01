@@ -103,6 +103,9 @@ let [qImg,setQimg] = useState(() => Crumb.getCrumbImage())
         value:1000,
         hasImgTag: true,
         item:levelParams.allowedUpgrades.laserUpgrade,
+        onClick(){
+            props.player[0].upgradeDamage();
+        }
 
     },
     {

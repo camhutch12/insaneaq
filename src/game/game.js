@@ -40,6 +40,7 @@ import { Preggo } from "../Fish/preggo/preggo";
 import SwordFish from "../Fish/swordfish/swordfish";
 import Clam  from '../Fish/clam/clam';
 import {CONSTANTS,randomNumber} from '../util/utilities'
+import { Timer } from "../util/timer";
 
 /*
 Written By:
@@ -58,6 +59,7 @@ const Game = ({ background,levelParams, ...props }) => {
   const [app, setApp] = useState(null);
   let totalFishList = props.fish.concat(props.carnivore)
   useEffect(() => {
+    
     return () => {
       props.clearFish()
       props.createFish(
@@ -68,17 +70,29 @@ const Game = ({ background,levelParams, ...props }) => {
         new GL(randomNumber(CONSTANTS.MINX, CONSTANTS.MAXX),randomNumber(CONSTANTS.MINY, CONSTANTS.MAXY)),
        
       );
+      
     };
+    
   }, []);
-
+  
   const createMonster = (type) => {
-    let alienX = randomNumber(CONSTANTS.MINX,CONSTANTS.MAXX)
-    let alienY = randomNumber(CONSTANTS.MINY,CONSTANTS.MAXY)
-    props.createAlien({x:alienX, y:alienY,type:type});
-    props.createPortal({x:alienX, y:alienY});
-    props.timer.stopTime(props.timer.timerID);
-    props.timer.currentTime = 0;
-    props.timer.startTime();
+   
+    if(type === 1){
+      let alienX = randomNumber(CONSTANTS.MINX,CONSTANTS.MAXX)
+      let alienY = randomNumber(CONSTANTS.MINY,CONSTANTS.MAXY)
+      props.createAlien({x:alienX, y:alienY,type:type});
+      props.createPortal({x:alienX, y:alienY});
+      props.timer.stopTime(props.timer.timerID);
+      props.timer.currentTime = 0;
+      props.timer.startTime();
+
+    }
+    else if(type === 2){
+      let alienX = randomNumber(CONSTANTS.MINX,CONSTANTS.MAXX)
+      let alienY = randomNumber(CONSTANTS.MINY,CONSTANTS.MAXY)
+      props.createAlien({x:alienX, y:alienY,type:type});
+      props.createPortal({x:alienX, y:alienY});
+    }
   };
 
   const createWarning = () => {
@@ -240,6 +254,7 @@ Map all the fish component sprites from our redux store to a variable to render
         createPortal = {props.createPortal}
         createText = {createWarning}
         levelParams={levelParams}
+        
       />
     );
   });
@@ -334,7 +349,7 @@ Map all the fish component sprites from our redux store to a variable to render
         <Pearl key={index} pearl={ele}/>
       )
     })
-  const alien = levelParams.allowedAliens.canhaveAlien1 === true ?  props.aliens.map((ele, index) => {
+  const alien = levelParams.allowedAliens.canhaveAlien1 === true ?  props.aliens.filter((ele,index) => ele.type === 1 ).map((ele, index) => {
     return (
       <Alien
         key={index}
@@ -346,6 +361,19 @@ Map all the fish component sprites from our redux store to a variable to render
     );
   }) : null;
 
+  const alien2 = levelParams.allowedAliens.canhaveAlien2 === true ? props.aliens.filter((ele,index) => ele.type === 2)
+  .map((ele,index) =>{
+    return (
+      <Alien
+        key={index}
+        goldfishList={totalFishList}
+        deleteFish={props.deleteFish}
+        deleteCarnivore={props.deleteCarnivore}
+        alien={ele}
+      />
+    );
+  }) : null;
+  
   
   const text = levelParams.allowedAliens.canhaveAlien1 === true ?  props.text.map((ele, index) => {
      return (
@@ -392,17 +420,19 @@ Map all the fish component sprites from our redux store to a variable to render
         >
           <Background background={background} />
           
-          {levelParams.allowedAliens.canhaveAlien1 === true ? portal : null}
+          {(levelParams.allowedAliens.canhaveAlien1 === true || levelParams.allowedAliens.canhaveAlien2 === true)  ? portal : null}
           {levelParams.allowedAliens.canhaveAlien1 === true ? alien : null}
+          {levelParams.allowedAliens.canhaveAlien2 === true ? alien2 : null}
+          {(levelParams.allowedAliens.canhaveAlien1 === true || levelParams.allowedAliens.canhaveAlien2 === true) ?  blaster : null}
+          
           {levelParams.allowedPets.canhaveClam === true ? clam : null}
-          {pearl}
+          {levelParams.allowedPets.canhaveClam === true ? pearl : null}
           {levelParams.allowedPets.canhaveSnail === true ? snail : null}
           {coin}
           {crumb}
           {fish}
           
           {levelParams.allowedPets.canhaveSeahorse === true ? seahorse : null}
-          {levelParams.allowedAliens.canhaveAlien1 === true ? blaster : null}
           {levelParams.allowedUpgrades.carnivore.canhave === true ? carnivore : null}
           {levelParams.allowedPets.canhavePreggo === true ? preggo : null}
           {levelParams.allowedPets.canhaveSwordFish === true ? swordfish : null}
@@ -490,6 +520,6 @@ function damageMonster(attackingMonster, props) {
     // delete the monster
     props.deleteAlien(attackingMonster.alien);
   } else {
-    attackingMonster.alien.health -= 1;
+    attackingMonster.alien.health -= props.player[0].damage;
   }
 }
