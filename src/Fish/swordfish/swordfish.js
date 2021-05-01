@@ -61,33 +61,19 @@ export const SwordFish = (
       );
     }
 
-    // coin drop timer increases
-    //swordFish.setCoinDrop(swordFish.coinDropTimer + 1);
-
-    // Check if coin needs to drop
-    // if (swordFish.coinDropTimer > swordFish.dropRate) {
-    //   // reset timer
-    //   swordFish.setCoinDrop(0);
-    //   // make coin either silver or gold based on fish size
-    //   let type = 0;
-    //   // small
-     
-    //   // add coin to array of coins (redux)
-    //   createCoin({ x: swordFish.x, y: swordFish.y, type: type });
-    // }
-    // if outside the right bounds, change direction left
+   
     if (swordFish.x > CONSTANTS.MAXX) {
       swordFish.unitV[0] = swordFish.unitV[0] * -1;
 
       iter.current = 0;
     }
     // if outside the bounds left, change direction right
-    if (swordFish.x < 100) {
+    if (swordFish.x < CONSTANTS.MINX) {
       swordFish.unitV[0] = swordFish.unitV[0] * -1;
       iter.current = 0;
     }
     // if outside the top bounds, change direction down
-    if (swordFish.y < 110) {
+    if (swordFish.y < CONSTANTS.MINY) {
       swordFish.unitV[1] = swordFish.unitV[1] * -1;
       iter.current = 0;
     }

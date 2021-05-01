@@ -1,6 +1,7 @@
 import {Sprite} from '@inlet/react-pixi'
 import React,{useRef,useState,useReducer} from 'react'
 import { useTick } from '@inlet/react-pixi'
+import {CONSTANTS} from '../../util/utilities'
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -46,7 +47,7 @@ const Snail  = ({snail,coin,...props}) => {
         
         // if outside the right bounds, change direction left
         
-        if(snail.x > window.innerWidth-30){
+        if(snail.x > CONSTANTS.MAXX){
             snail.goRight = true;
             snail.goLeft = false;
             snail.unitVector[0] = snail.unitVector[0] * -1;
@@ -54,7 +55,7 @@ const Snail  = ({snail,coin,...props}) => {
         }
 
         // if outside the bounds left, change direction right
-        if(snail.x < 30){
+        if(snail.x < CONSTANTS.MINX){
             snail.unitVector[0] = snail.unitVector[0] * -1;
              iter.current=0;
         }

@@ -15,7 +15,6 @@ export const alien_reducer = (oldAlienList=[],action) => {
 
     else if(action.type ==="RESET"){
         oldAlienList = []
-        
         return oldAlienList
     }
 

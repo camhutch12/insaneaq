@@ -1,5 +1,3 @@
-import { act } from 'react-dom/cjs/react-dom-test-utils.production.min'
-import {combineReducers} from 'redux'
 import {Crumb} from '../model/crumb'
 
 export const crumb_reducer = (oldCrumbList=[],action) => {

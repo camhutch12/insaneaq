@@ -1,4 +1,3 @@
-import {combineReducers} from 'redux'
 import {Coin} from '../model/coin'
 
 export const coin_reducer = (oldCoinList=[],action) => {

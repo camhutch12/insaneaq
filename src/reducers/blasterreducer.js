@@ -1,5 +1,3 @@
-import { act } from 'react-dom/cjs/react-dom-test-utils.production.min'
-import {combineReducers} from 'redux'
 import {Blaster} from '../model/blaster'
 
 export const blaster_reducer = (oldBlasterList=[],action) => {

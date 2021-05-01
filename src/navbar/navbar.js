@@ -45,8 +45,10 @@ let [qImg,setQimg] = useState(() => Crumb.getCrumbImage())
 
     }
 
-    const upgradeFood = () =>{
+    const upgradeFood = (item) =>{
+        if(props.player[0].coins >= item.price ){
         Crumb.level++; 
+        }
     }
 
    const navList = [
@@ -66,7 +68,7 @@ let [qImg,setQimg] = useState(() => Crumb.getCrumbImage())
         hasImgTag: true,
         item:levelParams.allowedUpgrades.foodQuality,
         onClick(){
-            upgradeFood()
+            upgradeFood(levelParams.allowedUpgrades.foodQuality)
             setQimg(() => Crumb.getCrumbImage());
         }
         
@@ -104,7 +106,10 @@ let [qImg,setQimg] = useState(() => Crumb.getCrumbImage())
         hasImgTag: true,
         item:levelParams.allowedUpgrades.laserUpgrade,
         onClick(){
+            if(props.player[0] >= levelParams.allowedUpgrades.laserUpgrade.price){
+                props.player[0].coins -= levelParams.allowedUpgrades.laserUpgrade.price;
             props.player[0].upgradeDamage();
+            }
         }
 
     },

@@ -1,9 +1,7 @@
 import { Application, Sprite, useApp, withPixiApp } from "@inlet/react-pixi";
 import React, { useEffect, useState, useReducer, useRef } from "react";
 import { useTick } from "@inlet/react-pixi";
-import { applyProps } from "react-pixi-fiber";
-import { deleteCrumb } from "../../actions/crumbActions";
-import * as PIXI from "pixi.js";
+import {CONSTANTS} from '../../util/utilities'
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -47,23 +45,23 @@ export const Seahorse = (
      
     }
     // if outside the right bounds, change direction left
-    if (seahorse.x > window.innerWidth - 50) {
+    if (seahorse.x > CONSTANTS.MAXX) {
       seahorse.unitV[0] = seahorse.unitV[0] * -1;
 
       iter.current = 0;
     }
     // if outside the bounds left, change direction right
-    if (seahorse.x < 30) {
+    if (seahorse.x < CONSTANTS.MINX) {
       seahorse.unitV[0] = seahorse.unitV[0] * -1;
       iter.current = 0;
     }
     // if outside the top bounds, change direction down
-    if (seahorse.y < 30) {
+    if (seahorse.y < CONSTANTS.MINY) {
       seahorse.unitV[1] = seahorse.unitV[1] * -1;
       iter.current = 0;
     }
     // if outside the bottom bounds, change direction up
-    if (seahorse.y > window.innerHeight - 130) {
+    if (seahorse.y > CONSTANTS.MAXY) {
       seahorse.unitV[1] = seahorse.unitV[1] * -1;
       iter.current = 0;
     }

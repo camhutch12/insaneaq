@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux'
+
 import {Carnivore} from '../model/carnivore'
 
 export const carnivore_reducer = (oldCarnivoreList=[

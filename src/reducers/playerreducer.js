@@ -1,8 +1,5 @@
 
 import { Player } from '../model/player'
-
-
-
 export const player_reducer = (oldPlayerList=[],action) => {
     if(action.type === "CREATE_PLAYER"){
         return [...oldPlayerList,action.payload.player]

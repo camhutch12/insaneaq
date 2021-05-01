@@ -1,4 +1,3 @@
-import {combineReducers} from 'redux'
 import {Portal} from '../model/portal'
 
 export const portal_reducer = (oldPortalList=[],action) => {

@@ -1,4 +1,3 @@
-import {combineReducers} from 'redux'
 import { Pearl } from '../model/Pearl'
 import {Clam} from '../model/clam'
 interface action{
@@ -12,7 +11,6 @@ interface action{
 export const pearl_reducer = (oldPearlList:Pearl[]=[],action:action) => {
     if(action.type === "CREATE_PEARL"){
         let {x,y} = action.payload.pearl
-        console.log(x,y);
         return [...oldPearlList,new Pearl(x,y)]
     }else if(action.type ==="DELETE_PEARL"){
         

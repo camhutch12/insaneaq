@@ -1,10 +1,8 @@
 import { Application, Sprite, useApp, withPixiApp } from "@inlet/react-pixi";
 import React, { useEffect, useState, useReducer, useRef } from "react";
 import { useTick } from "@inlet/react-pixi";
-import { applyProps } from "react-pixi-fiber";
-import { deleteCrumb } from "../../actions/crumbActions";
-import * as PIXI from "pixi.js";
 import { GoldFish } from "../../model/Goldfish";
+import {CONSTANTS} from '../../util/utilities'
 /*
 Written By:
 Daniel Gannage (6368898)
@@ -19,11 +17,8 @@ scale tranforms the size
 export const Preggo = (
   {
     preggo,
-    goldfishList,
-    crumb,
     createFish,
-    deleteCrumb,
-    createCoin,
+
   },
   props
 ) => {
@@ -52,23 +47,23 @@ export const Preggo = (
       createFish(new GoldFish(preggo.x,preggo.y));
     }
     // if outside the right bounds, change direction left
-    if (preggo.x > window.innerWidth - 50) {
+    if (preggo.x > CONSTANTS.MAXX) {
       preggo.unitV[0] = preggo.unitV[0] * -1;
 
       iter.current = 0;
     }
     // if outside the bounds left, change direction right
-    if (preggo.x < 30) {
+    if (preggo.x < CONSTANTS.MINX) {
       preggo.unitV[0] = preggo.unitV[0] * -1;
       iter.current = 0;
     }
     // if outside the top bounds, change direction down
-    if (preggo.y < 30) {
+    if (preggo.y < CONSTANTS.MINY) {
       preggo.unitV[1] = preggo.unitV[1] * -1;
       iter.current = 0;
     }
     // if outside the bottom bounds, change direction up
-    if (preggo.y > window.innerHeight - 130) {
+    if (preggo.y > CONSTANTS.MAXY) {
       preggo.unitV[1] = preggo.unitV[1] * -1;
       iter.current = 0;
     }
@@ -82,16 +77,6 @@ export const Preggo = (
     // delete crumb if not full/dead and fish hits crumb
   
 
-    // hunger timer
-    // preggo.setHungerTimer(preggo.hungerTimer + 1);
-    // if hungry for too long, change hunger level
-    if (preggo.hungerTimer > 500) {
-      preggo.setHunger(preggo.hunger + 1);
-      // (0 is no hunger)
-      // (1 searches for food)
-      // (2 is yellow)
-      // (3 is dead)
-    }
     let image;
     // if fish is stage 2 hunger, turn yellow
    

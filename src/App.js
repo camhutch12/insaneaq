@@ -13,6 +13,7 @@ import { Timer } from "./util/timer";
 import LevelUp from "./UI/levelup";
 import CharacterSelection from "./UI/charselection";
 import { GoldFish } from "./model/Goldfish";
+import {CONSTANTS} from './util/utilities'
 const App = (props) => {
   const SCREEN_SIZE = {
     x: window.innerWidth,
@@ -369,6 +370,10 @@ const App = (props) => {
     GoldFish.startTimer();
     const p = new Player();
     props.createPlayer(p);
+    props.player[0].coins =0;
+    props.player[0].damage =1;
+
+    
     const timer = new Timer();
 
     switch (currentLevel) {
@@ -414,12 +419,9 @@ const App = (props) => {
       setIsLeveledUp(true)      
       props.player.coins = 0;
       setLevelSelectionScreen(true)
-      
     }
     else{
       setIsLeveledUp(false)
-      
-      // appStart();
     }
   };
 

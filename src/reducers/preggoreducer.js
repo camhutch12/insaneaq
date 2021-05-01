@@ -1,10 +1,10 @@
 import { Preggo } from "../model/preggo";
-import { randomNumber } from "../util/utilities";
+import { randomNumber,CONSTANTS } from "../util/utilities";
 export const preggo_reducer = (
     oldPreggoList = [
         new Preggo(
-            randomNumber(100, window.innerWidth - 200),
-            randomNumber(100, window.innerHeight - 200)
+            randomNumber(100, CONSTANTS.MAXX),
+            randomNumber(100, CONSTANTS.MAXY)
         ),
     ],
     action
@@ -19,8 +19,8 @@ export const preggo_reducer = (
     } else if (action.type === "RESET_PREGGO") {
         oldPreggoList = [
             new Preggo(
-                randomNumber(100, window.innerWidth - 200),
-                randomNumber(100, window.innerHeight - 200)
+                randomNumber(100, CONSTANTS.MAXX),
+            randomNumber(100, CONSTANTS.MAXY)
             ),
         ];
 

@@ -1,7 +1,8 @@
 import { Seahorse } from "../model/seahorse";
-import {randomNumber} from '../util/utilities'
+import {randomNumber,CONSTANTS} from '../util/utilities'
 export const seahorse_reducer = (oldSeahorseList=[
-    new Seahorse(randomNumber(100,window.innerWidth-200),randomNumber(200,window.innerHeight-200))
+    new Seahorse( randomNumber(100, CONSTANTS.MAXX),
+    randomNumber(100, CONSTANTS.MAXY))
 
   
 ],action) => {
@@ -16,9 +17,9 @@ export const seahorse_reducer = (oldSeahorseList=[
 
     else if(action.type ==="RESET_SEAHORSE"){
         oldSeahorseList = [
-            new Seahorse(randomNumber(200,window.innerWidth-200),randomNumber(200,window.innerHeight-200))
+            new Seahorse( randomNumber(100, CONSTANTS.MAXX),
+            randomNumber(100, CONSTANTS.MAXY))
         ]
-        
         return [...oldSeahorseList]
     }
     return oldSeahorseList
