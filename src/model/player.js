@@ -3,11 +3,13 @@ export class Player{
   food;
   currentLevel
   damage = 1;
+  pause = false;
   constructor(){
     this.coins = 10000;
     // this.coins = 0;
     this.food =2
     this.damage = 1;
+    this.pause=false;
   }
 
   addCoins(currentCoin){
@@ -45,4 +47,18 @@ export class Player{
   removeFood(){
     this.food -= 1
   }
+
+  pauseGame(value){
+    if(value){
+      this.pause=false;
+      console.log("played")
+    }else{
+      this.pause=true;
+      console.log("paused")
+    }
+    
+    
+  }
+
+  
 }

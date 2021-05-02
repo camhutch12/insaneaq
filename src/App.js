@@ -414,6 +414,12 @@ const App = (props) => {
     props.resetPlayer(1);
     setNeedFish(true);
     setIsLeveledUp(false);
+    setLevelSelectionScreen(true)
+
+    props.player[0].coins = 0;
+    props.player[0].damage =1;
+    props.player[0].food =1;
+    GoldFish.level = 1;
   };
 
   const isLevelup = () => {
@@ -422,7 +428,7 @@ const App = (props) => {
       setCurrentLevel(cl+1)
       setIsLeveledUp(true)   
       setLevelSelectionScreen(true)   
-      props.player.coins = 0;
+      props.player[0].coins = 0;
     }
     else{
       // setIsLeveledUp(false)

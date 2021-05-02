@@ -24,6 +24,7 @@ export const Carnivore = (
     deleteFish,
     deleteCarnivore,
     createCoin,
+    player
   },
   props
 ) => {
@@ -37,6 +38,11 @@ export const Carnivore = (
   const iter = useRef(0);
   useTick((delta) => {
     
+    // check if game has been paused
+    if(!player.pause){
+      // play game
+
+
     // increase the counter
     let i = (iter.current += 0.00001 * delta);
     let scaleX = carnivore.size;
@@ -119,10 +125,12 @@ export const Carnivore = (
           carnivore.y >= goldfishList[j].y - 30 &&
           goldfishList[j].size === 0.2
         ) {
-          deleteFish(goldfishList[j]);
-          carnivore.totalEatenFood++;
-          carnivore.goldfishList = null;
-          carnivore.setHunger(carnivore.hunger - 1);
+          if (carnivore.hunger == 1 || carnivore.hunger == 2) {
+            deleteFish(goldfishList[j]);
+            carnivore.totalEatenFood++;
+            carnivore.goldfishList = null;
+            carnivore.setHunger(carnivore.hunger - 1);
+          }
         }
       }
     }
@@ -171,6 +179,7 @@ export const Carnivore = (
         image: image,
       },
     });
+    }
   });
 
   return <Sprite image={"assets/fish/bigfish/bigfish.svg"} {...motion} />;

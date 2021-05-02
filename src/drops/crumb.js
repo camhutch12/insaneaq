@@ -13,7 +13,7 @@ Cameron Hutchings (6427892)
 This component is a pixi.js sprite of an svg image of a crumb from icons8,
 with a passed in x and y coordinate from the mouse listener
 */
-const Crumb = ({crumb,deleteCrumb}) => {
+const Crumb = ({crumb,deleteCrumb,players}) => {
     const [locationMouseClick, setlocationMouseClick] = useState(crumb);
     const reducer = (_, { data }) => data
     const [motion, update] = useReducer(reducer)
@@ -21,6 +21,10 @@ const Crumb = ({crumb,deleteCrumb}) => {
    
     useTick(delta => {
 
+         // check if game has been paused
+    if(!players.pause){
+        // play game
+  
         // increase the counter
         let i = (iter.current += 0.005 * delta)
 
@@ -62,6 +66,7 @@ const Crumb = ({crumb,deleteCrumb}) => {
             anchor:0.5,
             }
         })
+    }
     })   
     return <Sprite 
     image = {crumb.img}

@@ -128,6 +128,8 @@ const Game = ({ background,levelParams, ...props }) => {
     // This function is going to carry all of the logic for different click events
 */
   const getClick = (event) => {
+
+
     let attackingMonster = {};
 
     // get click cooridnates
@@ -135,10 +137,10 @@ const Game = ({ background,levelParams, ...props }) => {
     setHasClicked(true);
     const mousePos = { x: event.clientX, y: event.clientY };
 
-    
+    // check if the game is paused
+    if(!props.player[0].pause){
 
     // check if mouse clicks are on monster
-   
     attackingMonster = alienIsClicked(mousePos);
     if (attackingMonster.alienIsPresent) {
       // shoot blaster
@@ -182,6 +184,7 @@ const Game = ({ background,levelParams, ...props }) => {
         }
       }
     }
+  }
 
     setlocationMouseClick({ x: event.clientX, y: event.clientY });
   };
@@ -192,12 +195,14 @@ This method checks whether a coin has been clicked or not.
 Always assume we are clicking a coin (innocent until proven guilty)
 */
   const coinIsNotClicked = (mousePos) => {
+    if(!props.player[0].pause){
+    
     // go through all the coins
     for (let i = 0; i < props.coin.length; i++) {
       let currentCoin = props.coin[i];
       const coinPos = { x: currentCoin.x, y: currentCoin.y };
       // check if clicking on coin
-      if (isboundingBoxCoords(mousePos, coinPos, 14)) {
+      if (isboundingBoxCoords(mousePos, coinPos, 17)) {
         // delete coin
         props.deleteCoin(currentCoin);
         // increase money counter
@@ -206,10 +211,13 @@ Always assume we are clicking a coin (innocent until proven guilty)
         return false; // guilty, we are clicking a coin!
       }
     }
+  }
     return true; // not clicking on a coin
   };
 
   const pearlIsNotClicked = (mousePos) => {
+
+    if(!props.player[0].pause){
     // go through all the coins
     for (let i = 0; i < props.pearl.length; i++) {
       let currentPearl = props.pearl[i];
@@ -227,6 +235,7 @@ Always assume we are clicking a coin (innocent until proven guilty)
         return false; // guilty, we are clicking a coin!
       }
     }
+  }
     return true; // not clicking on a coin
   };
 
@@ -286,7 +295,7 @@ Map all the fish component sprites from our redux store to a variable to render
         createPortal = {props.createPortal}
         createText = {createWarning}
         levelParams={levelParams}
-        
+        player={props.player[0]}
       />
     );
   });
@@ -298,6 +307,7 @@ Map all the fish component sprites from our redux store to a variable to render
         seahorse={ele}
         crumb={props.crumb}
         createCrumb={props.createCrumb}
+        player={props.player[0]}
       />
     );
   });
@@ -311,6 +321,7 @@ Map all the fish component sprites from our redux store to a variable to render
         deleteFish={props.deletePreggo}
         createFish={props.createFish}
         createCoin={props.createCoin}
+        player={props.player[0]}
       />
     );
   });
@@ -327,6 +338,7 @@ Map all the fish component sprites from our redux store to a variable to render
         createCoin={props.createCoin}
         deleteAlien={props.deleteAlien}
         timer={props.timer}
+        player={props.player[0]}
       />
     );
   });
@@ -343,12 +355,13 @@ Map all the fish component sprites from our redux store to a variable to render
         carnivoreList={props.carnivore}
         createCoin={props.createCoin}
         timer={props.timer}
+        player={props.player[0]}
       />
     );
   });
 
   const crumb = props.crumb.map((ele, index) => (
-    <Crumb key={index} crumb={ele} deleteCrumb={props.deleteCrumb} />
+    <Crumb key={index} crumb={ele} deleteCrumb={props.deleteCrumb} players={props.player[0]} />
   ));
   const snail  = levelParams.allowedPets.canhaveSnail === true ?
   props.snail.map((ele, index) => (
@@ -358,6 +371,7 @@ Map all the fish component sprites from our redux store to a variable to render
       coin={props.coin}
       deleteCoin={props.deleteCoin}
       player={props.player}
+      players={props.player[0]}
     />
   ))
   :null;
@@ -373,12 +387,13 @@ Map all the fish component sprites from our redux store to a variable to render
       createPearl={props.createPearl}
       deletePearl={props.deletePearl}
       pearlList={props.pearl}
+      players={props.player[0]}
 
     />
   ));
     const pearl = props.pearl.map((ele,index) => {
       return (
-        <Pearl key={index} pearl={ele}/>
+        <Pearl key={index} pearl={ele}  players={props.player[0]}/>
       )
     })
   const alien = levelParams.allowedAliens.canhaveAlien1 === true ?  props.aliens.filter((ele,index) => ele.type === 1 ).map((ele, index) => {
@@ -389,6 +404,7 @@ Map all the fish component sprites from our redux store to a variable to render
         deleteFish={props.deleteFish}
         deleteCarnivore={props.deleteCarnivore}
         alien={ele}
+        players={props.player[0]}
       />
     );
   }) : null;
@@ -402,6 +418,7 @@ Map all the fish component sprites from our redux store to a variable to render
         deleteFish={props.deleteFish}
         deleteCarnivore={props.deleteCarnivore}
         alien={ele}
+        players={props.player[0]}
       />
     );
   }) : null;
@@ -413,6 +430,7 @@ Map all the fish component sprites from our redux store to a variable to render
          key={index}
          deleteText={props.deleteText}
          text={ele}
+         players={props.player[0]}
        />
      );
    }) : null;
@@ -423,20 +441,21 @@ Map all the fish component sprites from our redux store to a variable to render
          key={index}
          deletePortal={props.deletePortal}
          portal={ele}
+         players={props.player[0]}
        />
      );
    }) : null;
 
 
   const blaster = (levelParams.allowedAliens.canhaveAlien1 === true || levelParams.allowedAliens.canhaveAlien2 === true) ? props.blaster.map((ele, index) => (
-    <Blaster key={index} blaster={ele} deleteBlaster={props.deleteBlaster} />
+    <Blaster key={index} blaster={ele} deleteBlaster={props.deleteBlaster} players={props.player[0]}/>
   )) : null;
 
   // get coin components/sprites to render
   let coin;
   if (props.coin != undefined) {
     coin = props.coin.map((ele, index) => (
-      <Coin key={index} coin={ele} deleteCoin={props.deleteCoin} />
+      <Coin key={index} coin={ele} deleteCoin={props.deleteCoin} players={props.player[0]} />
     ));
   }
   
@@ -470,6 +489,7 @@ Map all the fish component sprites from our redux store to a variable to render
           {levelParams.allowedPets.canhaveSwordFish === true ? swordfish : null}
           {levelParams.allowedAliens.canhaveAlien1 === true ? text : null}
         </Stage>
+
       </React.Fragment>
     );
   } else {

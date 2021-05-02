@@ -13,7 +13,7 @@ This component is a pixi.js sprite of an svg image of a clam from icons8,
 with a passed in x and y coordinate,
 scale tranforms the size
 */
-const Clam = ({ pearlList,clam, coin, ...props }) => {
+const Clam = ({ pearlList,clam, coin, players, ...props }) => {
   clam.coin = null;
   clam.coinList = [];
   const [pos, setPos] = useState({});
@@ -23,6 +23,12 @@ const Clam = ({ pearlList,clam, coin, ...props }) => {
   const iter = useRef(0);
   
   useTick((delta) => {
+    
+       // check if game has been paused
+       if(!players.pause){
+        // play game
+
+    
     // increase the counter
     
     let i = (iter.current += 0.00001 * delta);
@@ -66,6 +72,7 @@ const Clam = ({ pearlList,clam, coin, ...props }) => {
         anchor: 0.5,
       },
     });
+       }
   });
 
   return <Sprite image={clam.img} {...motion} />;

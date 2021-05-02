@@ -30,6 +30,7 @@ export const GoldFish = (
     createAlien,
     createText,
     levelParams,
+    player
   },
   props
 ) => {
@@ -42,6 +43,11 @@ export const GoldFish = (
   const [motion, update] = useReducer(reducer);
   const iter = useRef(0);
   useTick((delta) => {
+    
+    // check if game has been paused
+    if(!player.pause){
+      // play game
+
     if (levelParams.allowedAliens.canhaveAlien1) {
       if (timer.currentTime > 23 && timer.currentTime < 25) {
          createText();
@@ -64,6 +70,7 @@ export const GoldFish = (
       }
     }
 
+    
 
     // increase the counter
     let i = (iter.current += 0.00001 * delta);
@@ -157,10 +164,12 @@ export const GoldFish = (
           goldfish.y <= crumb[j].y - 100 + 30 &&
           goldfish.y >= crumb[j].y - 100 - 30
         ) {
-          goldfish.increaseSize(crumb[j]);
-          deleteCrumb(crumb[j]);
-          goldfish.crumb = null;
-          goldfish.setHunger(goldfish.hunger - 1);
+          if (goldfish.hunger == 1 || goldfish.hunger == 2) {
+            goldfish.increaseSize(crumb[j]);
+            deleteCrumb(crumb[j]);
+            goldfish.crumb = null;
+            goldfish.setHunger(goldfish.hunger - 1);
+            }
         }
       }
     }
@@ -208,6 +217,7 @@ export const GoldFish = (
         image: image,
       },
     });
+  }
   });
 
   return <Sprite image={"assets/fish/fish.svg"} {...motion} />;

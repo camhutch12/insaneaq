@@ -56,15 +56,16 @@ const selected = (e) => {
         
         <div className={classes.char__container}>
             <div className={classes.title__container}>
-            <h1> Select Your Characters</h1>
+                <h1> Select Your Characters</h1>
+                <h4>Choose Max 3</h4>
             </div>
             <div className={classes.row}>
-            {unlockable}
+                {unlockable}
             </div>
             <div className={`${classes.row} ${classes.subtitle__container}`}>
                 <h2>Chosen Pets</h2>
             </div>
-            <div className={classes.row}>
+            <div className={classes.rowTwo}>
                 {chosen}
             </div>
             <button className={classes.btn} onClick={onClick}> Go To Next Level</button>
