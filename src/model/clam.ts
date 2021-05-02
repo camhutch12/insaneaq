@@ -27,6 +27,7 @@ class Clam {
     this.id = uuidv4();
     this.x = x;
     this.y = y;
+    this.pearlCreated = false;
     // make the drop rate unique
     this.size = 1;
     this.speed = 3;

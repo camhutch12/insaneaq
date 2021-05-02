@@ -33,7 +33,7 @@ const Clam = ({ pearlList,clam, coin, players, ...props }) => {
     
     let i = (iter.current += 0.00001 * delta);
 
-    if(pearlList.length === 0 && clam.getCurrentTimer() > 10){
+    if(pearlList.length === 0 && clam.getCurrentTimer() > 60){
       // create a pearl
       props.createPearl(clam);
       clam.pearlCreated = true;
@@ -42,7 +42,7 @@ const Clam = ({ pearlList,clam, coin, players, ...props }) => {
     else{
       // check if the timer is expired delete pearl
       if(clam.pearlCreated === true)
-      if(pearlList[0].getCurrentTimer() > 30){
+      if(pearlList[0].getCurrentTimer() > 100){
         pearlList[0].resetTimer()
         props.deletePearl(pearlList[0]);
         clam.pearlCreated = false;

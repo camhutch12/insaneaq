@@ -61,7 +61,7 @@ const Game = ({ background,levelParams, ...props }) => {
   const [app, setApp] = useState(null);
   let totalFishList = props.fish.concat(props.carnivore)
   useEffect(() => {
-   
+    
     props.player[0].coins =0;
     props.player[0].damage =1;
     props.player[0].food = 2;
@@ -95,6 +95,31 @@ const Game = ({ background,levelParams, ...props }) => {
       }
     }
   }catch(e){}
+
+
+
+  try{
+
+    if(props.aliens.length !== 0){
+    for(let i =0; i< props.aliens.length; i++){
+      props.deleteAlien(props.alien[i]);
+    }
+  }
+}catch(e){}
+
+
+try{
+
+  props.timer.stopTime()
+  props.timer.startTime()
+  GL.resetTimer();
+  GL.startTimer();
+
+
+  
+}
+catch(e){}
+
 
     try{
       if(props.pearl.length !== 0){
