@@ -22,7 +22,7 @@ class Clam {
   health = 3;
   img:String = "../assets/background/shellfish.svg";
   timer:Timer;
-  pearlCreated = false
+  pearlCreated = false;
   constructor(x:number, y:number) {
     this.id = uuidv4();
     this.x = x;
@@ -33,7 +33,7 @@ class Clam {
     this.speed = 3;
     this.timer = new Timer()
     this.timer.startTime()
-
+    this.pearlCreated = false;
     this.isJustCreated = true;
     
 
