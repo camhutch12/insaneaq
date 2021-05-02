@@ -49,24 +49,29 @@ export const Carnivore = (
     let scaleY = carnivore.size;
     // check if baby goldfish exists
     if (carnivore.setHasGoldfishToChase(goldfishList)) {
+      // set the carnivore list to have updated goldfish list 
       carnivore.setGoldfishList(goldfishList);
+      // find the closest goldfish to this carnivore 
       carnivore.getClosestGoldfish();
       try{
+        // gets the point x and y for the goldfish
       carnivore.direction[0] = carnivore.goldfish.x;
       carnivore.direction[1] = carnivore.goldfish.y;
       
-
+        // create a vector with a of the difference between the goldfish and canivore
       carnivore.difference[0] = carnivore.direction[0] - carnivore.x;
       carnivore.difference[1] = carnivore.direction[1] - carnivore.y;
-
+        // sqaure the difference 
       let distance = Math.sqrt(
         Math.pow(carnivore.difference[0], 2) +
           Math.pow(carnivore.difference[1], 2)
       );
+      // get the unit vector 
       carnivore.unitV = [
         carnivore.difference[0] / distance,
         carnivore.difference[1] / distance,
       ];
+      // set the new postion for the carnivore chasing the goldfish by multiply speed * direction and add it to the old position
       carnivore.setPosition(
         carnivore.x + carnivore.unitV[0] * carnivore.speed,
         carnivore.y + carnivore.unitV[1] * carnivore.speed
@@ -108,7 +113,7 @@ export const Carnivore = (
       carnivore.unitV[1] = carnivore.unitV[1] * -1;
       iter.current = 0;
     }
-    // update position
+    // update position if the carnivore is not chasing a fish
     if (!carnivore.setHasGoldfishToChase(goldfishList)) {
       carnivore.setPosition(
         carnivore.x + carnivore.unitV[0] * carnivore.speed,
@@ -117,6 +122,7 @@ export const Carnivore = (
     }
     // delete goldfishList if not full/dead and carnivore hits goldfishList
     if (carnivore.hunger == 1 || carnivore.hunger == 2) {
+      // check if a collsion has occured between a babyfish and this fish
       for (let j = 0; j < goldfishList.length; j++) {
         if (
           carnivore.x <= goldfishList[j].x + 30 &&
@@ -129,7 +135,7 @@ export const Carnivore = (
             deleteFish(goldfishList[j]);
             carnivore.totalEatenFood++;
             carnivore.goldfishList = null;
-            carnivore.setHunger(carnivore.hunger - 1);
+            carnivore.setHunger(carnivore.hunger - 1); // reduce huger level
           }
         }
       }

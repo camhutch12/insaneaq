@@ -32,11 +32,15 @@ const Snail  = ({snail,coin,players,...props}) => {
 
         // increase the counter
         let i = (iter.current += 0.00001 * delta)
- 
+        // checks if there is a coin for the snail to chase 
         if(snail.setHascoinsToChase(coin)){   
+            // creates a list of coins 
             snail.setCoinList(coin)
+            // finds closet coin to the snail
             snail.getClosestCoin()
+            // if the snail coin is not null
             if(snail.coin !== null ){
+                // update the position by taking the direction * speed + old poistion
             snail.direction[0] =  snail.coin.x
             snail.difference[0] = snail.direction[0] - snail.x
             let distance = Math.sqrt(Math.pow(snail.difference[0],2))
@@ -65,9 +69,7 @@ const Snail  = ({snail,coin,players,...props}) => {
              iter.current=0;
         }
 
-        // if outside the bottom bounds, change direction up
-      
-        // check if coins exist
+       
         
             
         // update position

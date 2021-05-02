@@ -8,7 +8,7 @@ import Coral3 from './coral/coral3';
 import Kelp from './kelp/kelp';
 import Kelp2 from './kelp/kelp2';
 
-
+/* Creates a background component which contains bubbles kelp */
 const Background = ({background}) => {
   const createBubbles = () => {
  

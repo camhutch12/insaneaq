@@ -26,7 +26,7 @@ const Pearl = ({pearl, deletePearl, players}) => {
 
 
         // increase the counter
-        let i = (iter.current += 0.005 * delta)
+    
 
         // update current frame
         update({

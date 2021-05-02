@@ -39,11 +39,11 @@ export const SwordFish = (
     if(!player.pause){
       // play game
 
-    // increase the counter
-    let i = (iter.current += 0.00001 * delta);
+    
+
     let scaleX = swordFish.size;
     let scaleY = swordFish.size;
-    // check if crumbs exist
+    // check if alien exist
     if (swordFish.setHasAliensToChase(aliensList)) {
       swordFish.setAlienList(aliensList);
       swordFish.getClosestAlien();
@@ -66,7 +66,7 @@ export const SwordFish = (
       );
     }
 
-   
+    // change direction if a edge was hit
     if (swordFish.x > CONSTANTS.MAXX) {
       swordFish.unitV[0] = swordFish.unitV[0] * -1;
 
@@ -94,13 +94,16 @@ export const SwordFish = (
         swordFish.y + swordFish.unitV[1] * swordFish.speed
       );
     }
+    // iterate though all the aliens // check if a collsion has occured 
     for(let i = 0; i <  aliensList.length; i++){
       let p1 = {x:aliensList[i].x,y:aliensList[i].y}
       let p2 = {x:swordFish.x,y:swordFish.y}
+      // if true reduce aliens health by 1
       if(isboundingBoxCoords(p1,p2,30)){
         aliensList[i].health -= 1;
         
       }
+      // if the aliens health is zero delete it
       if(aliensList[i].health <= 0){
         deleteAlien(aliensList[i]);
       }

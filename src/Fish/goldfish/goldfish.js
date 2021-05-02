@@ -46,20 +46,24 @@ export const GoldFish = (
     // check if game has been paused
     if(!player.pause){
       // play game
-
+      // if the level allows for a alien
     if (levelParams.allowedAliens.canhaveAlien1) {
+      // create text when the timer is between 28 and 30 secons
       if (timer.currentTime > 28 && timer.currentTime < 30) {
          createText(1);
       }
+      // create alien of type 1 when timer reaches 34 seconds 
       if (timer.currentTime >= 34) {
         createAlien(1);
       }
     }
-
+// if the level allows for a alien of type 2
     if (levelParams.allowedAliens.canhaveAlien2) {
+         // create text when the timer is between 94 and 96 seconds
       if (GL.getCurrentTimer() > 94 && GL.getCurrentTimer()<96 ) {
          createText(2);
       }
+            // create alien of type 2 when timer reaches 105 seconds 
       if (GL.getCurrentTimer() >= 105) {
         GL.resetTimer();
         createAlien(2);
@@ -71,27 +75,33 @@ export const GoldFish = (
 
     
 
-    // increase the counter
-    let i = (iter.current += 0.00001 * delta);
+
+
     let scaleX = goldfish.size;
     let scaleY = goldfish.size;
     // check if crumbs exist
     if (goldfish.setHasCrumbsToChase(crumb)) {
+      // set list of crumbs
       goldfish.setCrumbList(crumb);
+      // find the closest crumb
       goldfish.getClosestCrumb();
+      // get position of crumb
       goldfish.direction[0] = goldfish.crumb.x;
       goldfish.direction[1] = goldfish.crumb.y - 100;
+      // get difference between the postions 
       goldfish.difference[0] = goldfish.direction[0] - goldfish.x;
       goldfish.difference[1] = goldfish.direction[1] - goldfish.y;
-
+      
       let distance = Math.sqrt(
         Math.pow(goldfish.difference[0], 2) +
           Math.pow(goldfish.difference[1], 2)
       );
+      // calculate the unit vector
       goldfish.unitV = [
         goldfish.difference[0] / distance,
         goldfish.difference[1] / distance,
       ];
+      // set the new postion by taking the direction * speed + old position
       goldfish.setPosition(
         goldfish.x + goldfish.unitV[0] * goldfish.speed,
         goldfish.y + goldfish.unitV[1] * goldfish.speed

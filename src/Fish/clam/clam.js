@@ -28,11 +28,7 @@ const Clam = ({ pearlList,clam, coin, players, ...props }) => {
        if(!players.pause){
         // play game
 
-    
-    // increase the counter
-    
-    let i = (iter.current += 0.00001 * delta);
-
+      // if there is no pearl and the timer is greater then 60
     if(pearlList.length === 0 && clam.getCurrentTimer() > 60){
       // create a pearl
       props.createPearl(clam);
@@ -55,13 +51,9 @@ const Clam = ({ pearlList,clam, coin, players, ...props }) => {
 
     
 
-    // update position
     let scaleX = clam.size;
     let scaleY = clam.size;
-    // check if fish is moving right
-  
 
-    // delete coin
     // update current frame
     update({
       type: "update",

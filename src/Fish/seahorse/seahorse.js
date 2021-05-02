@@ -9,7 +9,7 @@ Cameron Hutchings (6427892)
 */
 
 /*
-This component is a pixi.js sprite of an svg image of a fish from icons8,
+This component is a pixi.js sprite of an svg image of a searhorse from icons8,
 with a passed in x and y coordinate,
 scale tranforms the size
 */
@@ -38,7 +38,7 @@ export const Seahorse = (
     let scaleY = seahorse.size;
     // check if crumbs exist
     
-
+      // creates a level 2 crumb every 5   seconds 
     if (seahorse.getCurrentTimer() >= 5) {
       // reset timer
      

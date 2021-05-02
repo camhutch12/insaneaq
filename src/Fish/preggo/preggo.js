@@ -10,7 +10,7 @@ Cameron Hutchings (6427892)
 */
 
 /*
-This component is a pixi.js sprite of an svg image of a fish from icons8,
+This component is a pixi.js sprite of an svg image of a puffer fish from icons8,
 with a passed in x and y coordinate,
 scale tranforms the size
 */
@@ -37,13 +37,13 @@ export const Preggo = (
     let i = (iter.current += 0.00001 * delta);
     let scaleX = preggo.size;
     let scaleY = preggo.size;
-    // check if crumbs exist
+ 
     
 
-    // coin drop timer increases
-    // preggo.setCoinDrop(preggo.coinDropTimer + 1);
 
-    // Check if coin needs to drop
+    
+
+    // Check if baby fish needs to drop
     if (preggo.getCurrentTimer() > 10) {
       // reset timer
       preggo.resetTimer();
@@ -72,17 +72,15 @@ export const Preggo = (
       iter.current = 0;
     }
     // update position
-
-
     preggo.setPosition(
         preggo.x + preggo.unitV[0] * preggo.speed,
         preggo.y + preggo.unitV[1] * preggo.speed
       );
-    // delete crumb if not full/dead and fish hits crumb
+
   
 
     let image;
-    // if fish is stage 2 hunger, turn yellow
+
    
     // check if fish is moving right, change direction of fish
     if (preggo.unitV[0] > 0) {

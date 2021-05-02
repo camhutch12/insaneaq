@@ -3,7 +3,7 @@
  reference https://redux.js.org/tutorials/essentials/part-1-overview-concepts
  
  */
-
+/* Creates a new Alien */
 import {Alien} from '../model/alien'
 export const createAlien = (alien:Alien) => {
     return {

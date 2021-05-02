@@ -17,12 +17,14 @@ export const alien_reducer = (oldAlienList=[],action) => {
         const alien = new Alien(x,y,type)
         return [...oldAlienList,alien]
        
-    }else if(action.type ==="DELETE_ALIEN"){
+    }
+    // deletes the alien
+    else if(action.type ==="DELETE_ALIEN"){
         
         oldAlienList = oldAlienList.filter((ele,index) => action.payload.alien.id !== ele.id );
         return oldAlienList
     }
-
+    // resets the alien
     else if(action.type ==="RESET"){
         oldAlienList = []
         return oldAlienList

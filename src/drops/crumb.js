@@ -49,13 +49,6 @@ const Crumb = ({crumb,deleteCrumb,players}) => {
             deleteCrumb(crumb);
         }
 
-        if(crumb.type == 0){
-            // make silver
-
-        }else{
-            // make gold
-        }
-
         // update current frame
         update({
             type: 'update',

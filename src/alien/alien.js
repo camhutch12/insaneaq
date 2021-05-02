@@ -24,9 +24,10 @@ export const Alien = ({ alien, goldfishList, deleteFish,deleteCarnivore, players
   const [motion, update] = useReducer(reducer);
   const iter = useRef(0);
 
-
+  // set the list to empty 
   alien.goldfishList = []
-  alien.goldfish = null;
+  
+  alien.goldfish = null; // set the goldfish to null
 
 
   useTick((delta) => {
@@ -41,10 +42,13 @@ export const Alien = ({ alien, goldfishList, deleteFish,deleteCarnivore, players
     let scaleX = alien.size;
     let scaleY = alien.size;
 
-    // check if crumbs exist
+    // check if fish exist
     if (alien.setHasFishToChase(goldfishList)) {
+      // set the list of fish
       alien.setFishList(goldfishList);
+      // find closet fish to attack
       alien.getClosestFish();
+      // move towards that fish
       alien.direction[0] = alien.fish.x;
       alien.direction[1] = alien.fish.y;
       alien.difference[0] = alien.direction[0] - alien.x;
@@ -63,7 +67,7 @@ export const Alien = ({ alien, goldfishList, deleteFish,deleteCarnivore, players
       );
     }
 
-    // coin drop timer increases
+   
     
   
     // if outside the right bounds, change direction left
@@ -94,7 +98,7 @@ export const Alien = ({ alien, goldfishList, deleteFish,deleteCarnivore, players
         alien.y + alien.unitV[1] * alien.speed
       );
     }
-    // delete fish
+    // delete fish if a collision has occured
     for (let j = 0; j < goldfishList.length; j++) {
       if (
         alien.x <= goldfishList[j].x + 10 &&
@@ -102,11 +106,12 @@ export const Alien = ({ alien, goldfishList, deleteFish,deleteCarnivore, players
         alien.y <= goldfishList[j].y  + 10 &&
         alien.y >= goldfishList[j].y  - 10
       ) {
-        
+        // check the type of fish
         if(goldfishList[j] instanceof GoldFish){
           deleteFish(goldfishList[j]);
 
         }
+        // check the type of fish
         if(goldfishList[j] instanceof Carnivore){
           deleteCarnivore(goldfishList[j])
         }
@@ -117,10 +122,7 @@ export const Alien = ({ alien, goldfishList, deleteFish,deleteCarnivore, players
    
    
 
-    // if fish has been dead, delete it
-    // if (alien.hunger > 3) {
-    //   deleteFish(alien);
-    // }
+ 
     // check if fish is moving right, change direction of fish
     if (alien.unitV[0] > 0) {
       scaleX = scaleX * -1; // flip fish in x axis
