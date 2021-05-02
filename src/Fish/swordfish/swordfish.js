@@ -23,6 +23,7 @@ export const SwordFish = (
     swordFish,
     aliensList,
     deleteAlien,
+    player
   },
   props
 ) => {
@@ -34,6 +35,10 @@ export const SwordFish = (
   const iter = useRef(0);
   useTick((delta) => {
     
+    // check if game has been paused
+    if(!player.pause){
+      // play game
+
     // increase the counter
     let i = (iter.current += 0.00001 * delta);
     let scaleX = swordFish.size;
@@ -120,6 +125,7 @@ export const SwordFish = (
         image: image,
       },
     });
+  }
   });
 
   return <Sprite image={"assets/fish/swordfish.svg"} {...motion} />;

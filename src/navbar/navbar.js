@@ -22,11 +22,27 @@ const Navbar = ({levelParams,...props}) => {
                 return '../../assets/gun/gunblack.svg'
         }
     }
-    
 
+    const pauseGame = () => {
+if(isPaused === false){
+
+    props.player[0].pauseGame(props.player[0].pause)
+  setIsPaused(true)
+}else{
+    props.player[0].pauseGame(props.player[0].pause)
+    setIsPaused(false)
+}
+        
+    }
+    
     let [qImg,setQimg] = useState(() => Crumb.getCrumbImage())
 let [foodQty,setFoodQty] = useState(() => 1);
 let [blasterImg,setBlasterImg] = useState(() => image())
+let [isPaused,setIsPaused] = useState(false)
+
+
+
+
   useEffect(() => {
      
     setQimg(Crumb.getCrumbImage())
@@ -34,7 +50,7 @@ let [blasterImg,setBlasterImg] = useState(() => image())
       return () => {
           setQimg(Crumb.getCrumbImage())
       }
-  },[qImg,foodQty,blasterImg])
+  },[qImg,foodQty,blasterImg,isPaused])
     const money = 0;
     const increaseFoodLimit = () => {
         if(props.player[0].coins >= 200){
@@ -69,6 +85,7 @@ let [blasterImg,setBlasterImg] = useState(() => image())
     const upgradeFood = (item) =>{
         if(props.player[0].coins >= item.price ){
         Crumb.level++; 
+        props.player[0].coins -= item.price
         }
     }
 
@@ -101,7 +118,7 @@ let [blasterImg,setBlasterImg] = useState(() => image())
     {
         img: '../assets/fish/bigfish/bigfish.svg',
         value:200,
-        labelVal:`${props.player[0].food + 1}`,
+        labelVal:`${props.player[0].food}`,
         item:levelParams.allowedUpgrades.foodqty,
         onClick(){
             increaseFoodLimit()
@@ -158,11 +175,15 @@ let [blasterImg,setBlasterImg] = useState(() => image())
     const navigation = navList.map((ele,index) => <NavItem key={index} {...ele}/>)
     return (
         <div className={styles.navbar}>
-            {navigation} 
+            <div className={styles.navbar1}>
+                
+            { props.player[0].pause ? null : navigation } 
+            </div>
             <div className={styles.navTwo}>
-                <button className={styles.buttonTwo}>
+                <button className={styles.buttonTwo} onClick={pauseGame}>
+                
+                    {props.player[0].pause? <label className={styles.labelTwo} >Play</label>:<label className={styles.labelTwo} >Pause</label>}
 
-                    <label className={styles.labelTwo}>Menu</label>
                 </button>
                 <label className={styles.labelThree}>$ {`${props.player[0].coins}`}</label>
             </div>

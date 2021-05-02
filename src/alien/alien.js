@@ -17,7 +17,7 @@ This component is a pixi.js sprite of an svg image of a alien from icons8,
 with a passed in x and y coordinate,
 scale tranforms the size
 */
-export const Alien = ({ alien, goldfishList, deleteFish,deleteCarnivore }, props) => {
+export const Alien = ({ alien, goldfishList, deleteFish,deleteCarnivore, players }, props) => {
   
   const [pos, setPos] = useState({});
   const reducer = (_, { data }) => data;
@@ -30,6 +30,12 @@ export const Alien = ({ alien, goldfishList, deleteFish,deleteCarnivore }, props
 
 
   useTick((delta) => {
+
+    // check if game has been paused
+    if(!players.pause){
+      // play game
+
+
     // increase the counter
     let i = (iter.current += 0.00001 * delta);
     let scaleX = alien.size;
@@ -130,6 +136,8 @@ export const Alien = ({ alien, goldfishList, deleteFish,deleteCarnivore }, props
         image: alien.img,
       },
     });
+
+  }
   });
   return <Sprite image={alien.img } {...motion} />;
 };

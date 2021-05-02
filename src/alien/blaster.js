@@ -12,7 +12,7 @@ Cameron Hutchings (6427892)
 This component is a pixi.js sprite of an svg image of a blast from icons8,
 with a passed in x and y coordinate from the mouse listener
 */
-const Blaster = ({blaster,deleteBlaster}) => {
+const Blaster = ({blaster,deleteBlaster, players}) => {
     const [locationMouseClick, setlocationMouseClick] = useState(blaster);
     const reducer = (_, { data }) => data
     const [motion, update] = useReducer(reducer)
@@ -20,6 +20,11 @@ const Blaster = ({blaster,deleteBlaster}) => {
    
     useTick(delta => {
 
+         // check if game has been paused
+    if(!players.pause){
+        // play game
+
+        
         // increase the counter
         let i = (iter.current += 0.005 * delta)
 
@@ -49,6 +54,7 @@ const Blaster = ({blaster,deleteBlaster}) => {
             anchor:0.5,
             }
         })
+    }
     })   
     return <Sprite 
     image = '../../assets/gun/blasterRing.svg'

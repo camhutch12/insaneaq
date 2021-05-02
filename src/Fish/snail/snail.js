@@ -13,7 +13,7 @@ This component is a pixi.js sprite of an svg image of a snail from icons8,
 with a passed in x and y coordinate,
 scale tranforms the size
 */
-const Snail  = ({snail,coin,...props}) => {
+const Snail  = ({snail,coin,players,...props}) => {
     
     snail.coin = null;
     snail.coinList = []
@@ -24,6 +24,11 @@ const Snail  = ({snail,coin,...props}) => {
     const iter = useRef(0)
 
     useTick(delta => {
+
+        // check if game has been paused
+    if(!players.pause){
+        // play game
+
 
         // increase the counter
         let i = (iter.current += 0.00001 * delta)
@@ -98,6 +103,7 @@ const Snail  = ({snail,coin,...props}) => {
             
             }
         })
+    }
     })
 
 

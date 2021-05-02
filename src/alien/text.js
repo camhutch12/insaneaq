@@ -15,11 +15,14 @@ This component is a pixi.js sprite of an svg image of a text from icons8,
 with a passed in x and y coordinate,
 scale tranforms the size
 */
-export const TextWarning = ({ text, deleteText }) => {
+export const TextWarning = ({ text, deleteText, players }) => {
   
 
     useTick(() => {
-      // increase the counter
+       // check if game has been paused
+    if(!players.pause){
+      // play game
+    }
       
     });
 

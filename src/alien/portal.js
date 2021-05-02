@@ -14,13 +14,18 @@ This component is a pixi.js sprite of an svg image of a portal from icons8,
 with a passed in x and y coordinate,
 scale tranforms the size
 */
-export const Portal = ({ portal, deletePortal}, props) => {
+export const Portal = ({ portal, deletePortal, players}, props) => {
   
   const [pos, setPos] = useState({});
   const reducer = (_, { data }) => data;
   const [motion, update] = useReducer(reducer);
   const iter = useRef(0);
   useTick((delta) => {
+
+     // check if game has been paused
+     if(!players.pause){
+      // play game
+
     // increase the counter
     let i = (iter.current += 0.00001 * delta);
     let scaleX = portal.size;
@@ -44,6 +49,7 @@ export const Portal = ({ portal, deletePortal}, props) => {
         image: image,
       },
     });
+  }
   });
   return <Sprite image={"../assets/alien/portal.png" } {...motion} />;
 };

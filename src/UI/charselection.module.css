@@ -5,10 +5,11 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-
+    background-color: rgba(255, 255, 255, 0.801);
 }
 .title__container{
- font-size: 1.5rem;
+    height: 15vh;
+    font-size: 2rem;
     text-align: center;
     padding: 1% 0;
    
@@ -19,46 +20,25 @@ font-size: 2rem;
 text-align: center;
 
 
-
 }
 .row{
-    /* height: 25vh; */
-    /* width: 75%; */
-  
-    /* display: flex;
+    height: 25vh;
+    width: 75%;
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content:center;
-    align-content: flex-end;
+    justify-content:space-evenly;
+    align-content: center;
     align-items: center;
-    padding: 1rem 0; */
-    display: flex;
-    
+    padding: 1rem 0;
 
 }
-.img__container{
-/* display: flex;
-justify-content: center;
-background-color: aliceblue; */
-}
 
-.img__containerSelected{
-    background-color: rgb(24, 238, 77);
-}
 
-.pet__container{
-    /* display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 150px;
-    width: 200px; */
-    display: inline-block
-
-}
 
 
 .btn{
-    /* background-color: #38c400;
+    background-color: #38c400;
     max-width: 40rem;
     width: 40rem;
     height: 6rem;
@@ -66,70 +46,34 @@ background-color: aliceblue; */
     border-radius: 10%;
     border: none;
     margin-bottom: 3%;
-    margin-top: 2%; */
-}
-
-
-
-.p_container{
-max-width: 45%;
-}
-.snail__container{
-
-
-}
-
-.shell__container{
-    
-
-    
-}
-
-.swordfish__container{
-
-
-}
-
-.prego__container{
-
-
-}
-
-.seahorse__container{
-
+    margin-top: 2%;
 }
 
 
 
 .snail{
- 
-    
-    /* max-height: 100%; */
-    
+    /* width: 20%; */
+    height: inherit
 }
 
 .shell{
-    
-  
-    /* height: 15%; */
-    
-    /* height: inherit; */
+    /* width: 10%; */
+    height: inherit;
 }
 
 .swordfish{
-      
+    /* width: 25%; */
     /* height: auto; */
-    /* height: inherit; */
+    height: inherit;
 }
 
 .prego{
-     
-    
-    /* height: inherit; */
+    /* width: 15%; */
+    height: inherit;
 }
 
 .seahorse{
     /* height: inherit; */
-    
+    /* height: 50%; */
 }
 
