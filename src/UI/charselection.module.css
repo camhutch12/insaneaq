@@ -8,11 +8,9 @@
 
 }
 .title__container{
-    height: 15vh;
-    font-size: 1.5rem;
+ font-size: 1.5rem;
     text-align: center;
     padding: 1% 0;
-    
    
 }
 
@@ -26,21 +24,22 @@ text-align: center;
 .row{
     /* height: 25vh; */
     /* width: 75%; */
-    width: 100%;
-    display: flex;
+  
+    /* display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content:center;
     align-content: flex-end;
     align-items: center;
-    padding: 1rem 0;
+    padding: 1rem 0; */
+    display: flex;
     
 
 }
 .img__container{
-display: flex;
+/* display: flex;
 justify-content: center;
-background-color: aliceblue;
+background-color: aliceblue; */
 }
 
 .img__containerSelected{
@@ -48,21 +47,18 @@ background-color: aliceblue;
 }
 
 .pet__container{
-    display: flex;
-    flex-direction: column;
-
-    align-items: flex-end;
+    /* display: flex;
     justify-content: center;
     align-items: center;
-    width: 25%;
+    height: 150px;
+    width: 200px; */
+    display: inline-block
 
-
-    
 }
 
 
 .btn{
-    background-color: #38c400;
+    /* background-color: #38c400;
     max-width: 40rem;
     width: 40rem;
     height: 6rem;
@@ -70,57 +66,43 @@ background-color: aliceblue;
     border-radius: 10%;
     border: none;
     margin-bottom: 3%;
-    margin-top: 2%;
+    margin-top: 2%; */
 }
 
-p{
-    word-wrap: break-word;
-}
 
 
 .p_container{
-max-width: 45%;;
-
-
+max-width: 45%;
 }
 .snail__container{
-height: 100%;
-max-width: 75%;
-display: flex;
-justify-content: center;
+
 
 }
 
 .shell__container{
     
-    height: 25%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+
     
 }
 
 .swordfish__container{
-    display: flexbox;
+
 
 }
 
 .prego__container{
-display:flex;
 
-justify-content: center;
+
 }
 
 .seahorse__container{
-    display: flex;
-    justify-content: center;
 
 }
 
 
 
 .snail{
-    width: 50%;
+ 
     
     /* max-height: 100%; */
     
@@ -128,26 +110,26 @@ justify-content: center;
 
 .shell{
     
-    width: 25%;
+  
     /* height: 15%; */
     
     /* height: inherit; */
 }
 
 .swordfish{
-     width: 90%;; 
+      
     /* height: auto; */
     /* height: inherit; */
 }
 
 .prego{
-     width: 60%; 
+     
     
     /* height: inherit; */
 }
 
 .seahorse{
     /* height: inherit; */
-    width: 50%;
+    
 }
 

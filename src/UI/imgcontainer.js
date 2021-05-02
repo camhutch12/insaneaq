@@ -40,12 +40,12 @@ const ImgContainer= (props) => {
       }
     return (
         <div className={classes.pet__container}>
-          <div className={styleContainer}>
+          {/* <div className={styleContainer}> */}
           <img className={style} id={props.id} onClick={props.onclick} src={props.element.imgPath} ></img>
-          </div>
-          {props.ch === true ? <div className={classes.p_container}>
-          <p id={props.id}>{props.element.label}</p>
-          </div>:null}
+          {/* </div> */}
+          {/* {props.ch === true ? <div className={classes.p_container}> */}
+          <p  className={classes.pet__container} id={props.id}>{props.element.label}</p>
+          {/* </div>:null} */}
         </div>
     )
 }
