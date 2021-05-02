@@ -7,3 +7,13 @@ export const createSnail = (snail) => {
 
     }
 }
+
+export const resetSnail = (snail) => {
+    return {
+        type: "RESET",
+        payload:{
+            snail
+        }
+
+    }
+}

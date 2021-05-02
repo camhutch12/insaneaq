@@ -15,3 +15,13 @@ export const deleteCoin = coin =>  {
         }
     }   
 }
+
+
+export const resetCoin = coin =>  {
+    return {
+        type:'RESET',
+        payload: {
+            coin:coin
+        }
+    }   
+}

@@ -44,7 +44,7 @@
    .label{
     height: 30px;
     display:block;
-    background: white;
+    
     border-radius: 10%;
     font-size:30px;
    }
@@ -60,7 +60,7 @@
 
    .labelThree{
     margin-top: 10px;
-    height: 30px;
+    height: 40px;
     display:block;
     background-color: #a6ee32;
     border-radius: 10%;
@@ -76,16 +76,29 @@
    }
 
    .navbar{
-    justify-content: space-evenly;
+    justify-content: space-between;
     width: 100%;
     display: flex;
     background: #00ffff;
     align-items: center;
    }
 
+   .navbar1{
+    display: flex;
+    justify-content: space-evenly;
+    width: 70%;
+
+   }
+
    .navTwo{
     
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    
+    /* margin-left: 20%; */
+    padding-right: 30px;
+    
+    
    }
 
    .startButton{
@@ -135,7 +148,7 @@
 }
 
 .lab{
-    justify-content: center;
-    display: flex;
+    /* justify-content: center; */
+    /* display: flex; */
     width: 100%;
 }

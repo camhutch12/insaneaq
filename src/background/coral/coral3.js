@@ -1,5 +1,6 @@
 import {Sprite} from '@inlet/react-pixi'
 import React from 'react'
+import {CONSTANTS} from '../../util/utilities'
 
 /*
 Written By:
@@ -16,7 +17,7 @@ const Coral3  = (props) => {
     return <Sprite 
     image = '../../../assets/background/coral3.svg'
     x={window.innerWidth - window.innerWidth/1.2}
-    y={(window.innerHeight-100)/1.1}
+    y={(CONSTANTS.MAXY)/1.1}
     />
     
 }

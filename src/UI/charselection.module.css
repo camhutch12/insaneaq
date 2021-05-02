@@ -1,0 +1,79 @@
+.char__container{
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.801);
+}
+.title__container{
+    height: 15vh;
+    font-size: 2rem;
+    text-align: center;
+    padding: 1% 0;
+   
+}
+
+.subtitle__container{
+font-size: 2rem;
+text-align: center;
+
+
+}
+.row{
+    height: 25vh;
+    width: 75%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:space-evenly;
+    align-content: center;
+    align-items: center;
+    padding: 1rem 0;
+
+}
+
+
+
+
+.btn{
+    background-color: #38c400;
+    max-width: 40rem;
+    width: 40rem;
+    height: 6rem;
+    font-size: 4rem;
+    border-radius: 10%;
+    border: none;
+    margin-bottom: 3%;
+    margin-top: 2%;
+}
+
+
+
+.snail{
+    /* width: 20%; */
+    height: inherit
+}
+
+.shell{
+    /* width: 10%; */
+    height: inherit;
+}
+
+.swordfish{
+    /* width: 25%; */
+    /* height: auto; */
+    height: inherit;
+}
+
+.prego{
+    /* width: 15%; */
+    height: inherit;
+}
+
+.seahorse{
+    /* height: inherit; */
+    /* height: 50%; */
+}
+

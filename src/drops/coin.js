@@ -1,6 +1,7 @@
 import {Sprite} from '@inlet/react-pixi'
 import React, { useEffect, useState, useReducer, useRef  } from 'react'
 import { useTick } from '@inlet/react-pixi'
+import {CONSTANTS} from '../util/utilities'
 
 /*
 Written By:
@@ -12,7 +13,7 @@ Cameron Hutchings (6427892)
 This component is a pixi.js sprite of an svg image of a coin from icons8,
 with a passed in x and y coordinate from the fish
 */
-const Coin = ({coin, deleteCoin}) => {
+const Coin = ({coin, deleteCoin, players}) => {
     
     const reducer = (_, { data }) => data
     const [motion, update] = useReducer(reducer)
@@ -20,16 +21,22 @@ const Coin = ({coin, deleteCoin}) => {
    
     useTick(delta => {
 
+
+         // check if game has been paused
+    if(!players.pause){
+        // play game
+  
+
         // increase the counter
         let i = (iter.current += 0.005 * delta)
 
         // give the coin a lifespan once it hits the bottom
-        if(coin.y>window.innerHeight-170){
+        if(coin.y>CONSTANTS.MAXY){
             coin.setThreshold(coin.threshold+1)
         }
         
         // make the coin fall
-        if(coin.y<window.innerHeight-160){
+        if(coin.y<CONSTANTS.MAXY){
             coin.setPos(coin.x,coin.y+i);
         }
         
@@ -44,23 +51,38 @@ const Coin = ({coin, deleteCoin}) => {
             deleteCoin(coin);
         }
 
+        let image
+        if(coin.type == 0){
+            // make silver
+            image = '../../assets/drops/silver.svg'
+        }else if(coin.type == 1){
+            // make gold
+            image = '../../assets/drops/gold.svg'
+        }else if(coin.type == 2){
+            image = '../../assets/drops/diamond.svg'
+        }
+        
+        let scale=0.30
+        if(coin.type === 2){
+            scale=0.20
+        }
+
         // update current frame
         update({
             type: 'update',
             data: {
             x: coin.x,
             y: coin.y,
-            scale:{x:0.25,y:0.25},
+            scale:{x:scale,y:scale},
+            anchor:0.5,
+            image: image,
             }
         })
+    }
     })
 
 
-    return <Sprite 
-    image = '../../assets/drops/silver.svg'
-    {...motion}
-    
-    />
+    return <Sprite image = '../../assets/drops/silver.svg' {...motion}/>
     
 }
 

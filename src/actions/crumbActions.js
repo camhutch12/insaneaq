@@ -15,3 +15,12 @@ export const deleteCrumb = crumb =>  {
         }
     }   
 }
+
+export const resetCrumb = crumb =>  {
+    return {
+        type:'RESET',
+        payload: {
+            crumb:crumb
+        }
+    }   
+}

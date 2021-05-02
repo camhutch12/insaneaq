@@ -15,10 +15,7 @@ scale tranforms the size
 */
 const Bubble  = (props) => {
     
-    // const [x,setX] = useState(props.bubble.pos.x)
-    // const [y,setY] = useState(props.bubble.pos.y)
-    
-
+ 
     const rand = Math.random()*2.5;
     return <Sprite 
     image = '../../../assets/background/bub3.svg'
