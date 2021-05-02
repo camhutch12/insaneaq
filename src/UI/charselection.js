@@ -55,7 +55,7 @@ const selected = (e) => {
         
         <div className={classes.char__container}>
             <div className={classes.title__container}>
-            <h1> select you characters</h1>
+            <h1> select Your Characters</h1>
             </div>
             <div className={classes.row}>
             {unlockable}
