@@ -18,7 +18,7 @@ export const Preggo = (
   {
     preggo,
     createFish,
-
+    player
   },
   props
 ) => {
@@ -29,6 +29,10 @@ export const Preggo = (
   const iter = useRef(0);
   useTick((delta) => {
  
+    // check if game has been paused
+    if(!player.pause){
+      // play game
+
     // increase the counter
     let i = (iter.current += 0.00001 * delta);
     let scaleX = preggo.size;
@@ -95,6 +99,7 @@ export const Preggo = (
         image: image,
       },
     });
+    }
   });
 
   return <Sprite image={"assets/fish/fishpreg.svg"} {...motion} />;

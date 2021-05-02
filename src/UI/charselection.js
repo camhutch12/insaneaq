@@ -20,7 +20,6 @@ const selected = (e) => {
     let count = unlockablePets.filter((ele) => ele.chosen === true).length;
     console.log(count)
     unlockablePets.forEach(element => {
-        
         setChosenState(true);
         if(e.target.id === element.id){
             if(element.chosen === false && count<3){
@@ -56,7 +55,7 @@ const selected = (e) => {
         
         <div className={classes.char__container}>
             <div className={classes.title__container}>
-            <h1> Select Your Characters</h1>
+            <h1> select you characters</h1>
             </div>
             <div className={classes.row}>
             {unlockable}

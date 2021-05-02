@@ -13,13 +13,19 @@ Cameron Hutchings (6427892)
 This component is a pixi.js sprite of an svg image of a coin from icons8,
 with a passed in x and y coordinate from the fish
 */
-const Coin = ({coin, deleteCoin}) => {
+const Coin = ({coin, deleteCoin, players}) => {
     
     const reducer = (_, { data }) => data
     const [motion, update] = useReducer(reducer)
     const iter = useRef(0)
    
     useTick(delta => {
+
+
+         // check if game has been paused
+    if(!players.pause){
+        // play game
+  
 
         // increase the counter
         let i = (iter.current += 0.005 * delta)
@@ -56,9 +62,9 @@ const Coin = ({coin, deleteCoin}) => {
             image = '../../assets/drops/diamond.svg'
         }
         
-        let scale=0.25
+        let scale=0.30
         if(coin.type === 2){
-            scale=0.15
+            scale=0.20
         }
 
         // update current frame
@@ -72,6 +78,7 @@ const Coin = ({coin, deleteCoin}) => {
             image: image,
             }
         })
+    }
     })
 
 

@@ -68,7 +68,7 @@ const resetGame = () =>{
             </div>
             <div className={styles.buttonParent}>
                 <button className={styles.startButton} onClick={() => props.rr()}>
-                    Game Over
+                    Game Over !!!!!  Click to Play Again
                 </button>
             </div>
             
