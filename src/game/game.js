@@ -73,7 +73,7 @@ const Game = ({ background,levelParams, ...props }) => {
        
       );
 
-      props.player[0].coins =10000;
+      props.player[0].coins =0;
       props.player[0].damge =1;
       CB.level = 1;
       if(props.pearl.length > 0){
