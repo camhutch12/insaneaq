@@ -1,6 +1,5 @@
-import { Application, Sprite, useApp, withPixiApp } from "@inlet/react-pixi";
 import React, { useEffect, useState, useReducer, useRef } from "react";
-import { useTick } from "@inlet/react-pixi";
+import { useTick,Sprite } from "@inlet/react-pixi";
 import { applyProps } from "react-pixi-fiber";
 import { deleteCrumb } from "../../actions/crumbActions";
 import {CONSTANTS} from '../../util/utilities'
@@ -52,16 +51,16 @@ export const GoldFish = (
       if (timer.currentTime > 23 && timer.currentTime < 25) {
          createText();
       }
-      if (timer.currentTime >= 30) {
+      if (timer.currentTime >= 34) {
         createAlien(1);
       }
     }
 
     if (levelParams.allowedAliens.canhaveAlien2) {
-      if (GL.getCurrentTimer() > 50 && GL.getCurrentTimer()< 55) {
+      if (GL.getCurrentTimer() > 95 && GL.getCurrentTimer()<100 ) {
          createText();
       }
-      if (GL.getCurrentTimer() >= 60) {
+      if (GL.getCurrentTimer() >= 101) {
         GL.resetTimer();
         createAlien(2);
         GL.startTimer();

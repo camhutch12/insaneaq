@@ -38,16 +38,25 @@ const ImgContainer= (props) => {
           img = "../assets/background/snail.svg";
           break;
       }
-    return (
-        <div className={classes.pet__container}>
-          <div className={styleContainer}>
-          <img className={style} id={props.id} onClick={props.onclick} src={props.element.imgPath} ></img>
-          </div>
-          {/* {props.ch === true ? <div className={classes.p_container}> */}
-          <p id={props.id}>{props.element.label}</p>
-          {/* </div>:null} */}
-        </div>
-    )
+
+
+return (
+
+  
+    <img className={style} id={props.id} onClick={props.onclick} src={props.element.imgPath} ></img>
+  )
+
+    // return (
+    //     // <div className={classes.pet__container}>
+    //       <div className={styleContainer}>
+          
+    //       {/* </div> */}
+    //       {/* {props.ch === true ? <div className={classes.p_container}> */}
+    //       {/* <p id={props.id}>{props.element.label}</p> */}
+    //       {/* </div>:null} */}
+    
+    //     </div>
+    // )
 }
 
 export default ImgContainer
