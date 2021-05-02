@@ -15,10 +15,12 @@ import CharacterSelection from "./UI/charselection";
 import { GoldFish } from "./model/Goldfish";
 import {CONSTANTS} from './util/utilities'
 const App = (props) => {
+  // creates a more reuable way to add a constant
   const SCREEN_SIZE = {
     x: window.innerWidth,
     y: window.innerHeight,
   };
+  // This functions returns a array of objects that are used to represent the coorindates of bubbles in the application
   const setupBubbles = () => {
     const p = [];
     for (let i = 0; i < 20; i++) {
@@ -29,6 +31,7 @@ const App = (props) => {
     }
     return p;
   };
+    // This functions returns a array of objects that are used to represent the coorindates of kelp in the application
   const setupKelp = () => {
     const p = [];
     for (let i = 0; i < 10; i++) {
@@ -40,6 +43,7 @@ const App = (props) => {
     }
     return p;
   };
+    // This functions returns a array of objects that are used to represent the coorindates of kelp in the application
   const setupKelp2 = () => {
     const p = [];
     for (let i = 0; i < 10; i++) {
@@ -51,7 +55,7 @@ const App = (props) => {
     }
     return p;
   };
-
+  /* This is array objects which contains information for what each pet needs on the character selection screen */
   let unlockablePets = [
     {
       level:1,
@@ -90,12 +94,13 @@ const App = (props) => {
       label: 'gives you a hand in keeping your fish fed'
     }
   ]
-
+  // creates a obect that contains all the information to render the background being the x and y coordinates 
   const background = {
     bubble: setupBubbles(),
     kelp: setupKelp(),
     kelp2: setupKelp2(),
   };
+  // creates a object that contains all the information required for the first level to work properly
   const levelZero = {
     allowedPets: {
       canhaveSnail: false,
@@ -136,6 +141,7 @@ const App = (props) => {
     },
     
   };
+  // creates a object that contains all the information required for the second level to work properly
   const levelOne = {
     allowedPets: {
       canhaveSnail: true,
@@ -176,7 +182,7 @@ const App = (props) => {
     },
     
   };
-
+  // creates a object that contains all the information required for the thrid level to work properly
   const levelTwo = {
     allowedPets: {
       canhaveSnail: true,
@@ -217,7 +223,7 @@ const App = (props) => {
     },
     
   };
-
+// creates a object that contains all the information required for the fourth level to work properly
   const levelThree = {
     allowedPets: {
       canhaveSnail: true,
@@ -258,7 +264,7 @@ const App = (props) => {
     },
     
   };
-
+// creates a object that contains all the information required for the 5th level to work properly
   const levelFour = {
     allowedPets: {
       canhaveSnail: true,
@@ -299,7 +305,7 @@ const App = (props) => {
     },
     
   };
-
+  // creates a object that contains all the information required for the 6th level to work properly
   const levelFive = {
     allowedPets: {
       canhaveSnail: true,
@@ -344,12 +350,17 @@ const App = (props) => {
   
 
 
-  const locationMouseClick = { x: 0, y: 0 };
-  let hasClicked = false;
-  let [currentLevel, setCurrentLevel] = useState(0);
-  let [isLeveledUP, setIsLeveledUp] = useState(false);
-  let [levelParams, setLevelParams] = useState({});
-  let [levelSelectionScreen, setLevelSelectionScreen] = useState(false);
+  const locationMouseClick = { x: 0, y: 0 }; // initalizes coordinates of the mouse
+  let hasClicked = false; // initalizes if a click has occured
+  let [currentLevel, setCurrentLevel] = useState(0); // counter to keep track of which level the player is on 
+  let [isLeveledUP, setIsLeveledUp] = useState(false); // boolean to make sure the level is set correctly 
+  let [levelParams, setLevelParams] = useState({}); // object passed into react componenets that contains the game logic for that level
+  let [levelSelectionScreen, setLevelSelectionScreen] = useState(false); // checks wheather on character selection screen or not 
+  const [start, setStart] = useState(false); // boolean which is used to start the game
+  const [needFish, setNeedFish] = useState(false); // boolean for checking if there is fish
+  const [chosenPets, setChosenPets] = useState({}) // checks to see which pet is chosen by the user
+  
+  
   /*
   Register the mouse click x and y coordinated with a mouse listener
   */
@@ -358,7 +369,7 @@ const App = (props) => {
     locationMouseClick.y = event.clientY;
     hasClicked = true;
   };
-
+  // returns the x and y coordinates of a mouse click
   const getlocation = () => {
     return locationMouseClick;
   };
@@ -367,19 +378,17 @@ const App = (props) => {
 
 
   // show UI on inisitial state
-  const [start, setStart] = useState(false);
-  const [needFish, setNeedFish] = useState(false);
-  const [chosenPets, setChosenPets] = useState({})
+ 
   // called when start is clicked
   const appStart = () => {
     setStart(true);
-    GoldFish.startTimer();
-    const p = new Player();
-    props.createPlayer(p);
+    GoldFish.startTimer(); // starts a timer used by the aliens 
+    const p = new Player(); // creates a new player
+    props.createPlayer(p); // passes playing into redux store 
     
     
     const timer = new Timer();
-
+    // sets the level parameter objects based on the current level the player is at
     switch (currentLevel) {
       case 0:
         setLevelParams(levelZero)
@@ -404,10 +413,12 @@ const App = (props) => {
     }
     
 
-    props.createTimer(timer);
+    props.createTimer(timer); // passes the timer into the redux store to be used globally 
     timer.startTime();
   };
 
+  /* Used to reset the game and the objects in the game 
+  this will occur on a game over and when level is completed */
   const reset = () => {
     setStart(false);
     props.timer.stopTime();
@@ -422,6 +433,9 @@ const App = (props) => {
     GoldFish.level = 1;
   };
 
+  /* Used for when the player completed the level
+  sets the current level to true sets player params to default 
+  increases the level count */
   const isLevelup = () => {
     if(!isLeveledUP){
       let cl = currentLevel;
@@ -435,14 +449,18 @@ const App = (props) => {
       // setIsLeveledUp(false)
     }
   };
+  // helper function to allow for the character selection screen to be rendered
   const isCharSelectScreen = () =>{
     setIsLeveledUp(false);
    setLevelSelectionScreen(true);
   //  setStart(false);
   }
+  // this function was used to allow to modify the level parameters based on which pets were chosen by the user
   const charSelect = () =>{
     setIsLeveledUp(false)
     setLevelSelectionScreen(false)
+    /* Based on the level currently, 
+    the user chosen pets would rendered and used in the level following */
     switch (currentLevel) {
      
       case 1:
@@ -473,11 +491,6 @@ const App = (props) => {
         levelFive.allowedPets.canhaveSwordFish = unlockablePets[2].chosen
         levelFive.allowedPets.canhavePreggo = unlockablePets[3].chosen
         levelFive.allowedPets.canhaveSeahorse = unlockablePets[4].chosen
-        console.log(unlockablePets[0].chosen)
-        console.log(unlockablePets[1].chosen)
-        console.log(unlockablePets[2].chosen)
-        console.log(unlockablePets[3].chosen)
-        console.log(unlockablePets[4].chosen)
         break;
       default:
         levelFive.allowedPets.canhaveSnail = unlockablePets[0].chosen
@@ -487,21 +500,23 @@ const App = (props) => {
         levelFive.allowedPets.canhaveSeahorse = unlockablePets[4].chosen
         break;
     }
-    appStart()
+    appStart() // starts the game
   }
 
 
-  /* 
-Renders either the game or the UI based on whether start was clicked.
-Start button is defined in UI component 
- */
+/* Renders the start game screen at the begining of the application */
   if (!isLeveledUP && !start && !levelSelectionScreen) {
     return (
       <div class="scrollable">
         <UI onClick={appStart} />
       </div>
     );
-  } else if (!isLeveledUP && start && !levelSelectionScreen) {
+  } 
+   /* Renders the game allowing for the player to play if the
+ level up screen is false start game is true and levelselection screen is falsed 
+ this implies that the user has all ready went to these screens of the game is just starting up
+ or a game over occured */
+  else if (!isLeveledUP && start && !levelSelectionScreen) {
     return (
       <>
        
@@ -522,13 +537,13 @@ Start button is defined in UI component
       </>
     );
   } 
-
+  /* Renders the Level up screen showing the pet just unlocked and 
+  a button allowing the player to go to the character selection screen */
   else if (isLeveledUP) {
       
-
       return <LevelUp onClick={isCharSelectScreen} levelSelect={setLevelSelectionScreen} level={currentLevel}  />;
   }
-
+  /* Renders the character selection for the user  */
   else if(levelSelectionScreen){
     return <CharacterSelection onClick={charSelect} levelParams={levelParams} currentLevel={currentLevel} unlockablePets={unlockablePets}/>
   }
@@ -550,7 +565,8 @@ const mapStateToProps = (state) => {
 };
 
 /*
-Connect gathers the data from our redux store
+Connect gathers the data from our redux store 
+allowing us to modify the store as well as use the information from the store
 */
 export default connect(mapStateToProps, {
   createPlayer,

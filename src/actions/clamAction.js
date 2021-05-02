@@ -1,3 +1,7 @@
+/*
+ reference https://redux.js.org/tutorials/essentials/part-1-overview-concepts
+ 
+ */
 export const createClam = clam => {
     return {
         type:'CREATE_CLAM',

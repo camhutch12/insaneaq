@@ -5,7 +5,23 @@ import {GoldFish} from '../model/Goldfish';
 import {Carnivore} from '../model/carnivore';
 import {randomNumber,CONSTANTS} from '../util/utilities'
 import {Crumb} from '../model/crumb'
+
+ /*
+Written By:
+Daniel Gannage (6368898)
+Cameron Hutchings (6427892)
+*/
+
+/* Creates a navigation component on the top of the screen */
 const Navbar = ({levelParams,...props}) => {
+
+    let [qImg,setQimg] = useState(() => Crumb.getCrumbImage()) // used to create a rerender and to also get which image of the crumb based on the value
+    let [foodQty,setFoodQty] = useState(() => 1); // used to create a rerender when the user upgrade the quantity of food
+    let [isPaused,setIsPaused] = useState(false) // used by the pause button function to cause a rerender to make sure that certain components to render
+
+
+    /* This function is used by the gun component and renders a image 
+    depending on the value of the players damage */
     let image = () =>{
        
         switch(props.player[0].damage){
@@ -22,7 +38,7 @@ const Navbar = ({levelParams,...props}) => {
                 return '../../assets/gun/gunblack.svg'
         }
     }
-
+    /* Used when the pause button is called */
     const pauseGame = () => {
 if(isPaused === false){
 
@@ -35,13 +51,14 @@ if(isPaused === false){
         
     }
     
-    let [qImg,setQimg] = useState(() => Crumb.getCrumbImage())
-let [foodQty,setFoodQty] = useState(() => 1);
-let [blasterImg,setBlasterImg] = useState(() => image())
-let [isPaused,setIsPaused] = useState(false)
+    
+
+let [blasterImg,setBlasterImg] = useState(() => image()) // creates a rerender when the person upgrades there gun
 
 
 
+/* used for creating rerenders of different components based on changes that have occured
+there componets are [qImg,foodQty,blasterImg,isPaused] */ 
 
   useEffect(() => {
      
@@ -51,7 +68,10 @@ let [isPaused,setIsPaused] = useState(false)
           setQimg(Crumb.getCrumbImage())
       }
   },[qImg,foodQty,blasterImg,isPaused])
-    const money = 0;
+
+
+  /* When a user clicks on creates food 
+  increase the amount of food that a player can deploy and reduce the players money by 200*/
     const increaseFoodLimit = () => {
         if(props.player[0].coins >= 200){
             props.player[0].food += 1;
@@ -59,7 +79,7 @@ let [isPaused,setIsPaused] = useState(false)
             setFoodQty(props.player[0].food);
         }
     }
-    
+    /* If the player has 100 coins create a new Goldfish at a random location  */
     const createGoldFish= () =>{
         if(props.player[0].coins >= 100){
             
@@ -67,28 +87,30 @@ let [isPaused,setIsPaused] = useState(false)
             props.player[0].coins -= 100;
         }
     }
-
+    /* If the player has 1000 coins create a new Carnivore at a random location  */
     const createCarnivore=() =>{
         if(props.player[0].coins >= 1000){
         props.createCarnivore(new Carnivore(randomNumber(CONSTANTS.MINX,CONSTANTS.MAXX),randomNumber(CONSTANTS.MINY,CONSTANTS.MAXY)))
         props.player[0].coins -= 1000;
         }
     }
-
+    /* If the user has enough coins to increase the level of the user. this ends the level and the UI with level completed appears 
+     */
     const levelUp =(item) =>{
         if(props.player[0].coins >= item.price){
         props.isLevelup()
         }
 
     }
-
+    /* Upgrades the food if the player has the enough coins */
     const upgradeFood = (item) =>{
         if(props.player[0].coins >= item.price ){
         Crumb.level++; 
         props.player[0].coins -= item.price
         }
     }
-
+/* Array of objects where each object is passed into the component being a navitem 
+OnClick is a eventListner that is called when the item is clicked.  */
    const navList = [
        {
         img:'../assets/fish/fish.svg',

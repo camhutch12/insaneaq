@@ -21,22 +21,6 @@ If the button is clicked a boolean returns true in the callback, which starts th
 */
 const GameOver = ({onClick,...props}) => {
 
-const resetGame = () =>{
-    //props.resetAlien(1);
-    //props.resetCoin(1);
-    //props.resetCrumb(1);
-    props.resetFish(1);
-    //props.resetSnail(1);
-    props.resetPlayer(1);
-    props.createFish();
-    const p = new Player();
-    props.createPlayer(p);
-    //props.createSnail()
-    
-}
-
-
-
     return (
 
         <div className={styles.homeScreen}>

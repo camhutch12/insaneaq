@@ -1,6 +1,9 @@
+
+/*
+ reference https://redux.js.org/tutorials/essentials/part-1-overview-concepts
+ 
+ */
 import { GoldFish } from "../model/Goldfish"
-
-
 export const createFish = (fish:GoldFish) => {
     return {
         type:'CREATE_FISH',

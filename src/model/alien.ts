@@ -2,6 +2,12 @@ import { v4 as uuidv4 } from "uuid"
 import { GoldFish } from "./Goldfish";
 import {CONSTANTS, randomNumber} from '../util/utilities'
 import { Timer } from "../util/timer";
+
+ /*
+Written By:
+Daniel Gannage (6368898)
+Cameron Hutchings (6427892)
+*/
 class Alien {
   id;
   direction:number[] = [];

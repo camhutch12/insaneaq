@@ -1,5 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
 
+ /*
+Written By:
+Daniel Gannage (6368898)
+Cameron Hutchings (6427892)
+*/
+
 export class Blaster{
     x;
     y;

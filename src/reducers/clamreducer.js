@@ -1,3 +1,14 @@
+/*
+ reference https://redux.js.org/tutorials/essentials/part-1-overview-concepts
+ 
+ */
+
+
+ /*
+Written By:
+Daniel Gannage (6368898)
+Cameron Hutchings (6427892)
+*/
 import { Clam } from "../model/clam"
 import {CONSTANTS,randomNumber} from '../util/utilities'
 export const clam_reducer = (oldClamList=[

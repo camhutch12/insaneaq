@@ -1,3 +1,7 @@
+/*
+ reference https://redux.js.org/tutorials/essentials/part-1-overview-concepts
+ 
+ */
 export const createBlaster = blaster => {
     return {
         type:'CREATE_BLASTER',

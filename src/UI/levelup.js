@@ -8,8 +8,8 @@ Cameron Hutchings (6427892)
 */
 
 /*
-This component is a simple button that registers whether the user has clicked. 
-If the button is clicked a boolean returns true in the callback, which starts the game
+This component is a which shows the user that they have level up the egg is clicked . 
+If the button is clicked a a callback is called which works to render the following character selection screen
 */
 const LevelUp = ({ onClick, ...props }) => {
   let img = "";
@@ -17,6 +17,8 @@ const LevelUp = ({ onClick, ...props }) => {
   let name = ""
   let label= 'roams around the bottom of your tank, catching any coins you may have missed'
 
+  /* For change different properties that a user can see and also to change the css 
+  this depends on which level the user is on */
   switch (props.level) {
     case 0:
       break;

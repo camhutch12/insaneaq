@@ -2,6 +2,11 @@ import { v4 as uuidv4 } from "uuid"
 import { Timer } from "../util/timer";
 import { GoldFish } from "./Goldfish";
 
+ /*
+Written By:
+Daniel Gannage (6368898)
+Cameron Hutchings (6427892)
+*/
 class Clam {
   id;
   direction:number[] = [];

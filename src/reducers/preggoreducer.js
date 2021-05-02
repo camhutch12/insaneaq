@@ -1,3 +1,13 @@
+/*
+ reference https://redux.js.org/tutorials/essentials/part-1-overview-concepts
+ 
+ */
+
+ /*
+Written By:
+Daniel Gannage (6368898)
+Cameron Hutchings (6427892)
+*/
 import { Preggo } from "../model/preggo";
 import { randomNumber,CONSTANTS } from "../util/utilities";
 export const preggo_reducer = (

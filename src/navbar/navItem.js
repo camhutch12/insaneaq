@@ -2,6 +2,15 @@ import React,{useState} from 'react'
 
 import styles from '../style.module.css';
 
+
+ /*
+Written By:
+Daniel Gannage (6368898)
+Cameron Hutchings (6427892)
+*/
+
+/* Renders a navigation item based on the information passed into this componenent
+From the Navbar componenet */
 export const NavItem = ({item, onClick,img, value, hasImgTag=false,labelVal=-1 }) => {
     // const [temp, setTemp] = useState(0);
     if(hasImgTag){

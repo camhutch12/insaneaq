@@ -1,7 +1,16 @@
-import {combineReducers} from 'redux'
-import {Alien} from '../model/alien'
+/*
+ reference https://redux.js.org/tutorials/essentials/part-1-overview-concepts
+ 
+ */
 
+ /*
+Written By:
+Daniel Gannage (6368898)
+Cameron Hutchings (6427892)
+*/
+import {Alien} from '../model/alien'
 export const alien_reducer = (oldAlienList=[],action) => {
+    /* Creates a alien  */
     if(action.type === "CREATE_ALIEN"){  
         
         let {x,y,type} = action.payload.alien

@@ -1,41 +1,50 @@
+
 import classes from './charselection.module.css'
 
+/*
+Written By:
+Daniel Gannage (6368898)
+Cameron Hutchings (6427892)
+*/
+
+
+/* React component which is used to render the images of each sprite to the screen for the user to select */
 const ImgContainer= (props) => {
-    let img = "";
-    let style = "";
-    let styleContainer = ""
-    let name = ""
+
+    let style = ""; // used as a defualt value for custom css
+
+
+  /* Based on the ID passed in changes the css for sprite */
     switch (props.id) {
         
         case 'snail':
           style = classes.snail;
-          styleContainer = classes.snail__container;
+          
 
           break;
         case 'clam':
           style = classes.shell;
-          styleContainer = classes.shell__container;
+        
 
      
           break;
         case 'swordfish':
           style = classes.swordfish;
-          styleContainer = classes.swordfish__container;
+         
 
 
           break;
         case 'prego':
           style = classes.prego;
-          styleContainer = classes.prego__container;
+         
 
           break;
           case 'seahorse': 
           style = classes.seahorse;
-          styleContainer = classes.seahorse__container;
+         
 
           break;
         default:
-          img = "../assets/background/snail.svg";
           break;
       }
 
@@ -46,17 +55,6 @@ return (
     <img className={style} id={props.id} onClick={props.onclick} src={props.element.imgPath} ></img>
   )
 
-    // return (
-    //     // <div className={classes.pet__container}>
-    //       <div className={styleContainer}>
-          
-    //       {/* </div> */}
-    //       {/* {props.ch === true ? <div className={classes.p_container}> */}
-    //       {/* <p id={props.id}>{props.element.label}</p> */}
-    //       {/* </div>:null} */}
-    
-    //     </div>
-    // )
 }
 
 export default ImgContainer

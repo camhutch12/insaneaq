@@ -7,8 +7,14 @@ import './index.css';
 import App from './App';
 import combineReducers from './reducers/globalreducers'
 
+/* 
+Reference: https://reactjs.org/
+Reference: https://react-redux.js.org/tutorials/connect
+*/
+
+
 ReactDOM.render(
- 
+//  Connects the Redux store to our application
   <Provider store={createStore(combineReducers)}>
     <App />
   </Provider>,

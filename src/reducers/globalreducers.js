@@ -1,3 +1,8 @@
+/*
+Written By:
+Daniel Gannage (6368898)
+Cameron Hutchings (6427892)
+*/
 import {snail_reducer} from './snailreducer'
 import {fish_reducer} from './fishreducer'
 import {util_reducer} from './utilityreducer'

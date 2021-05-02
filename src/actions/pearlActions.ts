@@ -1,6 +1,10 @@
+/*
+ reference https://redux.js.org/tutorials/essentials/part-1-overview-concepts
+ 
+ */
+
 import { Clam } from "../model/clam"
 import { Pearl } from "../model/Pearl"
-
 export const createPearl = (pearl:Clam) => {
     return {
         type:'CREATE_PEARL',

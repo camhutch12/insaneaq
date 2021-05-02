@@ -28,6 +28,7 @@ export const Carnivore = (
   },
   props
 ) => {
+  // resets the list of fish stored in the carnivore object
   carnivoreList.forEach((element) => {
     element.goldfish = null;
     element.goldfishList = [];
@@ -44,10 +45,9 @@ export const Carnivore = (
 
 
     // increase the counter
-    let i = (iter.current += 0.00001 * delta);
     let scaleX = carnivore.size;
     let scaleY = carnivore.size;
-    // check if crumbs exist
+    // check if baby goldfish exists
     if (carnivore.setHasGoldfishToChase(goldfishList)) {
       carnivore.setGoldfishList(goldfishList);
       carnivore.getClosestGoldfish();

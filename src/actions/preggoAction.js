@@ -1,3 +1,7 @@
+/*
+ reference https://redux.js.org/tutorials/essentials/part-1-overview-concepts
+ 
+ */
 export const createPreggo = preggo => {
     return {
         type:'CREATE_PREGGO',
